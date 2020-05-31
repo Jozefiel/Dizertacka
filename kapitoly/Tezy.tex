@@ -1,0 +1,24 @@
+\chapter{Tézy dizertačnej práce}
+\label{kap:kalibracia}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[CE,CO]{\thepage}
+\renewcommand{\footrulewidth}{1pt}
+\lhead{Tézy dizertačnej práce}
+
+
+
+\begin{itemize}
+	\item Návrh algoritmu umožňujúceho vytvorenie precízneho priestorového modelu objektu z viacerých kamier vrátane kalibrácie vizuálneho systému.
+	\item Návrh algoritmu pre automatizovanú detekciu kľúčových bodov na objekte a automatizované meranie vybraných geometrických priestorových parametrov.
+\end{itemize}
+
+
+
+Riešenie úlohy definovanej v prvej fáze je založené na využití multi-kamerového systému, ktorý v reálnom čase dokáže zachytiť priestorovú informáciu snímanej scény. Jednotlivé priestorové informácie z kamier sa následne zlúčia do spoločného priestorového modelu, ktorý bude použitý pre riešenie druhej tézy.
+Podstatnou problematikou je vzájomná kalibrácia multi-kamerového systému a návrh filtračného algoritmu, ktorým sa zvýši kvalita výstupných priestorových dát. 
+
+Problematika druhej tézy môže byť riešená viacerými spôsobmi. Podstatným krokom je identifikácia kľúčových bodov alebo oblastí v priestorovom modely. Jedným z možných riešení je segmentácia RGB-D mapy, kde sa pomocou algoritmov klasifikujú regióny bodov. Z výsledku klasifikácie bude následne možné rekonštruovať iba vybrané regióny 3D priestorového modelu. Výsledkom bude množina mračien bodov, ktoré môžu vystupovať ako samostatné modely alebo budú reprezentovať ucelený konzistentný model.
+
+
+
