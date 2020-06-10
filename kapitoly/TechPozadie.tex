@@ -9,70 +9,148 @@
 
 Snahou hĺbkových kamier je zachytiť okrem informácii o farbe prostredia aj informáciu o hĺbke priestoru. V praxi to znamená, že sa transformuje 3D priestor do 2D priestoru. Táto informácia je uchovávaná v matici, ktorá je nazývaná hĺbková mapa. Spôsob vytvárania hĺbkovej mapy kamerou závisí od použitej technológie. Medzi základné spôsoby patrí stereo-vízia, snímanie štrukturovaným svetlom (SLS) a meranie doby letu (TOF).
 
+\section{Skenovanie v reálnom čase pomocou \mbox{RGB-D} senzorov}
+
+Skenovanie dynamických objektov v reálnom čase je v centre záujmu už niekoľko rokov. V posledných rokoch sa hĺbkové snímače stavajú súčasťou riešenia rôznych technických problémov. Existuje viacero spôsobov, ktoré dokážu kvalitne rekonštruovať objekty v reálnom čase. Väčšinou sú to komplexné riešenia, ktoré sú cenovo nedostupné pre bežných užívateľov. Avšak existuje aj niekoľko cenovo dostupných RGB-D senzorov, ktoré môžu byť použité na 3D snímanie a rekonštrukciu v reálnom čase. V ďalšej časti sú opísané aktuálne riešené problematiky 3D skenovania dynamických objektov v reálnom čase. 
+
+\newpage
+\subsection{Viac-pohľadové 3D snímanie a analýza pre rekonštrukciu vysoko kvalitných mračien bodov}
+
+V článku \textit{Multiview 3D Sensing and Analysis for High Quality Point Cloud Reconstruction} sa autori zaoberajú rekonštrukciou mračien bodov pomocou viacerých ToF kamier. 
+V prvom kroku riešili kalibráciu,ktorá je kritickým krokom v celom procese. Využili metódu kalibrácie pomocou planárneho kalibračného vzoru (šachovnice), kde identifikovali rotačné a translačné parametre pre jednotlivé kamery. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{figures/resers_m.png}
+	\caption{Rekonštrukčný systém pozostávajúci z troch senzorov Kinect v2.}
+	\label{fig:resers:m}
+\end{figure}
+
+V práci používali trojicu kamier Kinect v2, ktoré boli sekvenčne spínané. Tým sa vyhli multi-kamerovej interferencii. Kvalita hĺbkovej mapy je kľúčovým faktorom pri tvorbe a rekonštrukcii modelu. Ak sa v nej vyskytnú chyby, tie sa potom prenášajú do mračna bodov. Túto hĺbkovú mapu filtrovali použitím bilaterálneho filtra (BF), \textit{Weight Median} filtra (WM) a \textit{Radius Outlier Removal} filtra (ROR). Vplyv filtračných metód na hĺbkovú mapu je zobrazený na obr. \ref{fig:resers:5}. Okrem toho tiež použili \textit{Weighted  Inter-Frame  Average} filter (WIFA), ktorý pracuje so sériou hĺbkových máp. Ten odstraňuje priestorový šum, ale výrazný pohyb robí aplikáciu WIFA nevhodnou pre vysoko dynamické scény.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.24\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/resers_n.png}
+		\caption{}
+		\label{fig:resers:n}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.24\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/resers_o.png}
+		\caption{}
+		\label{fig:resers:o}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.24\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/resers_p.png}
+		\caption{}
+		\label{fig:resers:p}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.24\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/resers_q.png}
+		\caption{}
+		\label{fig:resers:q}
+	\end{subfigure}
+	\caption{Výsledky filtrácie hĺbkej mapy, kde zelená farba predstavuje rozdiely medzi prístupmi filtrácie: (\textbf{a}) Vstupná hĺbková mapa. 
+		(\textbf{b}) Filtrácia pomocou BF.
+		(\textbf{c}) Filtrácia pomocou BF + WM.
+		(\textbf{d}) Filtrácia pomocou BF + WM + ROR }
+	\label{fig:resers:5}
+\end{figure}
+
+
+Mračná bodov zo všetkých Kinect v2 sa následne spájajú do jedného mračna, čím sa vytvorí jednotná uniformná reprezentácia snímanej scény. Algoritmus rekonštrukcie sa používa na vytvorenie vernej a podrobnej reprezentácie povrchu skenovaných tvarov. V ďalšej fáze sa generuje trojuholníková sieť zachyteného 3D objektu. 
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/resers_r.png}
+		\caption{}
+		\label{fig:resers:r}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.315\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/resers_s.png}
+		\caption{}
+		\label{fig:resers:s}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/resers_t.png}
+		\caption{}
+		\label{fig:resers:t}
+	\end{subfigure}
+	\caption{Rekonštrukcia scény z troch snímačov Kinect v2:
+		(\textbf{a}) Mrak fúzovaných bodov generovaný každým snímačom Kinect.
+		(\textbf{b}) Farebné oddelenie fúzovaných mračien bodov pre každú kameru.
+		(\textbf{c}) Trojuholníková sieť vytvorená zo spojených mračien bodov.}
+	\label{fig:resers:6}
+\end{figure}
+
+V článku sa zamerali aj na meranie rýchlosti spracovania filtrácie. Pre prácu použili CUDA paralelné spracovanie na grafickej karte GeForce 780GTX. 
+Meranie rýchlosti spracovania jednotlivých častí algoritmu sa vykonávalo na 400 hĺbkových mapách. Priemerný čas filtrácie so sieťovou rekonštrukciou trval $14.19ms$. 
+
+Autori predstavili návrh multi-kamerovej spolupráce 3 ToF snímačov značky Kinect v2. Bol opísaný spôsob kalibrácie a registrácie mračien bodov z jednotlivých kamier. Zároveň sa zamerali aj na filtráciu a trojuholníkovú rekonštrukciu snímaných objektov, pričom testovali rýchlosť spracovania.
+
 \section{Disparitná a hĺbková mapa}
 
 Výstupný obraz zachytávajúci vzdialenosť je závislý od použitej technológie snímania.
 Výstupom kamery je buď disparitná alebo hĺbková mapa.
 Disparita zachytáva relatívnu vzdialenosť navzájom si odpovedajúcich bodov v stereo-páre
-obrazu. Pri vytváraní disparity sa predpokladá s nulovou vertikálnou paralaxou. Ak teda bod vľavom obraze na pozícii [10,0] odpovedá v pravom obraze bodu [100,0], tak hodnota disparity je 90.
+obrazu. Pri vytváraní disparity sa predpokladá s nulovou vertikálnou paralaxou. K výpočtu je teda potrebné mať dvojicu obrazov v epipolárnej rovine. Ak teda bod vľavom obraze na pozícii [10,0] odpovedá v pravom obraze bodu [100,0], tak hodnota disparity je 90. Pri výpočte sa jeden obraz zo stereo-páru berie ako referenčný.  
+V disparitnej mape každý pixel nesie informáciu o disparite. Zobrazením vzniká obraz v odtieňoch sivej, ktorý vytvára ucelenú informáciu o priestore.
 
-Disparitná mapa je jedno-kanálová matica, kde každý pixel nesie informáciu o disparite.
-Zobrazením vzniká obraz v odtieňoch sivej, ktorý vytvára ucelenú informáciu o priestore.
 Disparitná mapa je vždy vytváraná pre jeden obraz z dvojice, ktorej pozícia bodu sa berie ako referencia. Takáto mapa je už pre aplikáciu v stereovízií užitočná, pretože je z nej možné odlíšiť rozloženie snímanej scény. Neposkytuje však informáciu o reálnej vzdialenosti.
 
 Hĺbková mapa je taktiež šedo-tónový obraz, ktorý zachytáva informáciu o absolútnej
-vzdialenosti snímanej scény od kamery. Vytvára sa disparitnej mapy prepočtom za použitia
-vonkajších parametrov kamier.
+vzdialenosti snímanej scény od kamery. 
 
 \section{Princíp činnosti RGB-D kamier}
+\label{sec:rgbd:principles}
+RGB-D kamery sú optické snímače, ktoré zachytávajú hĺbkovú informáciu scény. Existuje viacero metód, ktorými tieto zariadenia pracujú. V tejto časti práce sú opísané najčastejšie používané metódy pre meranie hĺbky.  
 
-V súčasnosti sa pre vytváranie hĺbkovej mapy používajú kamery, ktoré pracujú na odlišných princípoch. V tejto práci sú opísané metódy :
+\begin{itemize}
+	\item \textbf{stereo-vízia:} ZED, Intel RealSense d415, stereo RGB
+	\item \textbf{snímanie štrukturovaným svetlom (SLS):} Intel RealSense SR300 
+	\item \textbf{meranie času doby letu (TOF):} Microsoft Kinect v2 
+\end{itemize}
 
-
-\begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black!20!black}]
-\item [stereo-vízie] dvojica a viac RGB kamier 
-\item [snímania štrukturovaným svetlom (SLS)] Intel RealSense SR300 
-\item [merania času doby letu (TOF)] Microsoft Kinect v2 
-\end{description}
-
-
+\newpage
 \subsection{Stereovízia}
 
-Metóda stereovízie je založená na synchronizovanom snímaní scény pomocou viacerých párov
-RGB kamier, ktoré sú voči sebe vzájomne posunuté. Najčastejšie rozloženia kamier sú Toe-In a Off-Axis, ktorá je znázornená na Obr. 3-1. Výstupom je farebný obraz scény zosnímanej z viacerých perspektív.
+Metóda stereovízie je založená na synchronizovanom snímaní scény pomocou viacerých párov kamier (RGB alebo IR), ktoré sú voči sebe vzájomne posunuté. Najčastejšie rozloženia kamier sú Toe-In a Off-Axis, ktorá je znázornená na obr. \ref{fig:stereovizia}. Výstupom je farebný obraz scény zosnímanej z viacerých perspektív.
 
 \begin{figure}[h]
-
 	\centering
-
-	\includegraphics[width=0.5\textwidth]{figures/stereovizia.png} 
-
-	\caption{Princíp stereovízie}
+	\includegraphics[width=0.6\textwidth]{figures/stereovizia.png} 
+	\caption{Princíp stereovízie s Off-Axis nastavením kamier.}
 	\label{fig:stereovizia}
-
 \end{figure}
 
-Na základe rozdielu z týchto dvoch perspektív a známych vonkajších parametrov stereo-
-kamerovej sústavy je možné dopočítať hĺbkový obraz. Hlavnou nevýhodou je vysoká výpočtová náročnosť algoritmu a vysoká cena kvalitných snímacích RGB senzorov. Taktiež je tento systém náchylný na meniace sa svetelné podmienky, čo následne vyžaduje farebnú kalibráciu jednotlivých kamier. Výhodou je nulová vzájomná interferencia kamier.
+Na základe rozdielu z týchto dvoch perspektív a známych vonkajších parametrov stereo-kamerovej sústavy je možné dopočítať hĺbkový obraz. Hlavnou nevýhodou je vysoká výpočtová náročnosť algoritmu a cena kvalitných snímacích RGB senzorov. Taktiež je tento systém náchylný na meniace sa svetelné podmienky, čo následne vyžaduje farebnú kalibráciu jednotlivých kamier. Výhodou je nulová vzájomná interferencia.
 
 \subsection{SLS snímače}
 \label{sec:sls}
-SLS kamery sú zložené z projektora štrukturovaného svetla a kamery. Projektor aktívne
-osvecuje scénu so špeciálne navrhnutým 2D vzorom, častokrát priestorovo modulovaným svetlom. Kamera následne sníma vzorom osvetlenú scénu a získané dáta porovnáva so známym vzorom. Ak je scéna planárna, snímaný vzor sa zhoduje s referenčným vzorom. Ak sú však v scéne povrchové variácie, geometrický tvar povrchu narúša projektované štrukturované svetlo a to sa nebude zhodovať s projektovaným vzorom.
+Structured Light Sensors (SLS) snímače sú zložené z projektora štrukturovaného svetla a snímača. Projektor aktívne osvecuje scénu so špeciálne navrhnutým 2D vzorom, častokrát priestorovo modulovaným svetlom. Kamera následne sníma osvetlenú scénu a získané dáta porovnáva s projektovaným vzorom. Ak je scéna planárna, snímaný vzor sa zhoduje s referenčným vzorom. Ak sú však v scéne povrchové variácie, geometrický tvar povrchu narúša projektované štrukturované svetlo. To sa následne nebude zhodovať s projektovaným vzorom.
 
-\begin{figure}[h]
-
+\begin{figure}[H]
 	\centering
-
-	\includegraphics[width=0.5\textwidth]{figures/SLS.png} 
-
+	\includegraphics[width=0.5\textwidth]{figures/SLS.jpeg} 
 	\caption{Princíp SLS kamery}
 	\label{fig:sls}
-
 \end{figure}
 
 Na obr. \ref{fig:sls} je znázornený geometrický vzťah medzi projektorom, kamerou a snímaným povrchom. Tento vzťah je možné vyjadriť triangulačným princípom:
-
 \begin{equation}
 \label{eq1}
 \begin{aligned}
@@ -83,59 +161,34 @@ R=B\frac{\sin\theta}{\sin\alpha + \theta}
 Kľúčom k 3D zobrazovaniu na báze triangulačnej techniky je správne priradiť zosnímaný bod
 k projekčnému bodu (7). Na tento účel boli navrhnuté rôzne schémy, ktoré sa delia na:
 
-\begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black!20!black}]
-	\item [Sekvenčnú projekciu] binárny kód, šedý kód, fázový posun, hybrid 
-	\item [Priebežne meniacu projekciu] dúhový kód, priebežne meniaci farebný kód 
-	\item [Pásikový index] farebne kódované pásy, segmentované pásy, De Bruijn, ...
-	\item [Mriežkovaný index] pseudo-náhodné binárne body, mini-vzor ako kód, ...
-	\item [Hybridné metódy]
-\end{description}
+\begin{itemize}
+	\item \textbf{Sekvenčnú projekciu:} binárny kód, šedý kód, fázový posun, hybrid 
+	\item \textbf{Priebežne meniacu projekciu:} dúhový kód, priebežne meniaci farebný kód 
+	\item \textbf{Pásikový index:} farebne kódované pásy, segmentované pásy, De Bruijn, ...
+	\item \textbf{Mriežkovaný index:} pseudo-náhodné binárne body, mini-vzor ako kód, ...
+	\item \textbf{Hybridné metódy:} 
+\end{itemize}
 
-
-Hlavnou výhodou štruktúrovaného svetla je dosiahnutie vysokého priestorového rozlíšenia.
-Kamery pracujúce na tomto princípe nevyžadujú žiadnu špeciálnu úpravu na úrovni snímača.
-Akékoľvek rušenie je znázornené ako variácie v povrchu (7). Táto metóda snímania so sebou
-prináša tri problémy, ktoré vyplývajú z hlavnej požiadavky, a to dôležitosti svetla:
+Hlavnou výhodou štruktúrovaného svetla je dosiahnutie vysokého priestorového rozlíšenia. Kamery pracujúce na tomto princípe nevyžadujú žiadnu špeciálnu úpravu na úrovni snímača. Akékoľvek rušenie je znázornené ako variácie v povrchu (7). Táto metóda snímania so sebou prináša tri problémy, ktoré vyplývajú z hlavnej požiadavky, a to dôležitosti svetla:
 
 \begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black!20!black}]
 	\item Potreba konštantnej vlnovej dĺžky 
 	\item Možné problémy spôsobené okolitými svetelnými podmienkami 
 	\item Vzdialenosť limitovaná silou reflektora IR svetla
+	\item Vznik multi-kamerovej interferencie
 \end{description}
 
-Konštantná vlnová dĺžka je zabezpečená malým Peltierovým článkom, slúžiacim na
-udržiavanie nemennej teploty laserovej diódy. Takým spôsobom je zabezpečená stabilná výstupná
-vlnová dĺžka, vzhľadom na zmeny teploty a výkonu. Osvetlenie okolitého prostredia je
-problémom, ktorý je možné zmierniť využitím filtra, ktorý prepúšťa iba IR frekvenčné pásmo,
-avšak kamera nedokáže fungovať správne na miestach osvetlených slnečným žiarením. Preto je
-využívanie kamier na princípe štruktúrovaného svetla výhodnejšie využívať v interiéri (8).
+Konštantná vlnová dĺžka je zabezpečená malým Peltierovým článkom, slúžiacim na udržiavanie nemennej teploty laserovej diódy. Takým spôsobom je zabezpečená stabilná výstupná vlnová dĺžka, vzhľadom na zmeny teploty a výkonu. Osvetlenie okolitého prostredia je problémom, ktorý je možné zmierniť využitím filtra, ktorý prepúšťa iba IR frekvenčné pásmo. Avšak kamera nedokáže fungovať správne na miestach osvetlených slnečným žiarením. Preto je využívanie kamier na princípe štruktúrovaného svetla výhodnejšie využívať v interiéri (8).
 
 \subsection{TOF snímače}
 \label{sec:tof}
-Kamery pracujúce na princípe TOF produkujú hĺbkový obraz, ktorého každý pixel kóduje
-vzdialenosť od zodpovedajúceho bodu snímanej scény pomocou merania fázového oneskorenia
-infračerveného svetla. Tieto kamery patria do širšej skupiny LIDAR bez skenera, neposkytujú
-veľké rozlýšenie ale vysokú frekvenciu snímok (160 Hz) (9).
-
-\begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black!20!black}]
-	\item [Photonic Mixer Devices (PMD)] vzdialenosť do 60 metrov
-	\item [Swiss Ranger] vzdialenosť 5 metrov, rozlíšenie 176x144 px
-	\item [CanestaVision] výrobca technológie pre Kinect V2
-\end{description}
-
-Kamery obsahujú zdroj infračerveného svetla a senzor, ktorý zachytáva odrazené svetlo.
-Taktiež sú často kombinované s RGB snímačom, ktorý dokáže zachytiť farebnú textúru snímanej
-scény. Infračervené svetlo je modulované harmonicky sínusovým signálom alebo impulzne. V praxi sa viac využíva inpulzná modulácia, pretože je lahšia na realizáciu a spracovanie. Obr. \ref{fig:tof_principle} popisuje princíp detekcie hĺbky TOF senzorom so sínusovou moduláciou.
+Kamery pracujúce na princípe \textit{Time of Flight} (TOF) produkujú hĺbkový obraz, ktorého každý pixel kóduje vzdialenosť od zodpovedajúceho bodu snímanej scény pomocou merania fázového oneskorenia infračerveného svetla. Kamery obsahujú zdroj infračerveného svetla a senzor, ktorý zachytáva odrazené svetlo. Taktiež sú často kombinované s RGB snímačom, ktorý dokáže zachytiť farebnú textúru snímanej scény. Infračervené svetlo je modulované harmonicky sínusovým signálom alebo impulzne. V praxi sa viac využíva impulzná modulácia, pretože je ľahšia na realizáciu a spracovanie. Obr.\ref{fig:tof_principle} popisuje princíp detekcie hĺbky TOF senzorom so sínusovou moduláciou.
 
 \begin{figure}[h]
-
 	\centering
-
 	\includegraphics[width=0.5\textwidth]{figures/tof_principle.png} 
-
 	\caption{Princíp činnosti TOF senzorov}
 	\label{fig:tof_principle}
-
 \end{figure}
 
 Infračervené svetlo s moduláciou je vyžiarené z emitora, po dopade na objekt sa odrazí a spätne dopadá s fázovým oneskorením do senzora (10). Hĺbka je vypočítavaná podľa rovnice 3.2.
@@ -156,14 +209,10 @@ Depth=\frac{c}{2}\cdot\Delta t \left( \frac{Q_2}{Q_1 + Q_2}\right)
 \end{equation}
 
 \begin{figure}[h]
-
 	\centering
-
 	\includegraphics[width=0.5\textwidth]{figures/tof_principle_a.png} 
-
 	\caption{Sekvenčná impulzná mdulácia TOF senzora}
 	\label{fig:tof_principle_a}
-
 \end{figure}
 
 Metóda s použitím kontinuálnej vlny obsahuje viac vzoriek pre jedno meranie, pričom každá vzorka je posunutá s fázovým oneskorením o 90 stupnov. Meranie fázového rozdielu medzi vyžarovanými a odrazenými IR vlnami je zabezpečené prepočtom vzdialenosti od objektu na základe vzťahu 3.4 medzi štyrmi rôznymi hodnotami elektrického náboja.
@@ -171,9 +220,7 @@ Metóda s použitím kontinuálnej vlny obsahuje viac vzoriek pre jedno meranie,
 \begin{figure}[h]
 
 	\centering
-
 	\includegraphics[width=0.5\textwidth]{figures/tof_principle_b.png} 
-
 	\caption{Kontinuálna impulzná modulácia TOF senzora}
 	\label{fig:tof_principle_b}
 
@@ -218,8 +265,7 @@ v nej modulačný kontrast c d opisuje ako efektívny zobrazovací kremík odde�
 
 \section{Mračno bodov a 3D povrch}
 
-Pri reprojekcii 3D priestoru z 2D obrazu sa často používa technológia mračien bodov (PC). Základnou jednotkou mračna bodov je dátový bod, ktorý v sebe ukladá informáciu o polohe (x,y,z) v 3D priestore. Dátový bod môže v sebe uchovávať aj iné informácie ako napríklad farbu, jas, normálový vektor a podobne. Takéto mračno bodov má veľké využitie v priemyselných 3D CAD modeloch, pri metrológií a inšpekcií kvality a v iných sférach, kde sa vizuálne prezentujú 3D objekty. Výhodou oproti 2D zobrazovaniu je, že 3D model dokáže poskytnúť lepšíu vizuálnu informáciu pre užívateľa, kde si užívateľ vie vybrať vlastný pohľad a natočenie objektu.
-
+Pri reprojekcii 3D priestoru z 2D obrazu sa často používa technológia mračien bodov (Point Cloud). Základnou jednotkou mračna bodov je dátový bod, ktorý v sebe ukladá informáciu o polohe (x,y,z) v 3D priestore. Dátový bod môže v sebe uchovávať aj iné informácie ako napríklad farbu, jas, normálový vektor a podobne. Takéto mračno bodov má veľké využitie v priemyselných 3D CAD modeloch, pri metrológií a inšpekcií kvality a v iných sférach, kde sa vizuálne prezentujú 3D objekty. Výhodou oproti 2D zobrazovaniu je, že 3D model dokáže poskytnúť presnú geometrickú a lepšiu vizuálnu informáciu pre užívateľa.
 
 \begin{figure}[!h]
 	\centering
@@ -240,15 +286,13 @@ Pri reprojekcii 3D priestoru z 2D obrazu sa často používa technológia mrači
 \end{figure}
 
 
-Prevod PC na 3D povrch je realizovaný pomocou rekonštrukcie povrchu (anglicky surfacereconstruction). Medzi známe rekonštrukčné metódy patrí Ball-Pivoting a  Poissonova rekonštrukcia, kde sú dátove body transformované do siete. Polygonová sieť je zložená z vertexov (vertices), hrán (edges) a masiek (faces), taktiež definuje tvar polyhedrálneho objektu v 3D grafike. Masky sa zvyčajne skladajú z trojuholníkov, štvorhranov a iných jednoduchých konvexných polygónov. Volumetrické siete explicitne reprezentujú povrch aj objem štruktúry, pričom polygónová sieť reprezentuje iba povrch. Objekty vytvorené z polygónov musia ukladať rôzne typy elementov. To zahrňa vertexy, hrany, masky, polygóny a povrchy. Veľakrát sú polygóny transformované na trojuholníky, pretože viacstranové polygóny nie sú podporované. Pri modelovaní hlavy sú však potrebné viacstranové polygóny (14).
+Prevod mračna bodov na 3D povrch je realizovaný pomocou rekonštrukcie povrchu (\textit{surfacere construction}). Medzi známe rekonštrukčné metódy patrí Ball-Pivoting a  Poissonova rekonštrukcia, kde sú dátove body transformované do siete. Polygónová sieť je zložená z vertexov (vertices), hrán (edges) a masiek (faces), taktiež definuje tvar polyhedrálneho objektu v 3D grafike. Masky sa zvyčajne skladajú z trojuholníkov, štvorhranov a iných jednoduchých konvexných polygónov. Volumetrické siete explicitne reprezentujú povrch aj objem štruktúry, pričom polygónová sieť reprezentuje iba povrch. Objekty vytvorené z polygónov musia ukladať rôzne typy elementov. To zahrňa vertexy, hrany, masky, polygóny a povrchy. Veľakrát sú polygóny transformované na trojuholníky.
 
 \begin{figure}[h]
 
 	\centering
-
 	\includegraphics[width=0.7\textwidth]{figures/vertex_edge_polygon.png} 
-
-	\caption{Kontinuálna impulzná modulácia TOF senzora}
+	\caption{Elementy používané pri 3D spracovaní a modelovaní objektov }
 	\label{fig:vertex_edge_polygon}
 
 \end{figure}
@@ -263,11 +307,12 @@ Prevod PC na 3D povrch je realizovaný pomocou rekonštrukcie povrchu (anglicky 
 
 \section{Spájanie a registrácia mračien bodov}
 
-Bodová registrácia tiež známa ako bodová zhoda je proces, pri ktorom sa hľadá priestorová transformácia zosúlaďujúca dve mračná bodov. Účelom transformácie je zlúčenie viacerých mračien do jedného konzistentného modelu. Mračná môžu byť získané rôznymi typmi snímačov a rôznymi spôsobmi. Niektoré typy snímačov boli opísané v kapitole 3.2. Pre získanie priestorovej transformácie existuje viacero algoritmov, ktoré sú opísané nižšie.
+Bodová registrácia tiež známa ako bodová zhoda je proces, pri ktorom sa hľadá priestorová transformácia zarovnávajúca dve mračná bodov. Účelom transformácie je zlúčenie viacerých mračien do jedného konzistentného modelu. Mračná môžu byť získané rôznymi typmi snímačov a rôznymi spôsobmi. Niektoré typy snímačov boli opísané v kapitole \ref{sec:rgbd:principles}. Pre získanie priestorovej transformácie existuje viacero algoritmov, ktoré sú opísané nižšie.
 
+\newpage
 \subsection{Problematika registrácie mračien bodov}
 
-Problematika registrácie mračien bola opísaná v práci „Robust Point Set Registration Using Gaussian Mixture Models„ autormi Bink Jian, Baba C. Verumi. Nech $\left\lbrace M, S \right\rbrace $ sú dva konečné mračná bodov v konečne-rozmernom reálnom vektorovom priestore. $M$ označuje pohyblivý modelový súbor a $S$ označuje statickú scénu. Obe množiny sa označujú ako podmnožiny konečno-priestorového vektora $\textbf{R}_{\textbf{d}}$ a môžu mať rozdielne veľkosti. Spoločným približovaním sa (registráciou) bodových množín $M$ a $S$ je možné odhadnúť mapovanie z $\textbf{R}_\textbf{d}$ do $\textbf{R}_\textbf{d}$ , čo prináša najlepšie zarovnanie medzi transformovanou a statickou sadou bodov. Transformačný model môže byť zapísaný ako $\textbf{T(M)}$ alebo $\textbf{T(M, $\theta$)}$, kde $\theta$ predstavuje optimalizačný parameter. Pri konvergencii bodov $M$ a $S$ je žiadané, aby vzdialenosť medzi zhodnými bodovými súbormi bola čo najmenšia. To je však bez vyskúšania všetkých transformácií ťažké, takže stačí lokálne minimum. Funkcia vzdialenosti medzi transformovaným dátovým setom a scénou S je daná niektorou z funkcií dist. Jednoduchým spôsobom je výpočet štvorca euklidovskej vzdialenosti pre každý pár bodov:
+Problematika registrácie mračien bola opísaná v práci „Robust Point Set Registration Using Gaussian Mixture Models„ autormi Bink Jian, Baba C. Verumi. Nech $\left\lbrace M, S \right\rbrace $ sú dva konečné mračná bodov v konečne-rozmernom reálnom vektorovom priestore. $M$ označuje pohyblivý modelový súbor a $S$ označuje statickú scénu. Obe množiny sa označujú ako podmnožiny konečno-priestorového vektora $\textbf{R}_{\textbf{d}}$ a môžu mať rozdielne veľkosti. Spoločným približovaním sa (registráciou) bodových množín $M$ a $S$ je možné odhadnúť mapovanie z $\textbf{R}_\textbf{d}$ do $\textbf{R}_\textbf{d}$ , čo prináša najlepšie zarovnanie medzi transformovanou a statickou sadou bodov. Transformačný model môže byť zapísaný ako $\textbf{T(M)}$ alebo $\textbf{T(M, $\theta$)}$, kde $\theta$ predstavuje optimalizačný parameter. Pri konvergencii bodov $M$ a $S$ je žiadané, aby vzdialenosť medzi zhodnými bodovými súbormi bola čo najmenšia. To je však bez vyskúšania všetkých transformácií ťažké, takže stačí lokálne minimum. Funkcia vzdialenosti medzi transformovaným dátovým setom a scénou $S$ je daná niektorou z funkcií $dist$. Jednoduchým spôsobom je výpočet štvorca euklidovskej vzdialenosti pre každý pár bodov:
 
 \begin{equation}
 \label{eq8}
@@ -276,7 +321,7 @@ dist\left(T\left(M\right),S\right)=\sum_{m\epsilon T\left(M\right)} \sum_{s\epsi
 \end{aligned}
 \end{equation}
 
-Táto funkcia je náchylná voči šumovým dátam. Robustnosť g sa môže docieliť M-estimátorom, ktorý dokáže odfiltrovať extrémne hodnoty (17):
+Táto funkcia je náchylná voči šumovým dátam. Robustnosť $g$ sa môže docieliť M-estimátorom, ktorý dokáže odfiltrovať extrémne hodnoty (17):
 
 \begin{equation}
 \label{eq9}
@@ -287,7 +332,7 @@ dist_{robust}\left(T\left(M\right),S\right)=\sum_{m\epsilon T\left(M\right)} \su
 
 \subsection{Spôsoby registrácie mračien bodov}
 
-Spôsoby registrácie môžeme rozdeliť do dvoch kategórií. Prvou je pevná (rigidná) druhá voľná (nerigidná) registrácia. Pri rigidnej registrácií sa používajú rotačné a translačné transformácie k namapovaniu jedného bodu na druhý. Táto transformácia je definovaná tak, že nemení vzdialenosť medzi dvoma bodmi. V zriedkavých prípadoch môže byť bodový súbor tiež zrkadlový. Voľná registrácia vzhľadom na dva bodové súbory prináša transformáciu, ktorá mapuje jeden bod nastavený na druhý. V transformáciách sú zahrnuté afinné transformácie, ktoré zahŕňajú aj nelineárne transformácie. Ak sú známe vlastné modifikácie množiny bodov, nelineárna transformácia môže byť parametrizovaná vlastnými hodnotami.\newline
+Spôsoby registrácie môžeme rozdeliť do dvoch kategórií. Prvou je pevná (rigid) druhá pružná (non-rigid) registrácia. Pri rigidnej registrácií sa používajú rotačné a translačné transformácie k namapovaniu jedného bodu na druhý. Táto transformácia je definovaná tak, že nemení vzdialenosť medzi dvoma bodmi. V zriedkavých prípadoch môže byť bodový súbor tiež zrkadlový. Pružná registrácia vzhľadom na dva bodové súbory prináša transformáciu, ktorá mapuje jeden bod nastavený na druhý. V transformáciách sú zahrnuté afinné transformácie, ktoré zahŕňajú aj nelineárne transformácie. Ak sú známe vlastné modifikácie množiny bodov, nelineárna transformácia môže byť parametrizovaná vlastnými hodnotami.\newline
 
 \textbf{Bodové registračné algoritmy}
 
@@ -363,7 +408,7 @@ KC\left(\chi_i,x_j\right)=\int K\left(\chi,\chi_i\right) \cdot K\left(\chi,\chi_
 \end{aligned}
 \end{equation}
 
-Funkcia K zvolená pre bodovú registráciu je typický symetrický a nenegatívný kernel. Zvyčajne je používaný Gaussov kernel pre svoju jednoduchosť, avšak časté sú aj Epanechnikov a tricube kernel (18). Korelácia kernelu celej množiny bodov χ je definovaná ako súčet korelácií kernelu každého bodu v množine s každým ďalším bodom v množine.
+Funkcia K zvolená pre bodovú registráciu je typický symetrický a nenegatívný kernel. Zvyčajne je používaný Gaussov kernel pre svoju jednoduchosť, avšak časté sú aj \textit{Epanechnikov} a \textit{tricube} kernel (18). Korelácia kernelu celej množiny bodov χ je definovaná ako súčet korelácií kernelu každého bodu v množine s každým ďalším bodom v množine.
 
 
 \begin{equation}

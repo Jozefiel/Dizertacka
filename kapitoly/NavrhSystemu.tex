@@ -241,26 +241,32 @@ Riešením je separátne kalibrovanie medzi susednými kamerami (napr. 1-2, 1-3 
 
 Efektívnejším spôsobom je hľadanie vzájomnej pozície kamier cez kľúčové body. V takomto prípade každá staticky umiestnená kamera zosníma kalibračný objekt, z ktorého vygeneruje mračno bodov. V každom mračne sa identifikujú spoločné body, ktoré slúžia na prvotné zarovnanie. Následne sa ICP metódou minimalizuje suma štvorcov euklidovských vzdialeností bodov. Výhodou statického rozmiestnenia kamier je, že ju je nutné vykonať iba raz. Získaním rotačných a translačných parametrov pre každú kameru získavame zarovnané mračná v spoločnom projektovanom priestore. 
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
-	\includegraphics[width=0.52\textwidth]{figures/calibration_multi.jpg}
-	\caption{}
-	\label{fig:calib:haus:single}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.52\textwidth]{figures/calibration_hausdorff_multi.jpg}
-	\caption{}
-	\label{fig:calib:haus:single}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/calibration_multi.jpg}
+		\caption{}
+		\label{fig:calib:multi:view}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/calibration_hausdorff_multi.jpg}
+		\caption{}
+		\label{fig:calib:haus:multi}
+	\end{subfigure}
+	\caption{Obrazy z senzora Microsoft Kinect v2: (\textbf{a}) IR obraz bez interferencie. (\textbf{b}) IR obraz s interferenciou. (\textbf{c}) Hĺbková mapa IR obrazu (a). (\textbf{d}) Hĺbková mapa IR obrazu (b). Miesto interferencie je zvýraznené červenou farbou.}
+	\label{fig:calib:multi}
 \end{figure}
 
 
 \section{Návrh algoritmu}
 
 Úlohou algoritmu je vytvoriť konzistentné mračno bodov dynamického objektu z multi-kamerového systému a následne segmentovať parciálne časti mračna podľa preddefinovanej klasifikácie. Dynamický objekt je reprezentovaný hlavou pediatrického pacienta, čiže ide o špecifickú aplikáciu určenú pre medicínske využitie. Cieľom je získať model hlavy pacienta, z ktorého bude možné identifikovať zhluky bodov jednotlivých časti tváre (oči, nos, brada, ústa,...). Takto segmentované body budú v ďalšom výskume použité ako vstupné množiny do neurónových sieti pracujúcich s 3D dátami. \newline
-
+\begin{flushleft}
 Proces snímania môžeme rozdeliť na 3 fázy. 
+\end{flushleft}
 
 \begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black!20!black}]
 	\item[Príprava dát v reálnom čase]
@@ -372,7 +378,7 @@ P_d\left(z\right)=\left|  max\lbrace d_{i;N} \rbrace -min\lbrace d_{i;N} \rbrace
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/rgbd_views.png}
+	\includegraphics[width=0.9\textwidth]{figures/rgbd_views.png}
 	\caption{Aplikácia "DLib Face Landmark Detector":  \textbf{ a)} Označenie 68 základných kľúčových bodov,  \textbf{ b)} Aplikácia na RGB-D obraze získanej z kamery Kinect v2}
 	\label{fig:dlib:views}
 \end{figure}
@@ -382,7 +388,7 @@ Základný detektor identifikuje 68 bodov tváre, pričom vie ohraničiť tvár,
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/face_landmarks.png}
+	\includegraphics[width=0.9\textwidth]{figures/face_landmarks.png}
 	\caption{Aplikácia "DLib Face Landmark Detector":  \textbf{ a)} Označenie 68 základných kľúčových bodov,  \textbf{ b)} Aplikácia na RGB-D obraze získanej z kamery Kinect v2}
 	\label{fig:dlib:points}
 \end{figure}
@@ -393,7 +399,7 @@ Redukovanie počtu detekovaných kľúčových bodov na minimálny počet zabezp
  
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.75\textwidth]{figures/rgbd_points.png}
+	\includegraphics[width=0.70\textwidth]{figures/rgbd_points.png}
 	\caption{Porovnanie vplyvu filtrácie na vstupné dáta}
 	\label{fig:dlib:rbbd5}
 	\label{fig:dlib:rbbd5:b}
@@ -403,7 +409,7 @@ Z RGB-D obrazu (obr. \ref{fig:dlib:rbbd5}) sa následne pozície kľúčových b
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.75\textwidth]{figures/depth_points.png}
+	\includegraphics[width=0.70\textwidth]{figures/depth_points.png}
 	\caption{Porovnanie vplyvu filtrácie na vstupné dáta}
 	\label{fig:algorithm:result:a}
 	\label{fig:algorithm:result:b}
@@ -425,40 +431,166 @@ Pre porovnanie 5 a 68 bodového detektora sa štatisticky analyzovalo, koľko de
 	\end{tabular}
 \end{table}
 
-Oba detektory mali veľmi nízku hodnotu prípadov, kedy identifikovanému bodu $P_i$ chýbala hĺbková informácia.  Avšak pri 68 bodovom detektore približne každý štvrtý snímok obsahoval takýto bod. Pre stabilizáciu je teda postačujúce pracovať s 5 bodovým detektorom. Testovací dataset bol zložený z 87 párov snímok (RGB-D, hĺbková mapa), na ktorých sa vyskytovali ľudské tváre v rôznych pozíciach a uhloch. Pomocou 68 bodového detektora je však možné automatizovať meranie určitých parametrov tváre, ktoré sa vyskytujú v dotazníku ***. 
+Oba detektory mali veľmi nízku hodnotu prípadov, kedy identifikovanému bodu $P_i$ chýbala hĺbková informácia.  Avšak pri 68 bodovom detektore približne každý štvrtý snímok obsahoval takýto bod. Pre stabilizáciu je teda postačujúce pracovať s 5 bodovým detektorom. Testovací dataset bol zložený z 87 párov snímok (RGB-D, hĺbková mapa), na ktorých sa vyskytovali ľudské tváre v rôznych pozíciach a uhloch. 
+ 
+Pre overenie presnosti detekcie kľučových bodov sme vykonali meranie euklidovských vzdialeností $d_e$. Zisťované boli šírka ľavého a pravého oka, vonkajší a vnútorný rozostup očí. Meranie bolo vykonané na datasete, ktorý obsahoval 135 párov snímok (RGB-D, hĺbková mapa).
 
+\begin{equation}
+\label{eq:euclidean}
+\begin{aligned}
+d_{e}\left(P_i,P_j\right)= \sqrt{\left(P_i(x) - P_j(x)\right)^2 + \left(P_i(y) - P_j(y)\right)^2 + \left(P_i(z) - P_j(z)\right)^2} 
+\end{aligned}
+\end{equation}
+
+Z výsledkov sa vypočítal medián, priemerná hodnota a rozdiel medzi maximálnu a minimálnou nameranou hodnotou.
+ 
+\begin{table}[h]
+	\caption{\label{tab:dlib:5points} Meranie vybraných faciálnych rozmerov pomocou 5 bodového detektora.}
+	\centering
+	\begin{tabular}{cccc}
+		\toprule
+		\textbf{Meranie} & \textbf{Median [mm]} & \textbf{Average [mm]} & \textbf{Diff(Max-Min) [mm]} \\ 
+		\midrule
+		\textbf{Šírka ľavého oka} 	& 28.38 & 28.41	& 5.03 \\
+		\textbf{Šírka pravého oka} 	& 26.21	& 26.17 & 4.39 \\
+		\textbf{Vnútorný rozostup očí} 	& 38.43	& 38.22 & 2.32 \\
+		\textbf{Vonkajší rozostup očí} 	& 90.06	& 89.89 & 3.22 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[h]
+	\caption{\label{tab:dlib:68points} Meranie vybraných faciálnych rozmerov pomocou 68 bodového detektora.}
+	\centering
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Meranie} & \textbf{Median [mm]} & \textbf{Average [mm]} & \textbf{Diff(Max-Min) [mm]} \\ 
+		\midrule
+		\textbf{Šírka ľavého oka} 	& 28.46 & 28.52	& 5.40 \\
+		\textbf{Šírka pravého oka} 	& 27.13	& 27.22 & 4.81 \\
+		\textbf{Vnútorný rozostup očí} 	& 37.13	& 37.00 & 3.16 \\
+		\textbf{Vonkajší rozostup očí} 	& 85.99	& 89.70 & 4.16 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+V nich môžeme vidieť, že výsledky sú podobné. Dôležitým parametrom je rozdiel medzi maximálnou a minimálnou nameranou hodnotou. Ten hovorí o tom, ako stabilná je detekcia kľúčových bodov pri rôznych polohách tváre. Rozptyl detekovaných bodov je priamo úmerný veľkosti rozdielu medzi maximálnou a minimálnou hodnotou.
+
+\begin{table}[H]
+	\caption{\label{tab:dlib:resulrs} Rozdiel výsledkov medzi 68 a 5 bodovým detektorom.}
+	\centering
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Meranie} & \textbf{Median [mm]} & \textbf{Average [mm]} & \textbf{Diff(Max-Min) [mm]} \\ 
+		\midrule
+		\textbf{Šírka ľavého oka} 	& -0.08 & -0.11	& -0.38 \\
+		\textbf{Šírka pravého oka} 	& -0.93	& -1.05 & -0.42 \\
+		\textbf{Vnútorný rozostup očí} 	& 1.30	& 1.21 & -0.83 \\
+		\textbf{Vonkajší rozostup očí} 	& 0.51	& 0.19 & -0.93 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Pre lepšie porovnanie sme odčítali výsledky merania 5 bodového detektora od 68 bodového detektora. Z výsledkov vyplýva, že rozdiel medzi presnosťou jednotlivých detektorov je minimálny. Maximálna hodnota rozdielu je $1.3mm$ pri meraní vnútorného rozostupu očí.  
 
 \subsection{Automatizované meranie vzdialenosti tvárových čŕt}
+Pomocou 68 bodového detektora je však možné automatizovať meranie určitých parametrov tváre, ktoré sa vyskytujú v dotazníku ***. 
+Identifikovaním špecifických kľúčových bodov tváre a prenesením týchto bodov do hĺbkovej mapy je možné pomocou euklidovskej vzdialenosti (rovnica \ref{eq:euclidean}) získať geometrické vlastnosti tvárových parametrov.
+Podľa REFERENCIA bolo pre meranie OSA vybraných týchto 19 párov kľúčových bodov: 
+\vskip 0.2in
 
-Identifikovaním špecifických kľúčových bodov tváre a prenesením týchto bodov do hĺbkovej mapy je možné pomocou euklidovskej vzdialenosti získať geometrické vlastnosti tvárových rysov. Podľa REFERENCIA je pre diagnostiku OSA najdôležitejších 19 rysov. 
+\begin{compactitem}
+	\item[\textbf{Dĺžka nosa:}] Koreň nosa (28) - Špička nosa (34)
+	\item[\textbf{Šírka nosa:}] Ľavá hranica nosa (36) - Pravá hranica nosa (32)
+	\item[\textbf{Výška špičky nosa:}] Špička nosa (34) - Horná hranica pery (52)
+	\item[\textbf{Šírka ľavého oka:}] Vonkajší kútik oka (46) - Vnútorný kútik oka (43)
+	\item[\textbf{Šírka pravého oka:}] Vonkajší kútik oka (37) - Vnútorný kútik oka (40)
+	\item[\textbf{Výška pravého oka - 1:}] Vonk. horná kontúra oka (38) - Vonk. dolná kontúra oka (42)
+	\item[\textbf{Výška pravého oka - 2:}] Vnut. horná kontúra oka (39) - Vnut. dolná kontúra oka (41)
+	\item[\textbf{Výška ľavého oka - 1:}] Vonk. horná kontúra oka (45) - Vonk. dolná kontúra oka (47)
+	\item[\textbf{Výška ľavého oka - 2:}] Vnut. horná kontúra oka (44) - Vnut. dolná kontúra oka (48)
+	\item[\textbf{Vnútorný rozostup očí:}] Vnút. kútik ľavého oka (43) - Vnút. kútik pravého oka (40)
+	\item[\textbf{Vonkajší rozostup očí:}] Vonk. kútik ľavého oka (46) - Vonk. kútik pravého oka (37)
+	\item[\textbf{Výška pier:}] Horná hranica pery (52) - Dolná hranica pery (58)
+	\item[\textbf{Šírka pier:}] Ľavá hranica pery (55) - Pravá hranica pery (49)
+	\item[\textbf{Dĺžka tváre:}] Koreň nosa (28) - Spodná hranica brady (9)
+	\item[\textbf{Výška brady:}] Spodná hranica brady (9) - Dolná hranica pery (55)
+	\item[\textbf{Dĺžka ľavého spánku:}] Stred ľavého ucha (16) - Vonk. kútik ľavého oka (46)
+	\item[\textbf{Dĺžka pravého spánku:}] Stred pravého ucha (2) - Vonk. kútik pravého oka (37)
+	\item[\textbf{Dĺžka ľavého líca:}] Stred ľavého ucha (16) - Ľavá hranica pery (55)
+	\item[\textbf{Dĺžka pravého líca:}] Stred pravého ucha (2) - Pravá hranica pery (49)
+\end{compactitem}
 
-\begin{description}
-	\item[Dĺžka nosa:] Koreň nosa (28) - Špička nosa (34)
-	\item[Šírka nosa:] Ľavá hranica nosa (36) - Pravá hranica nosa (32)
-	\item[Výška špičky nosa:] Špička nosa (34) - Horná hranica pery (52)
-	\item[Šírka ľavého oka:] Vonkajší kútik oka (46) - Vnútorný kútik oka (43)
-	\item[Šírka pravého oka:] Vonkajší kútik oka (37) - Vnútorný kútik oka (40)
-	\item[Výška pravého oka - 1:] Vonk. horná kontúra oka (38) - Vonk. dolná kontúra oka (42)
-	\item[Výška pravého oka - 2:] Vnut. horná kontúra oka (39) - Vnut. dolná kontúra oka (41)
-	\item[Výška ľavého oka - 1:] Vonk. horná kontúra oka (45) - Vonk. dolná kontúra oka (47)
-	\item[Výška ľavého oka - 2:] Vnut. horná kontúra oka (44) - Vnut. dolná kontúra oka (48)
-	\item[Vnútorný rozostup očí:] Vnút. kútik ľavého oka (43) - Vnút. kútik pravého oka (40)
-	\item[Vonkajší rozostup očí:] Vonk. kútik ľavého oka (46) - Vonk. kútik pravého oka (37)
-	\item[Výška pier:] Horná hranica pery (52) - Dolná hranica pery (58)
-	\item[Šírka pier:] Ľavá hranica pery (55) - Pravá hranica pery (49)
-	\item[Dĺžka tváre:] Koreň nosa (28) - Spodná hranica brady (9)
-	\item[Výška brady:] Spodná hranica brady (9) - Dolná hranica pery (55)
-	\item[Dĺžka ľavého spánku:] Stred ľavého ucha (16) - Vonk. kútik ľavého oka (46)
-	\item[Dĺžka pravého spánku:] Stred pravého ucha (2) - Vonk. kútik pravého oka (37)
-	\item[Dĺžka ľavého líca:] Stred ľavého ucha (16) - Ľavá hranica pery (55)
-	\item[Dĺžka pravého líca:] Stred pravého ucha (2) - Pravá hranica pery (49)
-	
-	
-\end{description}
-
+\vskip 0.2in
+Meranie bolo vykonané na datasete 270 párov obrazov (RGB-D + hĺbková mapa). Na detekciu kľúčových bodov bol použitý DLib model \textit{shape-predictor-68-face-landmarks}. Každý objekt, ktorý bol použitý pri automatizovanom meraní, mal priradené referenčné hodnoty vzdialenosti pre jednotlivé tvárové parametre. 
 
 
+Vypočítané hodnoty boli následne porovnané s referenčnými, čím sa získal histogram absolútnej chyby pre všetky merania (Obr. \ref{fig:histogram}). Z celkového počtu 5130 meraní malo 4598 absolútnu chybu menšiu ako 5mm. Zvyšných 532 vykázalo vyššiu chybu merania nad 10mm. 
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/plot.png}
+	\caption{Porovnanie vplyvu filtrácie na vstupné dáta}
+	\label{fig:histogram}
+\end{figure}
+
+Vyšší rozdiel medzi referenčnými a nameranými hodnotami môže byť spôsobený zmenou geometrie tváre (zmena mimiky tváre). Takáto chyba sa prejavila napríklad pri výške pier a brady. Problematickými sa javí aj meranie rozmerov spánkov a lícnych častí. Ich príslušné kľúčové parametre sa pri frontálnom pohľade nachádzajú na hranici hĺbkovej mapy. Preto aj pri minimálnej nepresnosti určenia pozície stredov pravého (2) a ľavého ucha (16) môže dojsť k výraznejšej zmene hĺbky (Obr. \ref{fig:dlib:cloud}).
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.40\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/dlib_cloud_a.png}
+		\caption{}
+		\label{fig:dlib:cloud:a}
+	\end{subfigure}
+	\hskip 0.2in
+	\begin{subfigure}[b]{0.39\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{figures/dlib_cloud_b1.png}
+		\caption{}
+		\label{fig:dlib:cloud:b}
+	\end{subfigure}
+	\caption{Obrazy z senzora Microsoft Kinect v2: }
+	\label{fig:dlib:cloud}
+\end{figure}
+
+Výsledky merania pre jednotlivé tvárové parametre sa nachádzajú v tabuľke \ref{tab:dlib:results}. Stredné a priemerné hodnoty sú vypočítané z rozdielov výsledných vzdialeností ($d_e-d_e(ref)$). Mínusové hodnoty znamenajú, že automaticky vypočítaná vzdialenosť je menšia ako referenčná. 
+
+\begin{table}[h]
+	\caption{\label{tab:dlib:results} Meranie vybraných faciálnych rozmerov pomocou 68 bodového detektora.}
+	\centering
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Meranie} & \textbf{Median [mm]} & \textbf{Average [mm]} & \textbf{Diff(Max-Min) [mm]} \\ 
+		\midrule
+		\textbf{Dĺžka nosa} 			& 0.19 	& 0.45 	& 9.52	\\
+		\textbf{Šírka nosa} 			& 0.12	& -0.27 & 10	\\
+		\textbf{Výška špičky nosa} 		& -0.12	& -0.08 & 6.55	\\
+		\textbf{Šírka ľavého oka} 		& 0.03	& 0.00	& 7.26	\\
+		\textbf{Šírka pravého oka} 		& 0.03 	& 0.09	& 6.90	\\
+		\textbf{Výška pravého oka - 1} 	& 0.07	& 0.20	& 12.28	\\
+		\textbf{Výška pravého oka - 2} 	& -0.10	& 0.08	& 9.56	\\
+		\textbf{Výška ľavého oka - 1} 	& 0.13	& 0.15	& 8.52	\\
+		\textbf{Výška ľavého oka - 2} 	& -0.13 & 0.08	& 9.90	\\
+		\textbf{Vnútorný rozostup očí} 	& -0.24	& -0.28	& 4.34	\\
+		\textbf{Vonkajší rozostup očí} 	& -0.89	& -0.88	& 7.73	\\
+		\textbf{Výška pier} 			& 0.77	& 0.42	& 11.47	\\
+		\textbf{Šírka pier} 			& -0.19 & 0.04	& 9.07	\\
+		\textbf{Dĺžka tváre} 			& -1.82	& -1.81	& 9.28	\\
+		\textbf{Výška brady} 			& -3.84	& -3.90	& 11.71	\\
+		\textbf{Dĺžka ľavého spánku} 	& 1.47	& 3.06	& \textbf{29.30}	\\
+		\textbf{Dĺžka pravého spánku} 	& -10.14& -7.35	& \textbf{90.66}	\\
+		\textbf{Dĺžka ľavého líca} 		& -2.07	& -0.80	& \textbf{31.88}	\\
+		\textbf{Dĺžka pravého líca} 	& 5.40	& 2.36	& \textbf{69.38}	\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Vzdialenosti tvárových parametrov, ktorých kľúčové body sa nenachádzajú na hraniciach hĺbkovej mapy, vykazujú malú chybu voči referencii.  
+
+
+\subsection{ICP registrácia}
 
 \begin{figure}[H]
 	\centering
@@ -468,7 +600,5 @@ Identifikovaním špecifických kľúčových bodov tváre a prenesením týchto
 	\label{fig:algorithm:result:b}
 	\label{fig:algorithm:result:c}
 \end{figure}
-
-\subsection{ICP registrácia}
 
 \subsection{Segmentácia hĺbkovej mapy}

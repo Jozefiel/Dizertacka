@@ -30,7 +30,7 @@
 \usepackage[slovak]{babel}	% slovenske formátování
 \usepackage[utf8]{inputenc}	% Kódování textu
 \usepackage[T1]{fontenc}
-
+\usepackage{paralist}
 \usepackage{tgpagella}		% ok, krajsie
 
 
@@ -200,9 +200,9 @@
 }
 
 % Seznam zkratek a zkratky
-%\include{Seznam_Zkratek}
-%\include{Seznam_Symbolu}
-%\include{Seznam_Indexu}
+\include{Seznam_Zkratek}
+\include{Seznam_Symbolu}
+\include{Seznam_Indexu}
 
 % Příkaz na vyřazení indexu z obsahu
 \newcounter{oldtocdepth}
@@ -218,8 +218,8 @@
 %\usepackage{epstopdf}
 
 % Titulní informace
-\title{Bezsnímačové riadenie vysokorýchlostného pohonu}
-\author{Šimon Zoššák}
+\title{3D modelovanie objektov z RGB-D snímačov}
+\author{Jozef Volák}
 \date{\today}
 
 % Bibliografie
@@ -308,10 +308,10 @@
 	\include{kapitoly/Podakovanie}
 	\include{kapitoly/Abstrakt}
 	\include{kapitoly/Uvod}
-%	\include{kapitoly/Motivacia}
+	\include{kapitoly/Motivacia}
 	\include{kapitoly/TechPozadie}
 	\include{kapitoly/Kalibracia}
-%	\include{kapitoly/Tezy}
+	\include{kapitoly/Tezy}
 	\include{kapitoly/NavrhSystemu}
 	\include{kapitoly/Interferencia}
 
