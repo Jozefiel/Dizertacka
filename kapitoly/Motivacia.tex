@@ -45,9 +45,8 @@ informácií z klinického vyšetrenia, skúmania subjektívnych symptómov paci
 prítomnosti ADHD dokáže s určitou presnosťou identifikovať prítomnosť OSAS. Pozitívni
 pacienti sú následne uprednostňovaní na vyšetrenie PSG (5).
 
-Vyšetrenie pomocou kontaktných meracích prístrojov je pre pediatrických pacientov často krát
-stresujúce. Deti sú nepokojné a nedokážu spolupracovať s doktorom, čo predlžuje vyšetrenie a
-vnáša chybu merania do dotazníka. Z toho dôvodu je požiadavka na vytvorenie meracieho
+Vyšetrenie pomocou kontaktných meracích prístrojov je pre pediatrických pacientov častokrát
+stresujúce. Deti sú nepokojné a nedokážu spolupracovať s doktorom, čo predlžuje vyšetrenie a vytvára nepresnosť pri meraní parametrov tváre. Práve z tohto dôvodu vznikla požiadavka na vytvorenie meracieho
 systému, ktorý by dokázal zmerať požadované parametre bezkontaktne.
 
 Jedným z možných riešení je vytvorenie skenovacieho zariadenia, ktoré dokáže s určitou
@@ -55,12 +54,12 @@ precíznosťou geometricky aj textúrovo zachytiť pacienta. Takto zachytený mo
 
 \section{Aktuálny stav výskumu diagnostiky OSAS s použitím 3D dát}
 
-Z dôvodu finančnej a časovej nákladnosti diagnostiky OSAS sa kladie vyšší záujem o vytvorenie skríningového systému, ktorý by vedel identifikovať rizikových pacientov. Aktuálny výskum sa zameriava na predikciu ochorenia z obrazovej informácie. V minulosti a súčastnosti sa diagnostika vykonáva na CT a MRI obrazoch, ktorých získanie je komplikované a limitované. V posledných rokoch sa pre diagnostiku začalo využívať 3D spracovanie dát. Snahou je vytvoriť klasifikačný nástroj, ktorý umožní oddeliť rizikových pacientov od ostatných. 
+Z dôvodu finančnej a časovej nákladnosti diagnostiky OSAS sa kladie vyšší záujem o vytvorenie skríningového systému, ktorý by vedel identifikovať rizikových pacientov. Aktuálny výskum sa zameriava na predikciu ochorenia z obrazovej informácie. V minulosti a súčastnosti sa diagnostika vykonáva na CT a MRI snímkach, ktorých získanie je komplikované a limitované. V posledných rokoch sa pre diagnostiku začalo využívať 3D spracovanie dát. Ich snahou je vytvoriť klasifikačný nástroj, ktorý umožní oddeliť rizikových pacientov od ostatných. 
 
 \newpage
 \subsection{Diagnostika pediatrickej OSA prostredníctvom klasifikácie tváre s použitím CNN}
 
-V článku \textit{Diagnosis of Pediatric Obstructive Sleep Apnea via FaceClassification with Persistent Homology and ConvolutionalNeural Networks} je opísaná štúdia, v ktorej sa snažia vytvoriť klasifikátor pre rozdelenie vysoko rizikových pacientov od tých menej rizikových. K analýze využívali 3D modely a 2D fotografie obsahujúce snímky 3D objektov. Podľa súčasných štúdií, na ktoré sa v práci odkazujú, využili pre klasifikáciu perzistentnú homológiu (PH) a konvolučné neurónové siete. Pri prvom prístupe analyzujú trojuholníkové siete cez geometrické príznaky tváre, pri CNN sa pre trénovanie používajú klasifikované 2D obrazy tváre. Použitý dátový set obsahoval 172 detských pacientov. Objekty boli rozdelené lekárom do skupín podľa toho, či patrili do vyššej alebo nižšej rizikovej skupiny OSA. Každý 3D model podstúpil filtráciu (vyplnenie dier v sieti, vyhladenie) pri ktorej sa ale dbalo na to, aby nebola znehodnotená geometrická informácia. 
+V článku \textit{Diagnosis of Pediatric Obstructive Sleep Apnea via Face Classification with Persistent Homology and Convolutional Neural Networks} je opísaná štúdia, v ktorej sa snažia vytvoriť klasifikátor pre rozdelenie vysoko rizikových pacientov od tých menej rizikových. K analýze využívali 3D modely a 2D fotografie obsahujúce snímky týchto 3D objektov. Podľa súčasných štúdií, na ktoré sa v práci odkazujú, využili pre klasifikáciu perzistentnú homológiu (PH) a konvolučné neurónové siete (CNN). Pri prvom prístupe analyzujú trojuholníkové siete cez geometrické príznaky tváre, pri CNN sa pre trénovanie používajú klasifikované 2D obrazy tváre. Použitý dátový set obsahoval 172 detských pacientov. Objekty boli rozdelené lekárom do skupín podľa toho, či patrili do vyššej alebo nižšej rizikovej skupiny OSA. Každý 3D model podstúpil filtráciu (vyplnenie dier v sieti, vyhladenie), pri ktorej sa ale dbalo na to, aby nebola znehodnotená geometrická informácia. 
 
 Z výsledkov PH vyplýva, že súčasné topologické analýzy dát neviedli k presnej klasifikácii. Niektoré rysy tváre síce môžu súvisieť s vysokým rizikom OSA, ale neboli postačujúce pre identifikáciu rizikových pacientov. 
 
@@ -104,13 +103,13 @@ Výsledky trénovania pre MobileNetV2 a NASNetLarge sú zobrazené na obr. \ref{
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/resers_d.png}
-	\caption{Grafy iteratívneho učenia (školenia a validácie) pre MobileNetV2 (vľavo) a NasNetLarge (vpravo). Spodný riadok ukazuje nákladovosť krížovej entropie a horný presnosť klasifikácie.}
+	\caption{Grafy iteračného učenia (školenia a validácie) pre MobileNetV2 (vľavo) a NasNetLarge (vpravo). Spodný riadok ukazuje nákladovosť krížovej entropie a horný presnosť klasifikácie.}
 	\label{fig:resers:d}
 \end{figure}
 
 
 \begin{table}[H]
-	\caption{\label{tab:resers:1} Výsledky validácie pretrénovaných modelov pre použité CNN architektúry. }
+	\caption{\label{tab:resers:1} Výsledky validácie predtrénovaných modelov pre použité CNN architektúry. }
 	\centering
 	\begin{tabular}{cccc}
 		\toprule
@@ -153,7 +152,7 @@ V článku \textit{Deep Learning of Facial Depth Maps for Obstructive Sleep Apne
 \label{fig:resers:2}
 \end{figure}
 
-K trénovaniu si vybrali tri rozdielne neuronové siete, ktoré už boli pretrénované pre detekciu a rozpoznanie tváre. Neboli však trénované na hĺbkových mapách.  VCG-Face bol trénovaný na 2.6 miliónovom datasete s presnosťou 98.95\%. Taktiež boli vybrané Pose-Aware CNN modely AlexNet a VGG-19. 
+K trénovaniu si vybrali tri rozdielne neuronové siete, ktoré už boli predtrénované pre detekciu a rozpoznanie tváre. Neboli však trénované na hĺbkových mapách.  VGG-Face bol trénovaný na 2.6 miliónovom datasete s presnosťou 98.95\%. Taktiež boli vybrané Pose-Aware CNN modely AlexNet a VGG-19. 
 Jemné dolaďovanie modelov sa vykonávalo v \textit{Matlab deep learning toolbox}. Z databázy hĺbkových máp bolo 70\% použitých pre trénovanie (14 modelov na testovanie) a 30\% pre validáciu. Celý blokový diagram je znázornený na obr. \ref{fig:resers:e}. 
 
 Výsledné modely výstupnej vrstvy po natrénovaní siete s rôznymi vstupnými parametrami sú zobrazené na obr. \ref{fig:resers:g}. Pri PAMs je možné vidieť rôznu aktiváciu očí a nosa na rôznych miestach modelu, pretože model sa musel vysporiadať s rozličnými pózami a natočeniami.  Výstupom VGG Face vrstvy je frontálny obraz tváre bez rotácie.
@@ -178,14 +177,14 @@ Výsledné modely výstupnej vrstvy po natrénovaní siete s rôznymi vstupnými
 	\label{fig:resers:3}
 \end{figure}
 
-Výsledne porovnanie sieti sa nachádza v tabuľke \ref{tab:resers:2}. Z výsledkov vyplýva, že VGG-Face dosahovala lepsie výsledky ako PAMs-VGG19 a PAMs-Alex. Jej výhoda je, že bola predtrénovaná na veľkom datasate. 
+Výsledné porovnanie sietí sa nachádza v tabuľke \ref{tab:resers:2}. Z výsledkov vyplýva, že VGG-Face dosahovala lepšie výsledky ako PAMs-VGG19 a PAMs-Alex. Jej výhoda je, že bola predtrénovaná na veľkom datasate. 
 
 \begin{table}[H]
 	\caption{\label{tab:resers:2} Presnosť klasifikácie použitých modelov. }
 	\centering
 	\begin{tabular}{cccc}
 		\toprule
-		\textbf{} & \textbf{VCG Face} & \textbf{PAMs-VGG19} & \textbf{PAMs-Alex}     \\ 
+		\textbf{} & \textbf{VGG Face} & \textbf{PAMs-VGG19} & \textbf{PAMs-Alex}     \\ 
 		\midrule
 		\textbf{Presnosť validácie}		& 68.75		& 62.5		& 60.15		\\ 
 		\textbf{Presnosť testovania}	& 67.42		& 57.14  	& 59.37		\\ 
@@ -197,7 +196,7 @@ Táto práca predstavuje ako prvá detekciu OSA založenú na hĺbkových mapác
 
 \subsection{Predikcia OSA pomocou 3D modelu}
 
-V práci \textit{Predicting Sleep Apnea From Three-Dimensional Face Photography} sa zaoberajú predikciou OSA pomocou lineárnych a geodetických vzdialenosti medzi kľúčovými bodmi na tvári. Cieľom autorov je nájsť čo najvhodnejšie kombinácie meraní, pre čo najlepšiu predikciu stupňa ochorenia OSA. 
+V práci \textit{Predicting Sleep Apnea From Three-Dimensional Face Photography} sa zaoberajú predikciou OSA pomocou lineárnych a geodetických vzdialeností medzi kľúčovými bodmi na tvári. Cieľom autorov je nájsť čo najvhodnejšie kombinácie meraní, pre čo najlepšiu predikciu stupňa ochorenia OSA. 
 Trojrozmerné snímky prekonávajú limity 2D snímania a pomáhajú určiť štruktúru tkaniva oveľa lepšie ako z 2D fotografie. Dátový set bol vytvorený zo 400 3D modelov dospelých pacientov, ktorí podstúpili PSG vyšetrenie. Podľa AHI indexu boli pacienti rozdelení do 4 skupín v závislosti od štádia a závažnosti ochorenia. Taktiež bol vypočítaný BMI index a odmeraný obvod krku. 3D modely boli vytvorené kamerou značky 3dMD, ktorá meria vzdialenosť na princípe triangulácie. Pacienti boli pri snímaní naklonený dozadu, aby bola lepšie viditeľná hrdlová časť. Merania lineárnych vzdialeností, uhlov a geodetických vzdialeností boli realizované pomocou anatomických značiek z 3D snímok, z ktorých sa následne určila prítomnosť ochorenia OSA a jeho štádium. Pre detekciu OSA bolo zvolených 24 kľúčových bodov, ktoré boli identifikované v každom 3D modeli (obr. \ref{fig:resers:i}). 
 
 
@@ -232,15 +231,15 @@ Trojrozmerné snímky prekonávajú limity 2D snímania a pomáhajú určiť št
 Pre detekciu OSA bolo zvolených 24 kľúčových bodov, ktoré boli identifikované v každom 3D modeli. 
 Dva z týchto bodov boli vyznačené na tvári pacienta ešte pred skenovaním. Identifikovaním týchto bodov sa získali súradnice $(x,y,z)$, ktoré boli použité pre ďalšiu analýzu. Vďaka týmto súradniciam je možné získať až 276 rôznych vzdialeností medzi dvojicou kľúčových bodov.  Na základe predchádzajúcich štúdií bolo vybraných 25 párov bodov, medzi ktorými boli vypočítané euklidovské a geodetické vzdialenosti. Tieto získané informácie boli použité ako príznaky v ďalšej analýze. 
 
-Na základe prahu $AHI\geq5$ boli vstupné dáta rozdelené na kontrolné (100) a OSA (300). Pomocou tejto hodnoty bol navrhnutý a natrénovaný \textit{Linear Discriminant Analysis} (LDA) algoritmus, ktorý využíval geodetickú vzdialenosť,euklidovskú vzdialenosť a uhol každej snímky. Úlohou algoritmu bolo klasifikovať nové prípady podľa prahu AHI s hodnotami 10, 15, 20, 25, 30, 5, 40, 45 a 50.
+Na základe prahu $AHI\geq5$ boli vstupné dáta rozdelené na kontrolné (100) a OSA (300). Pomocou tejto hodnoty bol navrhnutý a natrénovaný \textit{Linear Discriminant Analysis} (LDA) algoritmus, ktorý využíval geodetickú vzdialenosť, euklidovskú vzdialenosť a uhol každej snímky. Úlohou algoritmu bolo klasifikovať nové prípady podľa prahu AHI s hodnotami 5, 10, 15, 20, 25, 30, 35, 40, 45 a 50.
 
 Cieľom LDA algoritmu bolo pomocou všetkých popísaných príznakov nájsť 1D priestor, kde vzdialenosť medzi príznakmi v rámci rovnakej triedy bola minimálna a zároveň vzdialenosť medzi príznakmi dvoch odlišných tried maximálna. Dáta boli týmto spôsobom rozdelené do desiatich skupín. Z každej skupiny bolo 90\% dát použitých na trénovanie a zvyšných 10\% pre testovanie. 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/resers_l.png}
-	\caption{Presnosť klasifikácie pre predpovedanie OSA, keď bol algoritmus trénovaný a testovaný pre rozdielne prahové hodnoty AHI(5 až 50) s použitím euklidovskej vzdialenosti (červený stĺpec), geodetickej vzdialenosti (zelený stĺpec) a kombináciu (fialový stĺpec). }
+	\caption{Presnosť klasifikácie pre predpovedanie OSA, keď bol algoritmus trénovaný a testovaný pre rozdielne prahové hodnoty AHI (5 až 50) s použitím euklidovskej vzdialenosti (červený stĺpec), geodetickej vzdialenosti (zelený stĺpec) a kombináciu (fialový stĺpec). }
 	\label{fig:resers:l}
 \end{figure}
 
-Štúdia ukazuje, že geodetická informácia výrazne zlepšuje schopnosť identifikovať rizikových pacientov. Najväčšia presnosť (91\%) klasifikácie bola získaná pri kombinácií geodetickej a euklidovskej vzdialenosti. Výsledné dáta tejto štúdie nasvedčujú, že 3D skenovanie má potenciálnu úlohu pri skríningu OSA. Nedokáže však nahradiť PSG vyšetrenie. Z výsledkov taktiež vyplýva, že pomocou geodetickej vzdialenosti je možné určiť aj stupeň závažnosti OSA.
+Štúdia ukazuje, že geodetická informácia výrazne zlepšuje schopnosť identifikovať rizikových pacientov. Najväčšia presnosť (91\%) klasifikácie bola získaná pri kombinácií geodetickej a euklidovskej vzdialenosti. Výsledné dáta tejto štúdie nasvedčujú tomu, že 3D skenovanie má potenciálnu úlohu pri skríningu OSA, avšak nedokáže nahradiť PSG vyšetrenie. Z výsledkov taktiež vyplýva, že pomocou geodetickej vzdialenosti je možné určiť aj stupeň závažnosti OSA.

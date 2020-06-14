@@ -7,7 +7,7 @@
 \renewcommand{\footrulewidth}{1pt}
 \lhead{Návrh snímacieho systému}
 
-Pre návrh algoritmu, ktorý umožní vytvorenie precízneho modelu dynamického objektu, je potrebné navrhnúť vhodný kamerový systém. Práve špecifická aplikácia systému môže výrazne ovplyvniť možnosti skenovania. Snímaný objekt je zastúpený pediatrickým pacientom. Jeho povrchová štruktúra nie je pevná a v čase sa môže meniť. Tento fakt môže ovplyvniť geometrickú presnosť modelu, hlavne ak je dĺžka doby skenovania dlhá. Cieľom tejto kapitoly je overiť a navrhnúť možnosti snímania pediatrických pacientov.
+Pre návrh algoritmu, ktorý umožní vytvorenie precízneho modelu dynamického objektu, je potrebné navrhnúť vhodný kamerový systém. Práve špecifická aplikácia systému môže výrazne ovplyvniť možnosti skenovania. Snímaný objekt je zastúpený pediatrickým pacientom. Jeho povrchová štruktúra nie je pevná a v čase sa môže meniť. Tento fakt môže ovplyvniť geometrickú presnosť modelu hlavne ak je dĺžka doby skenovania príliš dlhá. Cieľom tejto kapitoly je overiť a navrhnúť možnosti snímania pediatrických pacientov.
 
 %\section{Výber kamier}
 
@@ -31,11 +31,11 @@ Ide o druhú generáciu hĺbkových kamier od spoločnosti Microsoft. Oproti prv
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/kinect.png}
-	\caption{ToF kamera Microsoft Kinect v2.}
+	\caption{ToF kamera Microsoft Kinect v2}
 	\label{fig::kinect}
 \end{figure}
 
-Presnosť hĺbkovej mapy je oproti prvej verzii Kinectu vyššia, taktiež je znížený negatívny vplyv spôsobovaný slnečným svetlom.
+Presnosť hĺbkovej mapy je oproti prvej verzii Kinectu vyššia, taktiež je znížený negatívny vplyv spôsobený slnečným svetlom.
 
 
 %\subsection{Porovnanie presnosti kamier}
@@ -58,7 +58,7 @@ Pri snímaní dynamických objektov je potrebné uvažovať so vznikom pohybový
 
 \subsection{Jedno-kamerové snímanie dynamických objektov}
 
-Experimentálne snímanie pacientov bolo vykonávané na Klinike detí a dorastu Jesseniovej lekárskej fakulty v Martine, Laboratórium spánkovej medicíny. Do testu bolo vybraných 9 pacientov rôzneho pohlavia,vo vekovom rozmedzí od 4 do 12 rokov. Ako skenovací nástroj bola použitá kamera Kinect v2.
+Experimentálne snímanie pacientov bolo vykonávané na Klinike detí a dorastu Jesseniovej lekárskej fakulty v Martine, Laboratórium spánkovej medicíny. Do testu bolo vybraných 9 pacientov rôzneho pohlavia, vo vekovom rozmedzí od 4 do 12 rokov. Ako skenovací nástroj bola použitá kamera Kinect v2.
 
 \begin{figure}[h]
 	\centering
@@ -77,11 +77,11 @@ Experimentálne snímanie pacientov bolo vykonávané na Klinike detí a dorastu
 	\label{fig:dynamic_patient}
 \end{figure}
 
-V spolupráci s komerčným softvérom KScan3D boli vytvorené modely pacientov, ktoré sú zobrazené na obr. \ref{fig:dynamic_patient}. Ako je vidieť, modely sú nekvalitné a výrazne deformované. Je to spôsobené tým, že objekty nedokázali zostať v statickej polohe počas doby skenovania (tá presahovala 1 minútu pri každom pacientovi). Tendenciou bolo otáčať sa za kamerou, čo viac krát viedlo k nutnosti začať celý proces od znova. Takéto modely nie su postačujúce pre diagnostikovanie OSAS. Ich miera nepresnosti je veľmi vysoká a užitočná geometria tváre sa stráca. Z experimentu vyplýva, že jedno-kamerový systém je nepoužiteľný pre skenovanie dynamických objektov ako sú pediatrickí pacienti.  
+V spolupráci s komerčným softvérom KScan3D boli vytvorené modely pacientov, ktoré sú zobrazené na obr. \ref{fig:dynamic_patient}. Ako je vidieť, modely sú nekvalitné a výrazne deformované. Je to spôsobené tým, že objekty nedokázali zostať v statickej polohe počas doby skenovania (tá presahovala 1 minútu pri každom pacientovi). Tendenciou bolo otáčať sa za kamerou, čo viackrát viedlo k nutnosti začať celý proces od znova. Takéto modely nie su postačujúce pre diagnostikovanie OSAS. Ich miera nepresnosti je veľmi vysoká a užitočná geometria tváre sa stráca. Z experimentu vyplýva, že jedno-kamerový systém je nepoužiteľný pre skenovanie dynamických objektov ako sú pediatrickí pacienti.  
 
 \subsection{Priestorové rozloženie multi-kamerového systému}
 
-Pri multi-kamerovom systéme sa pre skenovanie používajú viaceré kamery, ktoré su staticky rozložene v priestore. Ich počet závisí od detailov objektu, ktoré majú byť zosnímané.
+Pri multi-kamerovom systéme sa pre skenovanie používajú viaceré kamery, ktoré sú staticky rozložené v priestore. Ich počet závisí od detailov objektu, ktorý má byť zosnímaný.
 
 \begin{figure}[H]
 	\centering
@@ -90,7 +90,7 @@ Pri multi-kamerovom systéme sa pre skenovanie používajú viaceré kamery, kto
 	\label{fig:multicam:placement}
 \end{figure}
 
-Medzi hlavné požiadavky na model sú: hlava musí obsahovať laterálne pohľady (umožniť prekrytie s cefalometrickou snímkou) a orientačné bodov mäkkého tkaniva.
+Medzi hlavné požiadavky na model sú: hlava musí obsahovať laterálne pohľady (umožniť prekrytie s cefalometrickou snímkou) a orientačné body mäkkého tkaniva.
 
 \begin{figure}[H]
 	\centering
@@ -99,21 +99,21 @@ Medzi hlavné požiadavky na model sú: hlava musí obsahovať laterálne pohľa
 	\label{fig:multicam:models}
 \end{figure}
 
-Dôležité je aj získanie informácie o šírke krk. Na obrázku \ref{fig:multicam:placement} je zobrazené rozloženie kamier v skenovacej kabíne. Ich jednotlivé 3D modely aj s verifikáciou požiadaviek sa nachádzajú na obr. \ref{fig:multicam:models}. 
+Dôležité je aj získanie informácie o šírke krku. Na obrázku \ref{fig:multicam:placement} je zobrazené rozloženie kamier v skenovacej kabíne. Ich jednotlivé 3D modely aj s verifikáciou požiadaviek sa nachádzajú na obr. \ref{fig:multicam:models}. 
 
 
 
 \subsection{Sekvenčné snímanie multi-kamerového systému}
 
-Sekvenčný mód predstavuje postupné snímanie. V jednom momente vždy sníma len jedna kamera ostatné kamery sú vypnuté. Tento režim je pri ToF kamerách často využívaný, pretože tu nevzniká multi-kamerová interferencia. Problémom je však dlhá doba zapínania IR projektora, ktorá pri kamerách Microsoft Kinect v2 dosahuje približne $1s$. Časový odstup medzi dvoma prijatými snímkami je pri $30Hz$ okolo $33ms$.
+Sekvenčný mód predstavuje postupné snímanie. V jednom momente vždy sníma len jedna kamera a ostatné kamery sú vypnuté. Tento režim je pri ToF kamerách často využívaný, pretože tu nevzniká multi-kamerová interferencia. Problémom však je dlhá doba zapínania IR projektora, ktorá pri kamerách Microsoft Kinect v2 dosahuje približne $1s$. Časový odstup medzi dvoma prijatými snímkami je pri $30Hz$ okolo $33ms$.
 
 \subsection{Paralelné snímanie multi-kamerového systému}
 
-V paralelnom režime pracujú všetky kamery v rovnakom čase. Oproti sekvenčnému snímaniu sa inicializácia vykonáva pre každú kameru iba raz. Tým sa radikálne znižuje doba snímania objektu zo všetkých uhlov. Nevýhodou je ale vznik multi-kamerovej interferencie, ktorá dokáže negatívne ovplyvniť výstupné hĺbkové mapy. Časový rozostup medzi jednotlivými snímkami je ovplyvnení samotným spracovaním dát, maximálne však $33ms$ medzi všetkými snímkami. 
+V paralelnom režime pracujú všetky kamery v rovnakom čase. Oproti sekvenčnému snímaniu sa inicializácia vykonáva pre každú kameru iba raz. Tým sa radikálne znižuje doba snímania objektu zo všetkých uhlov. Nevýhodou je ale vznik multi-kamerovej interferencie, ktorá dokáže negatívne ovplyvniť výstupné hĺbkové mapy. Časový rozostup medzi jednotlivými snímkami je ovplyvnený samotným spracovaním dát, maximálne však $33ms$ medzi všetkými snímkami. 
 
 \subsection{Porovnanie režimov snímania dynamických objektov}
 \label{sec:serial_parallel}
-Pre porovnanie týchto režimov bol navrhnutý experiment, pri ktorom sa porovná veľkosť zmeny polohy objektu v závislosti na dĺžke snímania. Pre testovanie bol vyrobený merací prvok, ktorý pozostával z jednosmerného motora, ukazovateľa aktuálnej polohy a statického podstavca slúžiaceho ako uhlomer. Na hriadeli motora bol pripevnený ukazovateľ, ktorý vykonával pohyb po kružnici. Rýchlosť bola nastavená na regulovateľným zdrojom tak, aby otočka trvala $5s$. Obvod statického podstavca bol rozdelený na 36 dielov oddelených od seba po $10^\circ$. Kvôli identifikácii polohy podstavec obsahoval zvýraznený nultý bod a šípku informujúcu o smere otáčania ukazovateľa.  
+Pre porovnanie týchto režimov bol navrhnutý experiment, pri ktorom sa porovná veľkosť zmeny polohy objektu v závislosti na dĺžke snímania. Pre testovanie bol vyrobený merací prvok, ktorý pozostával z jednosmerného motora, ukazovateľa aktuálnej polohy a statického podstavca slúžiaceho ako uhlomer. Na hriadeli motora bol pripevnený ukazovateľ, ktorý vykonával pohyb po kružnici. Rýchlosť bola nastavená regulovateľným zdrojom tak, aby otočka trvala $5s$. Obvod statického podstavca bol rozdelený na 36 dielov oddelených od seba po $10^\circ$. Kvôli identifikácii polohy podstavec obsahoval zvýraznený nultý bod a šípku informujúcu o smere otáčania ukazovateľa.  
 
 %\begin{figure}[h]
 %	\centering
@@ -132,7 +132,7 @@ Pre porovnanie týchto režimov bol navrhnutý experiment, pri ktorom sa porovn�
 %	\label{fig:dynamic:results}
 %\end{figure}
 
-Pri sekvenčnom režime boli snímky z kamier získavané postupne od 1 po 4 kameru. Pri paralelnom režime je ťažké identifikovať poradie. Pre porovnanie bolo potrebné získané hĺbkové mapy previesť na mračno bodov a pomocou ICP metódy ich registrovať do jedného modelu (zhodná pozícia nultého bodu). 
+Pri sekvenčnom režime boli snímky z kamier získavané postupne od 1. po 4. kameru. Pri paralelnom režime je ťažké identifikovať poradie. Pre porovnanie bolo potrebné získané hĺbkové mapy previesť na mračno bodov a pomocou ICP metódy ich registrovať do jedného modelu (zhodná pozícia nultého bodu). 
 
 \begin{figure}[h]
 	\centering
@@ -169,7 +169,7 @@ Z výsledných modelov je jasne vidieť, že paralelné spracovanie dát má vy�
 Nevyhnutným krokom pri kamerových systémoch je kalibrácia jednotlivých kamier. Pomocou nej sa odstraňuje radiálne a tagenciálne skreslenie, taktiež sa získava matica kamery $P$ (rovnica \ref{eq::pinhole::p}). V tejto kapitole je opísaný postup geometrickej kalibrácie jednotlivých kamier a multi-kamerová kalibrácia. 
 
 \subsection{Geometricka kalibrácia}
-Cieľom geometrickej kalibrácie je získanie vnútorných parametrov  kamery spolu s korekčnými parametrami pre odstránenie tangenciálneho a radiálneho skreslenia. Tieto parametre bolo potrebne získať pre RGB aj IR senzory všetkých používaných hĺbkových kamier Kinect v2. 
+Cieľom geometrickej kalibrácie je získanie vnútorných parametrov  kamery spolu s korekčnými parametrami pre odstránenie tangenciálneho a radiálneho skreslenia. Tieto parametre bolo potrebné získať pre RGB aj IR senzory všetkých používaných hĺbkových kamier Kinect v2. 
 
 Pre kalibráciu RGB a IR senzora sa vytvorila séria snímok, ktoré  obsahovali kalibračný vzor snímaný z rôznych uhlov. Ten bol reprezentovaný šachovnicovým motívom o rozmeroch $10\times8$, pričom dĺžka hrany mala veľkosť $36mm$.
 
