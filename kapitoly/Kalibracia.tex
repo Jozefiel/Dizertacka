@@ -228,7 +228,7 @@ Dierková kamera (pinhole camera) predstavuje ideálnu kameru, ktorá nevykazuje
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{figures/pinhole_camera.jpg} 
-	\caption{Perspektívna projekcia štrbinovou kamerou}
+	\caption{Perspektívna projekcia štrbinovou kamerou.}
 	\label{fig:pinhole_camera}
 \end{figure}
 
@@ -237,7 +237,7 @@ Na obrázku \ref{fig:pinhole_camera} je znázornená geometria dierkovej kamery.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/rotat_translat.jpg} 
-	\caption{Perspektívna projekcia štrbinovou kamerou}
+	\caption{Vzťah medzi svetovou súradnicovou sústavou a súradnicovou sústavou kamery.}
 	\label{fig:rotat_translat}
 \end{figure}
 
@@ -257,7 +257,7 @@ X \\ Y \\ Z \\ 1
 \end{equation}
 
 \newpage
-\textbf{Svetová súradnicová sústava} je reprezentovaná trojrozmerným karteziánskym súradnicovým systémom, kde stred sústavy $O$ (prípadne $O_w$) je v bode [0,0,0]. Vektory $X,Y,Z$ prislúchajúce k jednotlivým súradniciam sú na seba kolmé. Definujú polohu objektu v scéne. Udávajú sa v dĺžkových jednotkách [m] alebo [mm].\newline 
+\textbf{Svetová súradnicová sústava} je reprezentovaná trojrozmerným karteziánskym súradnicovým systémom, kde stred sústavy $O$ (prípadne $O_w$) je v bode [0,0,0]. Vektory $X,Y,Z$ prislúchajúce k jednotlivým súradniciam sú na seba kolmé. Definujú polohu objektu v scéne. Udávajú sa v dĺžkových jednotkách $[m]$ alebo $[mm]$.\newline 
 
 \textbf{Súradnicová sústava kamery} je reprezentovaná trojrozmerným súradnicovým systémom v bode $C$ (poprípade $O_c$), čo predstavuje stred kamery. Optická os $Z_c$ je daná vektorom pohľadu kamery. Vzťah medzi svetovou súradnicovou sústavou a súradnicovou sústavou kamery je popísaný transláciou $t$ a rotáciou $R$. Vektory sú označené ako $(X_{cam},Y_{cam},Z_{cam})$ \newline 
 
@@ -306,7 +306,7 @@ X_{cam} \\ Y_{cam} \\ Z_{cam} \\ 1
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/plane_pixel.jpg} 
-	\caption{Perspektívna projekcia štrbinovou kamerou}
+	\caption{Vzťah roviny obrazu a súradnicového systému obrazových bodov.}
 	\label{fig:plane_pixel}
 \end{figure}
 
@@ -405,8 +405,8 @@ Je spôsobené, keď svetelné lúče ohnú viac v blízkosti okrajov šošovky 
 \begin{figure}[h]
 	\centering
 %	\url{http://www.lightcrafttech.com/support/doc/lens-grapher/how-to-use/}
-	\includegraphics[width=0.7\textwidth]{figures/radial_distortion.jpg} 
-	\caption{Perspektívna projekcia štrbinovou kamerou}
+	\includegraphics[width=0.68\textwidth]{figures/radial_distortion.jpg} 
+	\caption{Radiálne skreslenie spôsobené zakrivením šošovky}
 	\label{fig:radial_distortion}
 \end{figure}
 
@@ -534,50 +534,50 @@ Parametre kamery sa skladajú z vnútorných (intrinsických), vonkajších (ext
 
 
 
-\section{Planárna homografia}
-Ide o lineárnu perspektívnu transformáciu, ktorá prevádza pixel z jednej roviny $X$ do druhej $X'$ v projektívnom priestore. 
-Homografia je využiteľná 3 spôsobmi:
-
-\begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black}]
-	\item Prevod roviny v 3D svetových súradniciach do 2D priestoru obrazovej roviny
-	\item Projektová transformácia, zobrazenie 3D plochy dvoma kamerami
-\end{description}
-
-\begin{equation}
-\label{eq_planar}
-\begin{aligned}
-X'=H \cdot X =
-\begin{bmatrix}
-x' \\ y' \\ 1 
-\end{bmatrix}
-= H
-\begin{bmatrix}
-x \\ y \\ 1 
-\end{bmatrix} =
-\begin{bmatrix}
-h_{11} & h_{12} & h_{13}  \\
-h_{21} & h_{22} & h_{23}  \\
-h_{31} & h_{32} & h_{33}  \\
-\end{bmatrix}
-\begin{bmatrix}
-x \\ y \\ 1 
-\end{bmatrix}
-\end{aligned}
-\end{equation}
-
-$H$ je  matica  rozmeru  3x3  a  má  8  nezávislých  parametrov.  Minimálny  počet štyroch  bodov zodpovedajúcich párov (N=4) je potrebných na zabezpečenie riešenia v rámci dovoleného rozsahu. Na spoľahlivé riešenie je potrebné mať viac ako 4 páry.
-
-
-
-Z kalibrácie je možné získať informácie o:
-
-\begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black}]
-	\item relatívnej polohe fotoaparátu a snímaného objektu 
-	\item chybe reprojekcie 3D objektu v 2D rovine 
-	\item chybe estimácie parametrov
-\end{description}
-
-Ku kalibrácií sa používa model štrbinovej kamery (pinhole camera model) a skreslenie šošoviek. Model štrbinovej kamery nezohľadňuje skreslenie šošoviek, pretože ideálna kamera nemá objektív (21)
-
-
+%\section{Planárna homografia}
+%Ide o lineárnu perspektívnu transformáciu, ktorá prevádza pixel z jednej roviny $X$ do druhej $X'$ v projektívnom priestore. 
+%Homografia je využiteľná 3 spôsobmi:
+%
+%\begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black}]
+%	\item Prevod roviny v 3D svetových súradniciach do 2D priestoru obrazovej roviny
+%	\item Projektová transformácia, zobrazenie 3D plochy dvoma kamerami
+%\end{description}
+%
+%\begin{equation}
+%\label{eq_planar}
+%\begin{aligned}
+%X'=H \cdot X =
+%\begin{bmatrix}
+%x' \\ y' \\ 1 
+%\end{bmatrix}
+%= H
+%\begin{bmatrix}
+%x \\ y \\ 1 
+%\end{bmatrix} =
+%\begin{bmatrix}
+%h_{11} & h_{12} & h_{13}  \\
+%h_{21} & h_{22} & h_{23}  \\
+%h_{31} & h_{32} & h_{33}  \\
+%\end{bmatrix}
+%\begin{bmatrix}
+%x \\ y \\ 1 
+%\end{bmatrix}
+%\end{aligned}
+%\end{equation}
+%
+%$H$ je  matica  rozmeru  3x3  a  má  8  nezávislých  parametrov.  Minimálny  počet štyroch  bodov zodpovedajúcich párov (N=4) je potrebných na zabezpečenie riešenia v rámci dovoleného rozsahu. Na spoľahlivé riešenie je potrebné mať viac ako 4 páry.
+%
+%
+%
+%Z kalibrácie je možné získať informácie o:
+%
+%\begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black}]
+%	\item relatívnej polohe fotoaparátu a snímaného objektu 
+%	\item chybe reprojekcie 3D objektu v 2D rovine 
+%	\item chybe estimácie parametrov
+%\end{description}
+%
+%Ku kalibrácií sa používa model štrbinovej kamery (pinhole camera model) a skreslenie šošoviek. Model štrbinovej kamery nezohľadňuje skreslenie šošoviek, pretože ideálna kamera nemá objektív (21)
+%
+%
 

@@ -18,8 +18,8 @@ ToF senzory sú optické snímače, ktoré poskytujú informácie o hĺbke scén
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{figures/tof.png}
-	\caption{ToF camera phase-measurement principle \cite{Lianhua}.}
+	\includegraphics[width=0.65\textwidth]{figures/tof.png}
+	\caption{Princíp činnosti merania fázového posunu pri ToF kamerách \cite{Lianhua}.}
 	\label{fig::tof}
 \end{figure}
 
@@ -28,8 +28,8 @@ ToF senzory sú optické snímače, ktoré poskytujú informácie o hĺbke scén
 c(\tau) = s(t) \otimes g(t) = \lim_{T \to \infty} {\frac{1}{T}} \int_{-\frac{T}{2}}^{\frac{T}{2}}{s(t) \cdot g(t+ \tau)}dt
 \end{equation}
 
-\begin{flushleft}
-kde $s(t)$ je prijatý optický signál a $g(t)$ je vyžiarený (pôvodný) signál. Použitím špecifických funkcií pre kamery ToF dostaneme rovnice
+
+\noindent kde $s(t)$ je prijatý optický signál a $g(t)$ je vyžiarený (pôvodný) signál. Použitím špecifických funkcií pre kamery ToF dostaneme rovnice
 
 \begin{equation}
 \label{eq::tof::02}
@@ -48,8 +48,8 @@ c(\tau) = \varphi_{sg}(\tau) =  {{\frac{a}{2}} \cdot cos(\varphi + \omega \tau)}
 \end{aligned}
 \end{equation}
 
-kde $a$ je amplitúda modulácie a $\varphi$ je fázový posun.
-Táto funkcia je vypočítaná pre štyri rôzne $\omega t$ argumenty, ktoré sú posunuté z 0 o $\ang{90}$.
+\noindent kde $a$ je amplitúda modulácie a $\varphi$ je fázový posun.
+\noindent Táto funkcia je vypočítaná pre štyri rôzne $\omega t$ argumenty, ktoré sú posunuté z 0 o $\ang{90}$.
 Prijatý signál je väčšinou navrstvený na pozadí obrazu, čo vyžaduje pridanie offsetu $ b $ do korelačnej funkcie:
 
 \begin{equation}
@@ -69,7 +69,7 @@ C(\tau _3) = c(\tau _3) + b}= {{\frac{a}{2}} \cdot sin(\varphi) +b
 \end{aligned}
 \end{equation}
 
-S týmito štyrmi vybranými bodmi je možné vypočítať korelačnú funkciu a určiť fázu $\varphi$ a amplitúdu $a$ prijatého signálu $s(t)$:
+\noindent S týmito štyrmi vybranými bodmi je možné vypočítať korelačnú funkciu a určiť fázu $\varphi$ a amplitúdu $a$ prijatého signálu $s(t)$:
 
 \begin{equation}
 \label{eq::tof::07}
@@ -86,7 +86,7 @@ S týmito štyrmi vybranými bodmi je možné vypočítať korelačnú funkciu a
 \end{equation}
 
 
-Hĺbka $d$ sa vypočíta podľa nasledujúcej rovnice:
+\noindent Hĺbka $d$ sa vypočíta podľa nasledujúcej rovnice:
 
 
 \begin{equation}
@@ -96,8 +96,8 @@ Hĺbka $d$ sa vypočíta podľa nasledujúcej rovnice:
 \end{aligned}
 \end{equation}
 
-kde $c$ je rýchlosť svetla a $f$ je frekvencia modulácie IR \cite {Lange}.
-\end{flushleft}
+\noindent kde $c$ je rýchlosť svetla a $f$ je frekvencia modulácie IR \cite {Lange}.
+
 
 \section{Model multi-kamerovej interferencie}
 
@@ -106,7 +106,7 @@ V multi-kamerovom režime každý ToF senzor používa rovnakú modulačnú frek
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.74\textwidth]{figures/interference_model.png}
-	\caption{ToF camera phase-measurement principle \cite{Lianhua}.}
+	\caption{Model multi-kamerového systému s interferenciou IR signálu.}
 	\label{fig:imodel}
 \end{figure}  
 
@@ -121,7 +121,7 @@ s_3 (t) }= {s_{31}(t)+s_{32}(t)+s_{33}(t)
 \end{aligned}
 \end{equation}
 
-Každý čiastkový signál možno zapísať ako:
+\noindent  Každý čiastkový signál možno zapísať ako:
 
 \begin{equation}
 \label{eq::tof::11}
@@ -140,7 +140,7 @@ Index $x$ predstavuje cieľovú kameru a index $y$ kameru pôvodného signálu. 
 \end{aligned}
 \end{equation}
 
-Po 4-fázovej korelácii rušivých signálov sa rovnice \ref{eq::tof::07} a \ref{eq::tof::08} transformujú do nasledujúcej podoby:
+\noindent  Po 4-fázovej korelácii rušivých signálov sa rovnice \ref{eq::tof::07} a \ref{eq::tof::08} transformujú do nasledujúcej podoby:
 
 \begin{equation}
 \label{eq::tof::13}
@@ -156,7 +156,7 @@ Po 4-fázovej korelácii rušivých signálov sa rovnice \ref{eq::tof::07} a \re
 \end{aligned}
 \end{equation}
 
-kde
+\noindent kde
 
 \begin{equation}
 \label{eq::tof::15}
@@ -240,11 +240,11 @@ Interferencia sa prejavuje na IR obraze, čo ma priamy dopad na výsledný hĺbk
 		\caption{}
 		\label{fig:3dm:c}
 	\end{subfigure}
-	\caption{Rekonštruovaný 3D model statického objektu: (\textbf{a}) 3D mesh objektu bez interferencie. (\textbf{b}) 3D mesh objektu s interferenciou. (\textbf{c}) Mračno bodov objektu bez interferencie. (\textbf{d}) Mračno bodov objektu s interferenciou.}
-	\label{fig:3dm}
+	\caption{Rekonštruovaný 3D model statického objektu: (\textbf{a}) 3D trojuholníková sieť objektu bez interferencie. (\textbf{b}) 3D trojuholníková sieť objektu s interferenciou. (\textbf{c}) Mračno bodov objektu bez interferencie. (\textbf{d}) Mračno bodov objektu s interferenciou.}
+	\label{fig:3dmodel}
 \end{figure}
 
-Pri pozitívnej interferencii môže ísť hĺbka do maximálnych možných hodnôt (32-bit float), pri negatívnej môže ísť do 0. Tieto miesta sú zároveň obkolesené deformovanými pixelmi, ktoré nenaberajú extrémne hodnoty, ale stále výrazne zhoršujú kvalitu výstupného modelu. Grafické znázornenie v 3D priestore je možné vidieť na obrázku \ref{fig:3dm}. Práve tieto miesta sú veľmi kritické, pretože ich identifikácia je problematická. 
+Pri pozitívnej interferencii môže ísť hĺbka do maximálnych možných hodnôt (32-bit float), pri negatívnej môže ísť do 0. Tieto miesta sú zároveň obkolesené deformovanými pixelmi, ktoré nenaberajú extrémne hodnoty, ale stále výrazne zhoršujú kvalitu výstupného modelu. Grafické znázornenie v 3D priestore je možné vidieť na obrázkoch \ref{fig:3dm:b} a \ref{fig:3dm:d}. Práve tieto miesta sú veľmi kritické, pretože ich identifikácia je problematická. 
 
 \section{Filtračné metódy}
 \label{sec:filtmethods}
@@ -256,7 +256,7 @@ Existuje niekoľko priehľadových článkov, ktoré sa zaoberajú technikami fi
 Filtračná metóda SOR (Statistical Outlier Removal) je založená na štatistickej analýze okolia každého bodu. Odľahlá hodnota sa dá klasifikovať ako stratený alebo izolovaný bod, poprípade ako súbor bodov v mračne. V SOR metóde sa určuje počet bodov, ktoré sa budu považovať za susedov (definovaný počet $k$ najbližších susedov \cite{Pirate}) a potom sa vypočíta priemerná vzdialenosť každého bodu od jeho susedov. Body, ktorých stredné vzdialenosti nespĺňajú kritériá a sú mimo intervalu sa považujú odľahlé. Interval je definovaný strednou hodnotou stredných vzdialeností a štandardnou odchýlkou \cite{Corso}. SOR je široko používaná a efektívna metóda, aj keď vo veľkých množinách 3D dát je časov neefektívna  \cite{Balite}.
 
 \subsection{ROR filter}
-Metóda ROR (Radius Outlier Removal) predstavuje pomerne jednoduchý štatistický filter. Do filtra sa zadávajú parametre sférického polomeru $rad$ a minimálneho počtu susedov $k$. Filter odstráni body, ktoré majú v oblasti polomeru $rad$ menej susedných bodov ako bolo nastavené parametrom $k$.
+Metóda ROR (Radius Outlier Removal) predstavuje pomerne jednoduchý štatistický filter. Do filtra sa zadávajú parametre sférického polomeru $rad$ a minimálneho počtu susedov $pts$. Filter odstráni body, ktoré majú v oblasti polomeru $rad$ menej susedných bodov ako bolo nastavené parametrom $pts$.
 
 
 \subsection{PointCleanNet}
@@ -268,8 +268,8 @@ Tento filtračný algoritmus je založený na identifikácií, extrakcii a inter
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{figures/algorithm.png}
-	\caption{The block diagram of proposed algorithm.}
+	\includegraphics[width=0.75\textwidth]{figures/algorithm.png}
+	\caption{Blokový diagram navrhnutého IMBM filtra.}
 	\label{fig:algorithm}
 \end{figure}
 
@@ -289,27 +289,58 @@ d(x;y), & \text{if}\ d(x;y) \in < T_{LOW}; T_{HIGH}> \\
 \end{aligned}
 \end{equation}
 
-kde \textit{d(x; y)} je 32-bitové float číslo a $T_{LOW}$, $T_ {HIGH}$ sú dolné a horné prahové hodnoty. V našom prípade sú nastavené na 80 a 1300 (tieto čísla predstavujú skutočnú vzdialenosť v mm). Skenovacia kabína je znázornená na obrázku \ref {fig:cab} a rozmer spodnej časti je $ 1520 \times 1520$ \, mm.
+kde \textit{d(x; y)} je 32-bitové float číslo a $T_{LOW}$, $T_ {HIGH}$ sú dolné a horné prahové hodnoty. V našom prípade sú nastavené na 80 a 1300 (tieto čísla predstavujú skutočnú vzdialenosť v mm). Skenovacia kabína je znázornená na obrázku \ref {fig:cabin} a rozmer spodnej časti je $ 1520 \times 1520$ \, mm.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
-	\includegraphics[height=7cm]{figures/threshold.png}
-	\caption{Input depth image with interference. The left image with extreme interference regions before depth thresholding. The right image without extreme interference regions after depth thresholding.}
-	\label{fig::treshold}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[height=5.5cm]{figures/threshold_a.png}
+		\caption{}
+		\label{fig:threshold:a}
+	\end{subfigure}
+	\hskip 0pt
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[height=5.5cm]{figures/threshold_b.png}
+		\caption{}
+		\label{fig:threshold:b}
+	\end{subfigure}
+	\caption{Vplyv prahovania na interferovanú hĺbkovú mapu(\textbf{a}) Hĺbková mapa s interferovanými regiónmi. Pixely nadobúajú extrémne hodnoty. (\textbf{b}) Hĺbková mapa bez extrémnej interferencie.}
+	\label{fig:threshold}
 \end{figure}
 
-Po prahovaní hĺbky sa pozadie odstráni a obrázky obsahujú iba predmet záujmu (obr. \, \ref{fig::treshold}). Tento jednoduchý krok je dôležitý a účinný, pretože odstraňuje oblasti so spomínanou extrémnou interferenciou.
+Po prahovaní hĺbky sa pozadie odstráni a obrázky obsahujú iba predmet záujmu (obr. \, \ref{fig:threshold}). Tento jednoduchý krok je dôležitý a účinný, pretože odstraňuje oblasti so spomínanou extrémnou interferenciou a pozadia.
 
 V ďalšom kroku sa z obrazového zásobníka vyberie ako referenčný obraz filtrovaná hĺbková mapa s minimálnym počtom nenulových hodnôt. Je to preto, že tento obrázok s najväčšou pravdepodobnosťou obsahuje minimálny počet rušivých pixlov. Z tejto referencie je vytvorená binárna mapa a každá hĺbková mapa je s ňou maskovaná. V tomto kroku sú pixely vstupných máp rozdelené do troch oblastí: pozadie (vrátane extrémnych interferenčných oblastí), pixely interferenčnej oblasti (tiež vrátane niektorých pixelov objektu) a oblasť objektov (vrátane interferenčných pixelov).
 
 
-\color{black}
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
-	\includegraphics[height=7cm]{figures/interf_roi.png}
-	\caption{bude ref, vstupny, diff, }
-	\label{fig::treshold}
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[height=5.8cm]{figures/interf_roi_a.png}
+		\caption{}
+		\label{fig:interf:a}
+	\end{subfigure}
+	\hskip 0pt
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[height=5.8cm]{figures/interf_roi_b.png}
+		\caption{}
+		\label{fig:interf:b}
+	\end{subfigure}
+	\hskip 0pt
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[height=5.8cm]{figures/interf_roi_c.png}
+		\caption{}
+		\label{fig:interf:c}
+	\end{subfigure}
+	\caption{Identifikácia interferovaných regiónov v hĺbkových mapách. (\textbf{a}) Referenčná mapa s maximálnym počtom 0 pixelov.(\textbf{b}) Vstupná mapa s interferenciou. (\textbf{c}) Mapa zobrazujúca možné interfereované regióny obrazu \textbf{b}.}
+	\label{fig:interf}
 \end{figure}
+
 
 Výsledná rozdielová maska je ešte dilatovaná prvkom o štvorcovej štruktúre $ 1 \times1 $, čím sú odstraňované oblasti s nízkou intenzitou interferencie. Týmto spôsobom sa zníži celkový súčet interferenčných pixelov, ale zároveň znižujeme aj súčet správnych obrazových pixelov skenovaného objektu. 
 
@@ -318,32 +349,32 @@ Tieto morfologicky spracované snímky sa používajú na výpočet mediánu hĺ
 
 \textbf{Pixel mediánu hĺbkovej mapy} je vypočítavaný ako medián všetkých konkrétnych nenulových pixelov (rovnaká pozícia riadku a stĺpca v obraze) hĺbkových máp v zásobníku. \newline
 
-\textbf{Mapa dôleitosti pixelov} nám hovorí, z koľkých hodnôt boli vypočítané konkrétne pixely v mediáne hĺbkovej mapy.  Malá hodnota dôležitosti daného pixelu znamená vysokú pravdepodobnosť interferencie vyskytujúcej sa v určitom bode. Z tohto dôvodu sa zdá byť užitočné odstrániť také oblasti nastavením prahu dôležitosti. \newline
+\textbf{Mapa dôleitosti pixelov} nám hovorí, z koľkých hodnôt boli vypočítané konkrétne pixely v mediáne hĺbkovej mapy.  Malá hodnota dôležitosti daného pixelu znamená vysokú pravdepodobnosť interferencie vyskytujúcej sa v určitom bode. Z tohto dôvodu sa zdá byť užitočné odstrániť také oblasti nastavením prahu dôležitosti.
 
 
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}[b]{0.30\textwidth}
+	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=6cm]{figures/importance_map-a.png}
+		\includegraphics[height=5.5cm]{figures/importance_map-a.png}
 		\caption{}
 		\label{fig:imap:a}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[b]{0.30\textwidth}
+	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=6cm]{figures/importance_map-b.png}
+		\includegraphics[height=5.5cm]{figures/importance_map-b.png}
 		\caption{}
 		\label{fig:imap:b}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[b]{0.30\textwidth}
+	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=6cm]{figures/importance_map-c.png}
+		\includegraphics[height=5.5cm]{figures/importance_map-c.png}
 		\caption{}
 		\label{fig:imap:c}
 	\end{subfigure}
-	\caption{(\textbf{a}) Importance map. (\textbf{b}) Median. (\textbf{c}) Interpolated median depth frame.}
+	\caption{Filtrácia a interpolácia hĺbkových máp. (\textbf{a}) Importance map. (\textbf{b}) Median. (\textbf{c}) Interpolated median depth frame.}
 	\label{fig:imap}
 \end{figure}
 
@@ -353,7 +384,7 @@ Tento krok je posledný, znižuje vplyv interferencie na hĺbkové mapy. Ostatn�
 
 Interpolácia filtrovaných miest je nasledujúcim krokom IMBM. Rekonštrukcia dát využíva bilineárnu interpoláciu \cite{Volak2019}, pričom tá je vykonávaná iba na špecifických filtrovaných miestach spĺňajúcich definované podmienky. K obmedzeniu interpolácie dochádza na neuzavretých dierach, pri veľkých dierach a pri vysokých rozdieloch medzi interpolačnými pixelmi. Bilineárna interpolácia môže byť nahradená inou metódou interpolácie (napr. Bikubická, biquadratická ...). Z hľadiska výpočtu je bilineárna transformácia dobrým kompromisom medzi metódou najbližšieho suseda a inými zložitejšími metódami interpolácie.
 
-Mediánom môžeme opraviť vstupné hĺbkové mapy. Tým opravíme nie len interferované miesta ale aj znížime vplyv šumu kamier. V procese opravy sa pixely hĺbkových máp porovnávajú s pixelmi mediánu. Ak je absolútna hodnota rozdielu väčšia ako zvolená šumová prahová hodnota (táto premenná je diskutovaná v experimentálnej časti \ref{sec:imbm:filtrácia}), pixel v pôvodnej hĺbkovej mape sa nahradí mediánovou hodnotou (alebo nulovou hodnotou, v závislosti od režimu metódy IMBM).
+Mediánom môžeme opraviť vstupné hĺbkové mapy. Tým opravíme nie len interferované miesta ale aj znížime vplyv šumu kamier. V procese opravy sa pixely hĺbkových máp porovnávajú s pixelmi mediánu. Ak je absolútna hodnota rozdielu väčšia ako zvolená šumová prahová hodnota (táto premenná je diskutovaná v experimentálnej časti \ref{sec:imbm:filtration}), pixel v pôvodnej hĺbkovej mape sa nahradí mediánovou hodnotou (alebo nulovou hodnotou, v závislosti od režimu metódy IMBM).
 
 Hodnota šumového prahu závisí od intenzity šumu kamery pre definovanú vzdialenosť. Ak je táto hodnota príliš nízka, veľký počet neinterferujúcich pixlov bude nahradený strednou hodnotou. Na druhej strane by filter mohol zachovať veľké množstvo rušenia v pôvodnom obraze.
 
@@ -363,7 +394,6 @@ Všeobecne možno povedať, že použitie navrhovaného algoritmu zlepšuje hĺb
 \section{Nastavenie experimentu}
 
 Na overenie funkčnosti vybraných metód filtrácie sme vykonali experiment v reálnych podmienkach na statickom objekte. V experimente boli použité tri ToF kamery typu Microsoft Kinect v2. Tie boli umiestnené do skenovacej kabíny, ktorej návrh je zobrazený na obrázku \ref{fig:cabin}. V strede kabíny je modelový objekt umiestnený v rozsahu od 60 \ cm do 80 \ cm od senzorov. Predmetom bola plastová hlava s pomerne komplexným tvarom. Veľkosť objektu zodpovedá normálnym rozmerom dieťaťa vo veku 5-10 rokov.
-RGB obrázky prijaté z každej kamery sú znázornené na obrázku \ref {fig:gt:a}, hĺbkové snímky snímanej scény bez rušenia (postupne pracujúce kamery) pre jednotlivé kamery sú uvedené na obrázku \ref {fig:gt:b}. Tieto hĺbkové mapy sa použili ako referenčné údaje bez interferenčných artefaktov. Obrázok \ref{fig:reference} je rekonštruovaný 3D model statického objektu.
 
 \begin{figure}[H]
 	\centering
@@ -403,21 +433,22 @@ RGB obrázky prijaté z každej kamery sú znázornené na obrázku \ref {fig:gt
 		}\cr
 	}
 	
-	\caption{The images from three Kinect v2 ToF camera: (\textbf{a}) RGB images. (\textbf{b}) Ground truth depth images. (\textbf{c}) 3D reconstructed model from ground truth depth images.  (\textbf{d}) Construction of scanning cabin with placement of cameras, configuration for three cameras.}
+	\caption{Referenčné obrazy multi-kamerovej sústavy: (\textbf{a}) RGB snímky. (\textbf{b}) Hĺbkové mapy. (\textbf{c}) 3D model vytvorený z hĺbkových máp. (\textbf{d}) Konštrukcia skenovacej kabíny s ukážkou rozloženia kamier.}
 	\label{fig:gt}
 \end{figure}
+
+RGB obrázky prijaté z každej kamery sú znázornené na obrázku \ref {fig:gt:a}, hĺbkové snímky snímanej scény bez rušenia (postupne pracujúce kamery) pre jednotlivé kamery sú uvedené na obrázku \ref {fig:gt:b}. Tieto hĺbkové mapy sa použili ako referenčné údaje bez interferenčných artefaktov. Obrázok \ref{fig:reference} je rekonštruovaný 3D model statického objektu.
 
 Aby bolo možné objektívne vyhodnotiť výkon potlačenia rušenia, musí sa identifikovať povaha každého bodu v mračne bodov. Zisťuje či ide o skutočné rušenie, alebo nie. Dáta skreslené interferenciou sa získali v režime paralelného snímania. Pre získanie tejto informácie sme použili priestorové porovnávanie interferovaných dát voči referenčným. Referenčná sieť, znázornená na obrázku \ref {fig:reference}, bola získaná z mračna referenčných bodov. Celkový proces vyhodnotenia metód je uvedený na obrázku \ref{fig:eval}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/eval.png}
-	\caption{The block diagram of evaluation process.}
+	\caption{Blokový diagram vyhodnocovacieho procesu.}
 	\label{fig:eval}
 \end{figure}
 
-\newpage
-Kroky v tomto procese sú opísané nasledovne:
+\noindent Kroky v tomto procese sú opísané nasledovne:
 
 \begin{itemize}
 \item \textbf{Buffering} - zachytenie niekoľkých mračien bodov z konkrétneho pohľadu a zlúčenie do jedného mračna.
@@ -468,7 +499,7 @@ V prvom kroku testovania sa hľadali optimálne nastavenia vstupných parametrov
 		\caption{}
 		\label{fig:sor_hausdorff:c}
 	\end{subfigure}
-	\caption{The difference in evaluation using Hausdorff distance and F1 Score. (\textbf{a}) Point cloud with interference points. The mean Hausdorf distance is large. (\textbf{b}) Precisely filtered point cloud. The mean Hausdorff distance is low and F1 score is large. (\textbf{c}) In this case, large number of useful points were lost. The mean Hausdorff distance is still low but also F1 score is low.}
+	\caption{Rozdiel v hodnotení výkonnosti filtrácie pomocou Hausdorffovej vzdialenosti a F1 skóre. (\textbf{a}) Mračno bodov s interferenciou. Priemerná Hausdorffova vzdialenosť je veľká. (\textbf{b}) Filtrované mračno bodov. Priemerná Hausdorffova vzdialenosť je nízka a skóre F1 je veľké. (\textbf{c}) Filtrované mračno bodov s veľkou stratou užitočných bodov. Priemerná Hausdorffova vzdialenosť je nízka, skóre F1 je nízke.}
 	\label{fig:sor_hausdorff}
 \end{figure}
 
@@ -481,13 +512,13 @@ Filter SOR nám umožňuje upraviť $sdm$ -parameter (prahová hodnota multiplik
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{figures/sor_f1.png}
-	\caption{Color map visualization of F1 score dependence on SOR filter parameters for each size of buffer 1-6.}
+	\caption{Farebná mapa závislosti F1 skóre od vstupných parametrov SOR filtra pre každú veľkosť obrazového zásobníka.}
 	\label{fig:sorf1}
 \end{figure}
 
 \begin{table}[h]
 	\centering
-	\caption{\label{tab:sor_best} SOR filter best results for multiple buffer sizes }
+	\caption{\label{tab:sor_best} Najlepšie výsledky SOR filtrácie pre veľkosti obrazového zásobníka 1-6. }
 	\begin{tabular}{ccccccc}
 		\toprule
 		\textbf{Buffer size} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 Score} & \textbf{Mean HD [m]} & \textbf{Time [ms]} \\ 
@@ -505,19 +536,19 @@ Filter SOR nám umožňuje upraviť $sdm$ -parameter (prahová hodnota multiplik
 Na základe analýzy na obrázku \ref{fig:sorf1} sa získalo najlepšie nastavenie pre filter SOR. Zdá sa, že výkon má stúpajúci trend až do veľkosti zásobníka 5. Ideálna kombinácia parametrov pre veľkosť obrazového zásobníka 5 je $sdm$ 1,5 a $k$ 100. V tomto nastavení algoritmus dosahuje najlepšie skóre F1 0,68, ktoré je vidieť v tabuľke \ref{tab:sor_best}.
 
 \subsection{ROR filtrácia}
-
-Filter ROR nám umožňuje nastaviť polomer (priestorový rádius použitý na určenie najbližších susedov $k$) a  $pts$ -parameter (minimálny počet susedov, ktoré musí mať bod v danom polomere vyhľadávania, aby nebol  odfiltrovaný). Nasledujúce farebné mapy znázorňujú, ako sa mení skóre F1 v závislosti od výberu parametrov a veľkosti obrazového zásobníka.
+\label{sec:ror}
+Filter ROR nám umožňuje nastaviť polomer (priestorový rádius použitý na určenie najbližších susedov $pts$) a  $pts$ -parameter (minimálny počet susedov, ktoré musí mať bod v danom polomere vyhľadávania, aby nebol  odfiltrovaný). Nasledujúce farebné mapy znázorňujú, ako sa mení skóre F1 v závislosti od výberu parametrov a veľkosti obrazového zásobníka.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/ror_f1.png}
-	\caption{Color map visualization of F1 score dependence on ROR filter parameters for each size of buffer 1-6.}
+	\caption{Farebná mapa závislosti F1 skóre od vstupných parametrov ROR filtra pre každú veľkosť obrazového zásobníka.}
 	\label{fig:rorf1}
 \end{figure}
 
 \begin{table}[h]
 	\centering
-	\caption{\label{tab:ror_best} ROR filter best results for multiple buffer sizes }
+	\caption{\label{tab:ror_best} Najlepšie výsledky ROR filtrácie pre veľkosti obrazového zásobníka 1-6. }
 	\begin{tabular}{ccccccc}
 		\toprule
 		\textbf{Buffer size} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 Score} & \textbf{Mean HD [m]} & \textbf{Time [ms]} \\ 
@@ -538,7 +569,7 @@ Podobne ako v predchádzajúcom prípade analýza na obrázku \ref{fig:rorf1} uk
 Pri používaní pred-trénovanej siete PointCleanNet nebolo potrebné zadávať žiadne parametre pre odstraňovanie odľahlých hodnôt. V tomto prípade sa porovnávajú výsledky pre rozdielne veľkosti zásobníka. Spracovanie dát trvalo rádovo v minútach, pričom bola využívaná grafická karta s CUDA podporou.
 
 \begin{table}[h]
-	\caption{\label{tab:pcn_best} PointCleanNet best results for multiple buffer sizes }
+	\caption{\label{tab:pcn_best} Najlepšie výsledky PointCleanNet filtrácie pre veľkosti obrazového zásobníka 1-6.}
 	\centering
 	\begin{tabular}{cccccc}
 		\toprule
@@ -565,21 +596,21 @@ IMBM filter umožňuje nastaviť prahovú hodnotu hĺbky (odstránenie pozadia a
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.85\textwidth]{figures/imbm_th_2.png}
-	\caption{The selection of ideal difference threshold for buffer size 2}
+	\caption{Výber ideálneho prahu rozdielu IMBM filtrácie pre veľkosť obrazového zásobníka 2}
 	\label{fig:imbmth:a}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.85\textwidth]{figures/imbm_th_6.png}
-	\caption{The selection of ideal difference threshold for buffer size 6.}
+	\caption{Výber ideálneho prahu rozdielu IMBM filtrácie pre veľkosť obrazového zásobníka 6.}
 	\label{fig:imbmth:b}
 \end{figure}
 
 Navrhovaný spôsob filtrovania dosahuje najvyššiu F1 skóre pre veľkosť zásobníka 5. V tomto okamihu je zlepšenie priemernej Hausdorffovej vzdialenosti približne o 12 \% (stredná vzdialenosť pre vstupné rušená mračná je 0,001255\,m).
 
 \begin{table}[h]
-	\caption{\label{tab:imbm_best} IMBM filter best results for multiple buffer sizes }
+	\caption{\label{tab:imbm_best} Najlepšie výsledky IMBM filtrácie pre veľkosti obrazového zásobníka 2-6. }
 	\centering
 	\begin{tabular}{ccccccc}
 		\toprule
@@ -599,7 +630,7 @@ Navrhovaný spôsob filtrovania dosahuje najvyššiu F1 skóre pre veľkosť zá
 Po získaní najlepších nastavení pre konkrétne metódy filtrovania je potrebné komplexné porovnať ich výkonnosti. Obrázok \ref{fig:best} ukazuje vizualizáciu Hausdorffových vzdialeností výstupov z jednotlivých filtrov pre veľkosť zásobníka 5. Toto nastavenie bolo vybrané na základe najlepších výsledkov z tabuľky \ref {tab:final_comp} (s výnimkou PointCleanNet, ktorý dosahuje najlepšie výsledky pri veľkosti 6).
 
 \begin{table}[H]
-	\caption{\label{tab:final_comp} Best F1 Score for all filtering methods }
+	\caption{\label{tab:final_comp} Najlepšie skóre F1 pre všetky metódy filtrovania. }
 	\centering
 	\begin{tabular}{ccccc}
 		\toprule
@@ -651,13 +682,11 @@ Po získaní najlepších nastavení pre konkrétne metódy filtrovania je potre
 		\caption{}
 		\label{fig:best:e}
 	\end{subfigure}
-	\caption{The comprehensive comparison of filtration methods using visualization of distances between filtered clouds and reference mesh. All the results are for buffer size 5. (\textbf{a}) The input point cloud without interference suppression. (\textbf{b}) The best result using SOR filter with parameters $sdm$ 1.5 and $k$ 100. (\textbf{c}) The best result using ROR filter with parameters $rad$ 0.004 and $pts$ 10. (\textbf{d}) The best result using PointCleanNet for buffer size 6. (\textbf{e}) The best result using our IMBM filter.}
+	\caption{Komplexné porovnanie metód filtrácie pomocou vizualizácie vzdialeností medzi filtrovanými mračnami bodov a referenčnou sieťou. (\textbf{a}) Vstupné mračno bodov bez potlačenia rušenia. (\textbf{b}) Najlepší výsledok SOR filtra s parametrami $sdm$ 1.5 a $k$ 100. (\textbf{c}) Najlepší výsledok pri použití ROR filtra s parametrami $rad$ 0.004 and $pts$ 10. (\textbf{d}) Najlepší výsledok pre PointCleanNet filtráciu s veľkosťou obrazového zásobníka 6. (\textbf{e}) Najlepší výsledok pre IMBM filter.}
 	\label{fig:best}
 \end{figure}
 
-Podľa subjektívneho zhodnotenia IMBM filter dokázal potlačiť interferenciu bez väčšej straty plochy objektu, čo je znázornené aj na obr. \ref{fig:best}. Naopak SOR a ROR odstránil oblasti, kde sa interferencia vyskytovala. PointCleanNet zanechal veľké rušenie, dokázal odstrániť hlavne extrémnu interferenciu. Interferovaná časť objektu obsahovala relatívne komplexné detaily (oči, brada, nos).
-
-Na základe výsledkov tohto prieskumu je odporúčané používať metódy filtrovania pre konkrétne aplikácie podľa ich funkcií opísaných v tabuľke \ref{tab:functionality}.
+Porovnanie výstupných mračien bodov pre jednotlivé filtračné metódy je zobrazené na obr. \ref{fig:best}. Interferovaná časť objektu obsahovala relatívne komplexné detaily (oči, brada, nos). Filtre pracujúce na princípe štatistiky (SOR, ROR, IMBM) dokázali lepšie odstrániť interferujúce miesta ako filter založený na princípe neurónových sietí (PointCleanNet). Ten odstránil prevažne silno interferované body a mierne potlačil povrchovú interferenciu. Sieť však nebola trénovaná na odstránenie takéhoto typu šumu. Dotrénovaním siete na interferovaných mračnách môže tento filter vykazovať najlepšie výsledky. Je však potrebné vytvoriť dataset interferovaných mračien bodov. SOR a ROR odstránili väčšinu poškodených pixelov. Problém však je, že boli odstránené aj užitočné body práve v miestach interferencie. Takouto stratou nie je možné spätne rekonštruovať poškodené regióny. Problematickými časťami filtrov SOR a ROR sú rohy a hrany, ktoré sa filtrovaním zaobľujú. Ako je uvedené v štúdii \cite{Pirate}, filter SOR vníma body na hranách ako odľahlé body. Tieto filtre tiež odstraňujú malé ostrovy bodov (zhluky bodov, ktoré nie sú bodmi rušenia) \cite{Schaller}. Ako je uvedené v \cite{Balta}, filtrovanie SOR nie je úplne vhodné pre výkon v reálnom čase. IMBM filter dokázal potlačiť interferenciu bez väčšej straty plochy objektu, čo je znázornené aj na obr. \ref{fig:best:e}. IMBM sa nezameriava iba na odstraňovanie rušenia, ale poskytuje aj interpoláciu chýbajúcich bodov. Tento režim však výrazne predlžuje dobu spracovania dát.  Nedokázal však odstrániť všetky chybné body. Je to spôsobene tým, že tieto body boli podobné vo všetkých hĺbkových mapách v obrazovom zásobníku. Na základe výsledkov tohto prieskumu je odporúčané používať metódy filtrovania pre konkrétne aplikácie podľa ich funkcií opísaných v tabuľke \ref{tab:functionality}.
 
 \begin{table}[h]
 	\caption{\label{tab:functionality} Functionality of compared filters }
@@ -674,7 +703,4 @@ Na základe výsledkov tohto prieskumu je odporúčané používať metódy filt
 	\end{tabular}
 \end{table}
 
-Problematickými časťami filtrov SOR a ROR sú rohy a hrany, ktoré sa filtrovaním zaobľujú. Ako je uvedené v štúdii \cite{Pirate}, filter SOR vníma body na hranách ako odľahlé body. Tieto filtre tiež odstraňujú malé ostrovy bodov (zhluky bodov, ktoré nie sú bodmi rušenia) \cite{Schaller}. Ako je uvedené v \cite{Balta}, filtrovanie SOR nie je úplne vhodné pre výkon v reálnom čase.
-Naopak, IMBM zachováva body na hranách a rohoch, čo je jeho výhoda oproti ostatným testovaným filtrom. Navyše sa IMBM nezameriava iba na odstraňovanie rušenia, ale poskytuje aj interpoláciu chýbajúcich bodov. Tento režim však výrazne predlžuje dobu spracovania dát. 
-
-V tomto čase je filter navrhnutý ako C++ knižnica, ktorá je ľahko implementovateľná do iných algoritmov pracujúcich s hĺbkovými mapami. Je založená na OpenCV a PCL knižniciach. V budúcej práci sa výskum IMBM filtra zameria na optimalizáciu rýchlosti spracovania dát a implementáciu v jazyku Python.
+Ideálnou voľbou je použitie IMBM filtra pre potlačenie interferencie spolu s ROR alebo SOR filtrom pre odstránenie zvyšných chybných bodov.

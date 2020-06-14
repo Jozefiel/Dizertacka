@@ -26,7 +26,7 @@ V prvom kroku riešili kalibráciu,ktorá je kritickým krokom v celom procese. 
 	\label{fig:resers:m}
 \end{figure}
 
-V práci používali trojicu kamier Kinect v2, ktoré boli sekvenčne spínané. Tým sa vyhli multi-kamerovej interferencii. Kvalita hĺbkovej mapy je kľúčovým faktorom pri tvorbe a rekonštrukcii modelu. Ak sa v nej vyskytnú chyby, tie sa potom prenášajú do mračna bodov. Túto hĺbkovú mapu filtrovali použitím bilaterálneho filtra (BF), \textit{Weight Median} filtra (WM) a \textit{Radius Outlier Removal} filtra (ROR). Vplyv filtračných metód na hĺbkovú mapu je zobrazený na obr. \ref{fig:resers:5}. Okrem toho tiež použili \textit{Weighted  Inter-Frame  Average} filter (WIFA), ktorý pracuje so sériou hĺbkových máp. Ten odstraňuje priestorový šum, ale výrazný pohyb robí aplikáciu WIFA nevhodnou pre vysoko dynamické scény.
+V práci používali trojicu kamier Kinect v2, ktoré pracovali v sekvenčnom režime. Tým sa vyhli multi-kamerovej interferencii. Kvalita hĺbkovej mapy je kľúčovým faktorom pri tvorbe a rekonštrukcii modelu. Ak sa v nej vyskytnú chyby, tie sa potom prenášajú do mračna bodov. Túto hĺbkovú mapu filtrovali použitím bilaterálneho filtra (BF), \textit{Weight Median} filtra (WM) a \textit{Radius Outlier Removal} filtra (ROR). Vplyv filtračných metód na hĺbkovú mapu je zobrazený na obr. \ref{fig:resers:5}. Okrem toho tiež použili \textit{Weighted  Inter-Frame  Average} filter (WIFA), ktorý pracuje so sériou hĺbkových máp. Ten odstraňuje priestorový šum, ale výrazný pohyb robí aplikáciu WIFA nevhodnou pre vysoko dynamické scény.
 
 \begin{figure}[H]
 	\centering
@@ -171,12 +171,14 @@ k projekčnému bodu (7). Na tento účel boli navrhnuté rôzne schémy, ktoré
 
 Hlavnou výhodou štruktúrovaného svetla je dosiahnutie vysokého priestorového rozlíšenia. Kamery pracujúce na tomto princípe nevyžadujú žiadnu špeciálnu úpravu na úrovni snímača. Akékoľvek rušenie je znázornené ako variácie v povrchu (7). Táto metóda snímania so sebou prináša tri problémy, ktoré vyplývajú z hlavnej požiadavky, a to dôležitosti svetla:
 
-\begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black!20!black}]
+
+\begin{compactitem}
 	\item Potreba konštantnej vlnovej dĺžky 
 	\item Možné problémy spôsobené okolitými svetelnými podmienkami 
 	\item Vzdialenosť limitovaná silou reflektora IR svetla
 	\item Vznik multi-kamerovej interferencie
-\end{description}
+\end{compactitem} 
+\vline
 
 Konštantná vlnová dĺžka je zabezpečená malým Peltierovým článkom, slúžiacim na udržiavanie nemennej teploty laserovej diódy. Takým spôsobom je zabezpečená stabilná výstupná vlnová dĺžka, vzhľadom na zmeny teploty a výkonu. Osvetlenie okolitého prostredia je problémom, ktorý je možné zmierniť využitím filtra, ktorý prepúšťa iba IR frekvenčné pásmo. Avšak kamera nedokáže fungovať správne na miestach osvetlených slnečným žiarením. Preto je využívanie kamier na princípe štruktúrovaného svetla výhodnejšie využívať v interiéri (8).
 
@@ -186,7 +188,7 @@ Kamery pracujúce na princípe \textit{Time of Flight} (TOF) produkujú hĺbkov�
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.5\textwidth]{figures/tof_principle.png} 
+	\includegraphics[width=0.7\textwidth]{figures/tof_principle.png} 
 	\caption{Princíp činnosti TOF senzorov}
 	\label{fig:tof_principle}
 \end{figure}
@@ -208,19 +210,19 @@ Depth=\frac{c}{2}\cdot\Delta t \left( \frac{Q_2}{Q_1 + Q_2}\right)
 \end{aligned}
 \end{equation}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{figures/tof_principle_a.png} 
+	\includegraphics[width=0.65\textwidth]{figures/tof_principle_a.png} 
 	\caption{Sekvenčná impulzná mdulácia TOF senzora}
 	\label{fig:tof_principle_a}
 \end{figure}
 
 Metóda s použitím kontinuálnej vlny obsahuje viac vzoriek pre jedno meranie, pričom každá vzorka je posunutá s fázovým oneskorením o 90 stupnov. Meranie fázového rozdielu medzi vyžarovanými a odrazenými IR vlnami je zabezpečené prepočtom vzdialenosti od objektu na základe vzťahu 3.4 medzi štyrmi rôznymi hodnotami elektrického náboja.
 
-\begin{figure}[h]
+\begin{figure}[H]
 
 	\centering
-	\includegraphics[width=0.5\textwidth]{figures/tof_principle_b.png} 
+	\includegraphics[width=0.65\textwidth]{figures/tof_principle_b.png} 
 	\caption{Kontinuálna impulzná modulácia TOF senzora}
 	\label{fig:tof_principle_b}
 
@@ -304,12 +306,12 @@ Prevod mračna bodov na 3D povrch je realizovaný pomocou rekonštrukcie povrchu
 	\item[Povrch] Skupina polygónov, ktorá vytvára povrch objektu.
 \end{description}
 
-
+\newpage
 \section{Spájanie a registrácia mračien bodov}
 
 Bodová registrácia tiež známa ako bodová zhoda je proces, pri ktorom sa hľadá priestorová transformácia zarovnávajúca dve mračná bodov. Účelom transformácie je zlúčenie viacerých mračien do jedného konzistentného modelu. Mračná môžu byť získané rôznymi typmi snímačov a rôznymi spôsobmi. Niektoré typy snímačov boli opísané v kapitole \ref{sec:rgbd:principles}. Pre získanie priestorovej transformácie existuje viacero algoritmov, ktoré sú opísané nižšie.
 
-\newpage
+
 \subsection{Problematika registrácie mračien bodov}
 
 Problematika registrácie mračien bola opísaná v práci „Robust Point Set Registration Using Gaussian Mixture Models„ autormi Bink Jian, Baba C. Verumi. Nech $\left\lbrace M, S \right\rbrace $ sú dva konečné mračná bodov v konečne-rozmernom reálnom vektorovom priestore. $M$ označuje pohyblivý modelový súbor a $S$ označuje statickú scénu. Obe množiny sa označujú ako podmnožiny konečno-priestorového vektora $\textbf{R}_{\textbf{d}}$ a môžu mať rozdielne veľkosti. Spoločným približovaním sa (registráciou) bodových množín $M$ a $S$ je možné odhadnúť mapovanie z $\textbf{R}_\textbf{d}$ do $\textbf{R}_\textbf{d}$ , čo prináša najlepšie zarovnanie medzi transformovanou a statickou sadou bodov. Transformačný model môže byť zapísaný ako $\textbf{T(M)}$ alebo $\textbf{T(M, $\theta$)}$, kde $\theta$ predstavuje optimalizačný parameter. Pri konvergencii bodov $M$ a $S$ je žiadané, aby vzdialenosť medzi zhodnými bodovými súbormi bola čo najmenšia. To je však bez vyskúšania všetkých transformácií ťažké, takže stačí lokálne minimum. Funkcia vzdialenosti medzi transformovaným dátovým setom a scénou $S$ je daná niektorou z funkcií $dist$. Jednoduchým spôsobom je výpočet štvorca euklidovskej vzdialenosti pre každý pár bodov:
@@ -352,7 +354,7 @@ ICP algoritmus je používaný na minimalizáciu rozdielu medzi dvoma mračnami 
 	\label{fig:icp_principle}
 
 \end{figure}
-
+\newpage
 \textbf{Robustné párovanie bodov}
 
 Túto metódu (RPM) zaviedli Gold a kolektív (19). Táto metóda pracuje na zašumených 2D alebo 3D bodových setoch, ktoré môžu mať rozličné veľkosti a môžu sa líšiť pri voľných transformáciách. Pomocou kombinácie optimalizačných techník ako „deterministic annealing“ a „softassing“ , ktoré boli objavené pri rekurentných neurónových sieťach, sú analógové objektové funkcie popisujúce problémy minimalizované. Zatiaľ čo v ICP je korešpondencia vytvorená najbližším heuristickým binárnym systémom, RPM používa mäkkú korešpondenciu bodov. To znamená, že korešpondencia bodov môže byť ľubovoľná v rozmedzí 0 a 1. Zhoda v RPM je vždy jedna k jednej, čo pri ICP metóde nie je zabezpečené. Ak $m_i$ je i-ty bod množiny $M$ a $s_j$ je j-ty bod množiny $S$, tak matica zhody $\mu$ je definovaná ako:
