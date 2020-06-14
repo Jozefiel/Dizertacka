@@ -263,7 +263,7 @@ Amplitúda intenzity A a ofset B majú vplyv na presnosť merania hĺbky. Odchý
 \end{aligned}
 \end{equation}
 
-v nej modulačný kontrast c d opisuje ako efektívny zobrazovací kremík oddeľuje a zbiera fotoelektróny. Amplitúda intenzity A je funkciou optickej sily a offset B je funkciou okolitého svetla. Z tejto rovnice možno vyvodiť, že vysoká odrazená amplitúda, frekvencia vysokej modulácie a kontrast s vysokou moduláciou prispievajú k zvýšeniu presnosti. Vysoký offset na druhej strane môže viesť k sýtosti a zníženiu presnosti. Snímače TOF s vysokou odchýlkou všeobecne prinášajú vyššiu presnosť (12). Hlavnou výhodou TOF kamier je používanie iba jedného pohľadu pri výpočte hĺbky, vďaka čomu sú zachované ostré hrany objektov a redukovaná prítomnosť otvorov vo výslednom obraze, pričom je zanechaná vysoká presnosť údajov. Hustotu nameraných dát je možné ovplyvniť počtom meraní. Výhodou je aj to, že okolité osvetlenie už nevplýva na zaznamenávanie obrazu, pretože nedochádza k ovplyvňovaniu frekvencie vyžarovaného svetla. K ďalším kladným vlastnostiam patrí vysoký dynamický rozsah a absencia cenovo náročných materiálov v zariadení. Medzi nevýhody kamier s TOF zaraďujeme nižšiu kvalitu priestorového rozlíšenia, zapríčinenú extra spracovaním na úrovni snímača, a taktiež náchylnosť na pohybové artefakty pri viacnásobnom počte záberov. Pri kamere využívajúcej TOF je potrebné vopred vedieť rýchlosť šírenia signálu v danom prostredí. Namerané výsledky sú závislé aj od materiálu meraného subjektu. Pri nevhodnom materiáli môže dochádzať k niekoľkonásobnému odrazu. Negatívne vlastnosti TOF sa prejavujú prevažne na okrajových pixloch (13)
+v nej modulačný kontrast cd opisuje ako efektívny zobrazovací kremík oddeľuje a zbiera fotoelektróny. Amplitúda intenzity A je funkciou optickej sily a offset B je funkciou okolitého svetla. Z tejto rovnice možno vyvodiť, že vysoká odrazená amplitúda, frekvencia vysokej modulácie a kontrast s vysokou moduláciou prispievajú k zvýšeniu presnosti. Vysoký offset na druhej strane môže viesť k sýtosti a zníženiu presnosti. Snímače TOF s vysokou odchýlkou všeobecne prinášajú vyššiu presnosť (12). Hlavnou výhodou TOF kamier je používanie iba jedného pohľadu pri výpočte hĺbky, vďaka čomu sú zachované ostré hrany objektov a redukovaná prítomnosť otvorov vo výslednom obraze, pričom je zanechaná vysoká presnosť údajov. Hustotu nameraných dát je možné ovplyvniť počtom meraní. Výhodou je aj to, že okolité osvetlenie už nevplýva na zaznamenávanie obrazu, pretože nedochádza k ovplyvňovaniu frekvencie vyžarovaného svetla. K ďalším kladným vlastnostiam patrí vysoký dynamický rozsah a absencia cenovo náročných materiálov v zariadení. Medzi nevýhody kamier s TOF zaraďujeme nižšiu kvalitu priestorového rozlíšenia, zapríčinenú extra spracovaním na úrovni snímača, a taktiež náchylnosť na pohybové artefakty pri viacnásobnom počte záberov. Pri kamere využívajúcej TOF je potrebné vopred vedieť rýchlosť šírenia signálu v danom prostredí. Namerané výsledky sú závislé aj od materiálu meraného subjektu. Pri nevhodnom materiáli môže dochádzať k niekoľkonásobnému odrazu. Negatívne vlastnosti TOF sa prejavujú prevažne na okrajových pixloch (13)
 
 \section{Mračno bodov a 3D povrch}
 
@@ -341,8 +341,9 @@ Spôsoby registrácie môžeme rozdeliť do dvoch kategórií. Prvou je pevná (
 K bodovej registrácií sa používajú algoritmy, ktoré riešia všeobecnejší problém s porovnávaním grafov. Avšak výpočtová zložitosť zvykne byť vysoká a obmedzená na rigidné registrácie.\newline
 
 
-\textbf{Interative closest point}
-ICP algoritmus je používaný na minimalizáciu rozdielu medzi dvoma mračnami bodov. Využíva sa na rekonštrukciu 2D a 3D povrchov, lokalizáciu robotov a podobne. Vykonáva rigidnú registráciu interačným spôsobom za predpokladu, že každý bod v M korešponduje s najbližším bodom v S. V algoritme sa hľadá transformácia T pomocou metódy najmenších štvorcov.
+\textbf{Iterative closest point}
+
+ICP algoritmus je používaný na minimalizáciu rozdielu medzi dvoma mračnami bodov. Využíva sa na rekonštrukciu 2D a 3D povrchov, lokalizáciu robotov a podobne. Vykonáva rigidnú registráciu iteračným spôsobom za predpokladu, že každý bod v M korešponduje s najbližším bodom v S. V algoritme sa hľadá transformácia T pomocou metódy najmenších štvorcov.
 
 \begin{figure}[h]
 
@@ -350,7 +351,7 @@ ICP algoritmus je používaný na minimalizáciu rozdielu medzi dvoma mračnami 
 
 	\includegraphics[width=0.7\textwidth]{figures/icp_principle.png} 
 
-	\caption{Ukážka registrácie mračien}
+	\caption{Ukážka registrácie mračien pomocou ICP algoritmu}
 	\label{fig:icp_principle}
 
 \end{figure}
