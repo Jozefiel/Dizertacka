@@ -11,13 +11,13 @@ Snahou hĺbkových kamier je zachytiť okrem informácii o farbe prostredia aj i
 
 \section{Skenovanie v reálnom čase pomocou \mbox{RGB-D} senzorov}
 
-Skenovanie dynamických objektov v reálnom čase je v centre záujmu už niekoľko rokov. V posledných rokoch sa hĺbkové snímače stavajú súčasťou riešenia rôznych technických problémov. Existuje viacero spôsobov, ktoré dokážu kvalitne rekonštruovať objekty v reálnom čase. Väčšinou sú to komplexné riešenia, ktoré sú cenovo nedostupné pre bežných užívateľov. Avšak existuje aj niekoľko cenovo dostupných RGB-D senzorov, ktoré môžu byť použité na 3D snímanie a rekonštrukciu v reálnom čase. V ďalšej časti sú opísané aktuálne riešené problematiky 3D skenovania dynamických objektov v reálnom čase. 
+Skenovanie dynamických objektov v reálnom čase je v centre záujmu už niekoľko rokov. V posledných rokoch sa hĺbkové snímače stávajú súčasťou riešenia rôznych technických problémov. Existuje viacero spôsobov, ktoré dokážu kvalitne rekonštruovať objekty v reálnom čase. Väčšinou sú to komplexné riešenia, ktoré sú cenovo nedostupné pre bežných užívateľov. Existuje však aj niekoľko cenovo dostupných RGB-D senzorov, ktoré môžu byť použité na 3D snímanie a rekonštrukciu v reálnom čase. V ďalšej časti sú opísané aktuálne riešené problematiky 3D skenovania dynamických objektov v reálnom čase. 
 
 \newpage
 \subsection{Viac-pohľadové 3D snímanie a analýza pre rekonštrukciu vysoko kvalitných mračien bodov}
 
 V článku \textit{Multiview 3D Sensing and Analysis for High Quality Point Cloud Reconstruction} sa autori zaoberajú rekonštrukciou mračien bodov pomocou viacerých ToF kamier. 
-V prvom kroku riešili kalibráciu,ktorá je kritickým krokom v celom procese. Využili metódu kalibrácie pomocou planárneho kalibračného vzoru (šachovnice), kde identifikovali rotačné a translačné parametre pre jednotlivé kamery. 
+V prvom kroku riešili kalibráciu, ktorá je kritickým krokom v celom procese. Využili metódu kalibrácie pomocou planárneho kalibračného vzoru (šachovnice), kde identifikovali rotačné a translačné parametre pre jednotlivé kamery. 
 
 \begin{figure}[h]
 	\centering
@@ -57,7 +57,7 @@ V práci používali trojicu kamier Kinect v2, ktoré pracovali v sekvenčnom re
 		\caption{}
 		\label{fig:resers:q}
 	\end{subfigure}
-	\caption{Výsledky filtrácie hĺbkej mapy, kde zelená farba predstavuje rozdiely medzi prístupmi filtrácie: (\textbf{a}) Vstupná hĺbková mapa. 
+	\caption{Výsledky filtrácie hĺbkovej mapy, kde zelená farba predstavuje rozdiely medzi prístupmi filtrácie: (\textbf{a}) Vstupná hĺbková mapa. 
 		(\textbf{b}) Filtrácia pomocou BF.
 		(\textbf{c}) Filtrácia pomocou BF + WM.
 		(\textbf{d}) Filtrácia pomocou BF + WM + ROR }
@@ -166,7 +166,7 @@ k projekčnému bodu (7). Na tento účel boli navrhnuté rôzne schémy, ktoré
 	\item \textbf{Priebežne meniacu projekciu:} dúhový kód, priebežne meniaci farebný kód 
 	\item \textbf{Pásikový index:} farebne kódované pásy, segmentované pásy, De Bruijn, ...
 	\item \textbf{Mriežkovaný index:} pseudo-náhodné binárne body, mini-vzor ako kód, ...
-	\item \textbf{Hybridné metódy:} 
+	\item \textbf{Hybridné metódy} 
 \end{itemize}
 
 Hlavnou výhodou štruktúrovaného svetla je dosiahnutie vysokého priestorového rozlíšenia. Kamery pracujúce na tomto princípe nevyžadujú žiadnu špeciálnu úpravu na úrovni snímača. Akékoľvek rušenie je znázornené ako variácie v povrchu (7). Táto metóda snímania so sebou prináša tri problémy, ktoré vyplývajú z hlavnej požiadavky, a to dôležitosti svetla:
@@ -184,7 +184,7 @@ Konštantná vlnová dĺžka je zabezpečená malým Peltierovým článkom, sl�
 
 \subsection{TOF snímače}
 \label{sec:tof}
-Kamery pracujúce na princípe \textit{Time of Flight} (TOF) produkujú hĺbkový obraz, ktorého každý pixel kóduje vzdialenosť od zodpovedajúceho bodu snímanej scény pomocou merania fázového oneskorenia infračerveného svetla. Kamery obsahujú zdroj infračerveného svetla a senzor, ktorý zachytáva odrazené svetlo. Taktiež sú často kombinované s RGB snímačom, ktorý dokáže zachytiť farebnú textúru snímanej scény. Infračervené svetlo je modulované harmonicky sínusovým signálom alebo impulzne. V praxi sa viac využíva impulzná modulácia, pretože je ľahšia na realizáciu a spracovanie. Obr.\ref{fig:tof_principle} popisuje princíp detekcie hĺbky TOF senzorom so sínusovou moduláciou.
+Kamery pracujúce na princípe \textit{Time of Flight} (TOF) produkujú hĺbkový obraz, ktorého každý pixel kóduje vzdialenosť od zodpovedajúceho bodu snímanej scény pomocou merania fázového oneskorenia infračerveného svetla. Kamery obsahujú zdroj infračerveného svetla a senzor, ktorý zachytáva odrazené svetlo. Taktiež sú často kombinované s RGB snímačom, ktorý dokáže zachytiť farebnú textúru snímanej scény. Infračervené svetlo je modulované harmonicky sínusovým signálom alebo impulzne. V praxi sa viac využíva impulzná modulácia, pretože je ľahšia na realizáciu a spracovanie. Obr. \ref{fig:tof_principle} popisuje princíp detekcie hĺbky TOF senzorom so sínusovou moduláciou.
 
 \begin{figure}[h]
 	\centering
@@ -213,11 +213,11 @@ Depth=\frac{c}{2}\cdot\Delta t \left( \frac{Q_2}{Q_1 + Q_2}\right)
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.65\textwidth]{figures/tof_principle_a.png} 
-	\caption{Sekvenčná impulzná mdulácia TOF senzora}
+	\caption{Sekvenčná impulzná modulácia TOF senzora}
 	\label{fig:tof_principle_a}
 \end{figure}
 
-Metóda s použitím kontinuálnej vlny obsahuje viac vzoriek pre jedno meranie, pričom každá vzorka je posunutá s fázovým oneskorením o 90 stupnov. Meranie fázového rozdielu medzi vyžarovanými a odrazenými IR vlnami je zabezpečené prepočtom vzdialenosti od objektu na základe vzťahu 3.4 medzi štyrmi rôznymi hodnotami elektrického náboja.
+Metóda s použitím kontinuálnej vlny obsahuje viac vzoriek pre jedno meranie, pričom každá vzorka je posunutá s fázovým oneskorením o 90 stupňov. Meranie fázového rozdielu medzi vyžarovanými a odrazenými IR vlnami je zabezpečené prepočtom vzdialenosti od objektu na základe vzťahu 3.4 medzi štyrmi rôznymi hodnotami elektrického náboja.
 
 \begin{figure}[H]
 
@@ -263,11 +263,11 @@ Amplitúda intenzity A a ofset B majú vplyv na presnosť merania hĺbky. Odchý
 \end{aligned}
 \end{equation}
 
-v nej modulačný kontrast cd opisuje ako efektívny zobrazovací kremík oddeľuje a zbiera fotoelektróny. Amplitúda intenzity A je funkciou optickej sily a offset B je funkciou okolitého svetla. Z tejto rovnice možno vyvodiť, že vysoká odrazená amplitúda, frekvencia vysokej modulácie a kontrast s vysokou moduláciou prispievajú k zvýšeniu presnosti. Vysoký offset na druhej strane môže viesť k sýtosti a zníženiu presnosti. Snímače TOF s vysokou odchýlkou všeobecne prinášajú vyššiu presnosť (12). Hlavnou výhodou TOF kamier je používanie iba jedného pohľadu pri výpočte hĺbky, vďaka čomu sú zachované ostré hrany objektov a redukovaná prítomnosť otvorov vo výslednom obraze, pričom je zanechaná vysoká presnosť údajov. Hustotu nameraných dát je možné ovplyvniť počtom meraní. Výhodou je aj to, že okolité osvetlenie už nevplýva na zaznamenávanie obrazu, pretože nedochádza k ovplyvňovaniu frekvencie vyžarovaného svetla. K ďalším kladným vlastnostiam patrí vysoký dynamický rozsah a absencia cenovo náročných materiálov v zariadení. Medzi nevýhody kamier s TOF zaraďujeme nižšiu kvalitu priestorového rozlíšenia, zapríčinenú extra spracovaním na úrovni snímača, a taktiež náchylnosť na pohybové artefakty pri viacnásobnom počte záberov. Pri kamere využívajúcej TOF je potrebné vopred vedieť rýchlosť šírenia signálu v danom prostredí. Namerané výsledky sú závislé aj od materiálu meraného subjektu. Pri nevhodnom materiáli môže dochádzať k niekoľkonásobnému odrazu. Negatívne vlastnosti TOF sa prejavujú prevažne na okrajových pixloch (13)
+v nej modulačný kontrast $ c_d $ opisuje ako efektívny zobrazovací kremík oddeľuje a zbiera fotoelektróny. Amplitúda intenzity $ A $ je funkciou optickej sily a offset $ B $ je funkciou okolitého svetla. Z tejto rovnice možno vyvodiť, že vysoká odrazená amplitúda, frekvencia vysokej modulácie a kontrast s vysokou moduláciou prispievajú k zvýšeniu presnosti. Vysoký offset na druhej strane môže viesť k sýtosti a zníženiu presnosti. Snímače TOF s vysokou odchýlkou všeobecne prinášajú vyššiu presnosť (12). Hlavnou výhodou TOF kamier je používanie iba jedného pohľadu pri výpočte hĺbky, vďaka čomu sú zachované ostré hrany objektov a redukovaná prítomnosť otvorov vo výslednom obraze, pričom je zanechaná vysoká presnosť údajov. Hustotu nameraných dát je možné ovplyvniť počtom meraní. Výhodou je aj to, že okolité osvetlenie už nevplýva na zaznamenávanie obrazu, pretože nedochádza k ovplyvňovaniu frekvencie vyžarovaného svetla. K ďalším kladným vlastnostiam patrí vysoký dynamický rozsah a absencia cenovo náročných materiálov v zariadení. Medzi nevýhody kamier s TOF zaraďujeme nižšiu kvalitu priestorového rozlíšenia zapríčinenú extra spracovaním na úrovni snímača, a taktiež náchylnosť na pohybové artefakty pri viacnásobnom počte záberov. Pri kamere využívajúcej TOF je potrebné vopred vedieť rýchlosť šírenia signálu v danom prostredí. Namerané výsledky sú závislé aj od materiálu meraného subjektu. Pri nevhodnom materiáli môže dochádzať k niekoľkonásobnému odrazu. Negatívne vlastnosti TOF sa prejavujú prevažne na okrajových pixeloch (13)
 
 \section{Mračno bodov a 3D povrch}
 
-Pri reprojekcii 3D priestoru z 2D obrazu sa často používa technológia mračien bodov (Point Cloud). Základnou jednotkou mračna bodov je dátový bod, ktorý v sebe ukladá informáciu o polohe (x,y,z) v 3D priestore. Dátový bod môže v sebe uchovávať aj iné informácie ako napríklad farbu, jas, normálový vektor a podobne. Takéto mračno bodov má veľké využitie v priemyselných 3D CAD modeloch, pri metrológií a inšpekcií kvality a v iných sférach, kde sa vizuálne prezentujú 3D objekty. Výhodou oproti 2D zobrazovaniu je, že 3D model dokáže poskytnúť presnú geometrickú a lepšiu vizuálnu informáciu pre užívateľa.
+Pri reprojekcii 3D priestoru z 2D obrazu sa často používa technológia mračien bodov (Point Cloud). Základnou jednotkou mračna bodov je dátový bod, ktorý v sebe ukladá informáciu o polohe (x,y,z) v 3D priestore. Dátový bod môže v sebe uchovávať aj iné informácie ako napríklad farbu, jas, normálový vektor a podobne. Takéto mračno bodov má veľké využitie v priemyselných 3D CAD modeloch, pri metrológií a inšpekcii kvality a v iných sférach, kde sa vizuálne prezentujú 3D objekty. Výhodou oproti 2D zobrazovaniu je, že 3D model dokáže poskytnúť presnú geometrickú a lepšiu vizuálnu informáciu pre užívateľa.
 
 \begin{figure}[!h]
 	\centering
@@ -288,7 +288,7 @@ Pri reprojekcii 3D priestoru z 2D obrazu sa často používa technológia mrači
 \end{figure}
 
 
-Prevod mračna bodov na 3D povrch je realizovaný pomocou rekonštrukcie povrchu (\textit{surfacere construction}). Medzi známe rekonštrukčné metódy patrí Ball-Pivoting a  Poissonova rekonštrukcia, kde sú dátove body transformované do siete. Polygónová sieť je zložená z vertexov (vertices), hrán (edges) a masiek (faces), taktiež definuje tvar polyhedrálneho objektu v 3D grafike. Masky sa zvyčajne skladajú z trojuholníkov, štvorhranov a iných jednoduchých konvexných polygónov. Volumetrické siete explicitne reprezentujú povrch aj objem štruktúry, pričom polygónová sieť reprezentuje iba povrch. Objekty vytvorené z polygónov musia ukladať rôzne typy elementov. To zahrňa vertexy, hrany, masky, polygóny a povrchy. Veľakrát sú polygóny transformované na trojuholníky.
+Prevod mračna bodov na 3D povrch je realizovaný pomocou rekonštrukcie povrchu (\textit{surfacere construction}). Medzi známe rekonštrukčné metódy patrí Ball-Pivoting a  Poissonova rekonštrukcia, kde sú dátove body transformované do siete. Polygónová sieť je zložená z vertexov (vertices), hrán (edges) a masiek (faces), taktiež definuje tvar polyhedrálneho objektu v 3D grafike. Masky sa zvyčajne skladajú z trojuholníkov, štvorhranov a iných jednoduchých konvexných polygónov. Volumetrické siete explicitne reprezentujú povrch aj objem štruktúry, pričom polygónová sieť reprezentuje iba povrch. Objekty vytvorené z polygónov musia ukladať rôzne typy elementov. To zahŕňa vertexy, hrany, masky, polygóny a povrchy. Veľakrát sú polygóny transformované na trojuholníky.
 
 \begin{figure}[h]
 
@@ -300,7 +300,7 @@ Prevod mračna bodov na 3D povrch je realizovaný pomocou rekonštrukcie povrchu
 \end{figure}
 
 \begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black!20!black}]
-	\item[Vertex] Dátový bod, informácia o polohe poprípade farbe a normále 
+	\item[Vertex] Dátový bod, informácia o polohe, poprípade farbe a normále 
 	\item[Hrana] Spojenie medzi dvomi vertexmi 
 	\item[Maska] Polygón zložený z najbližších hrán
 	\item[Povrch] Skupina polygónov, ktorá vytvára povrch objektu.
@@ -334,7 +334,7 @@ dist_{robust}\left(T\left(M\right),S\right)=\sum_{m\epsilon T\left(M\right)} \su
 
 \subsection{Spôsoby registrácie mračien bodov}
 
-Spôsoby registrácie môžeme rozdeliť do dvoch kategórií. Prvou je pevná (rigid) druhá pružná (non-rigid) registrácia. Pri rigidnej registrácií sa používajú rotačné a translačné transformácie k namapovaniu jedného bodu na druhý. Táto transformácia je definovaná tak, že nemení vzdialenosť medzi dvoma bodmi. V zriedkavých prípadoch môže byť bodový súbor tiež zrkadlový. Pružná registrácia vzhľadom na dva bodové súbory prináša transformáciu, ktorá mapuje jeden bod nastavený na druhý. V transformáciách sú zahrnuté afinné transformácie, ktoré zahŕňajú aj nelineárne transformácie. Ak sú známe vlastné modifikácie množiny bodov, nelineárna transformácia môže byť parametrizovaná vlastnými hodnotami.\newline
+Spôsoby registrácie môžeme rozdeliť do dvoch kategórií. Prvou je pevná (rigid) a druhou pružná (non-rigid) registrácia. Pri rigidnej registrácií sa používajú rotačné a translačné transformácie k namapovaniu jedného bodu na druhý. Táto transformácia je definovaná tak, že nemení vzdialenosť medzi dvoma bodmi. V zriedkavých prípadoch môže byť bodový súbor tiež zrkadlový. Pružná registrácia vzhľadom na dva bodové súbory prináša transformáciu, ktorá mapuje jeden bod nastavený na druhý. V transformáciách sú zahrnuté afinné transformácie, ktoré zahŕňajú aj nelineárne transformácie. Ak sú známe vlastné modifikácie množiny bodov, nelineárna transformácia môže byť parametrizovaná vlastnými hodnotami.\newline
 
 \textbf{Bodové registračné algoritmy}
 
@@ -398,11 +398,11 @@ cost=\sum_{j=1}^{N}\sum_{i=1}^{M} \mu_{ij} \Arrowvert s_j - \boldsymbol{t} - \bo
 \end{aligned}
 \end{equation}
 
-Parameter $\alpha$ ovplyvňuje funkciu k silnejšej korelácii. Funkcia $g\left(A\right))$ slúži na reguláciu afinnej transformácie penalizovaním veľkých hodnôt transformovaných komponentov. Pre niektoré regulačné parametre $\gamma$ platí $g\left(A\left(a, \theta, b, c\right)\right) = \gamma \left(a^2 + b^2 + c^2 \right)$. Táto metóda RPM optimalizuje hodnotovú funkciu použitím „Softassign“ algoritmu.
+Parameter $\alpha$ ovplyvňuje funkciu k silnejšej korelácii. Funkcia $g\left(A\right)$ slúži na reguláciu afinnej transformácie penalizovaním veľkých hodnôt transformovaných komponentov. Pre niektoré regulačné parametre $\gamma$ platí $g\left(A\left(a, \theta, b, c\right)\right) = \gamma \left(a^2 + b^2 + c^2 \right)$. Táto metóda RPM optimalizuje hodnotovú funkciu použitím „Softassign“ algoritmu.
 
 \textbf{Korelácia kernelu}
 
-Metóda korelácie kernelu (KC) je oproti ICP metóde odolnejšia vočí zašumeným dátam. Na rozdiel od ICP, v tejto metóde každý bod scény uvažuje s modelovým bodom. Ide o viacnásobne prepojujúcu registráciu (18). Pre niektoré funkcie kernelu $K$ je KC dvoch bodov $\chi_i$ a $\chi_j$ definovaná nasledovne:
+Metóda korelácie kernelu (KC) je oproti ICP metóde odolnejšia voči zašumeným dátam. Na rozdiel od ICP, v tejto metóde každý bod scény uvažuje s modelovým bodom. Ide o viacnásobne prepojujúcu registráciu (18). Pre niektoré funkcie kernelu $K$ je KC dvoch bodov $\chi_i$ a $\chi_j$ definovaná nasledovne:
 
 \begin{equation}
 \label{eq14}
@@ -439,7 +439,7 @@ KC\left(S\cup T\left(M,\theta\right)\right) = KC\left(S\right) + KC\left(T \left
 \end{aligned}
 \end{equation}
 
-Výraz je zjednodušený tým, že sa pozoruje $KC\left(S\right)$ nezávisle od $\theta$. Ak sa ešte uvažuje s rigidnou registráciou, $KC\left(T \left(M, \theta \right)\right)$ je tým pádom invariantný voči zmene $\theta$, pretože Euklidovská vzdialenosť medzi párom bodov sa pri rigidnej transformácií nemení. Tým pádom je rovnicu 3.17 možné prepísať na 3.18:
+Výraz je zjednodušený tým, že sa pozoruje $KC\left(S\right)$ nezávisle od $\theta$. Ak sa ešte uvažuje s rigidnou registráciou, $KC\left(T \left(M, \theta \right)\right)$ je tým pádom invariantný voči zmene $\theta$, pretože Euklidovská vzdialenosť medzi párom bodov sa pri rigidnej transformácii nemení. Tým pádom je rovnicu 3.17 možné prepísať na 3.18:
 
 \begin{equation}
 \label{eq18}
@@ -474,5 +474,5 @@ cost\left(S,M,\theta\right)= - N^2 \int_{\chi} \left(P_M P_s\right)
 \end{aligned}
 \end{equation}
 
-Po získaní hodnotovej funkcie algoritmus používa zostup gradientu, čo je iteračný optimalizačný algoritmus prvého radu na zistenie minimálnej funkcie. Ním sa nachádza optimálna transformácia. Z dôvodu výpočtovej náročnosti sa používa diskrétna verzia funkcie 3.18 cost. Oproti ICP algoritmu KC metóda nepotrebuje nájsť najbližšieho suseda a tým pádom je ľahšia na implementáciu. Taktiež je menej náchylná na šum v dátach (18).
+Po získaní hodnotovej funkcie algoritmus používa zostup gradientu, čo je iteračný optimalizačný algoritmus prvého radu na zistenie minimálnej funkcie. Ním sa nachádza optimálna transformácia. Z dôvodu výpočtovej náročnosti sa používa diskrétna verzia funkcie\textbf{ 3.18}. Oproti ICP algoritmu KC metóda nepotrebuje nájsť najbližšieho suseda a tým pádom je ľahšia na implementáciu. Taktiež je menej náchylná na šum v dátach (18).
 

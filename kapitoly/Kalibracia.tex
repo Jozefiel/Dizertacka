@@ -12,11 +12,11 @@
 % http://www.cse.psu.edu/~rtc12/CSE486/lecture13.pdf
 % https://docs.opencv.org/2.4/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html
 
-Kamera je nástroj, ktorý mapuje 3D priestor do 2D roviny obrazu. Ide o technické zariadenie, ktoré je využívané širokospektrálne. Existuje viacero technologických riešení a produktov, ktoré sú špecifikované na konkrétne aplikácie. Pri potrebe merania vzdialenosti alebo zachytenia presnej hĺbkovej informácie snímanej scény je potrebne uvažovať s kalibráciou kamery. 
+Kamera je nástroj, ktorý mapuje 3D priestor do 2D roviny obrazu. Ide o technické zariadenie, ktoré je využívané širokospektrálne. Existuje viacero technologických riešení a produktov, ktoré sú špecifikované na konkrétne aplikácie. Pri potrebe merania vzdialenosti alebo zachytenia presnej hĺbkovej informácie snímanej scény je potrebné uvažovať s kalibráciou kamery. 
 
-Geometrická kalibrácia je nevyhnutá z dôvodu skreslenia šošovky, čo spôsobuje výrazné nepresnosti pri transformácií 3D priestoru 2D obrazovej roviny. Pri kalibrácií je dôležité poznať matematický model kamery a transformácie, ktorými sa upravuje výsledný obraz. 
+Geometrická kalibrácia je nevyhnutá z dôvodu skreslenia šošovky, čo spôsobuje výrazné nepresnosti pri transformácii 3D priestoru 2D obrazovej roviny. Pri kalibrácii je dôležité poznať matematický model kamery a transformácie, ktorými sa upravuje výsledný obraz. 
 
-Pri multi-kamerovej kalibrácií hľadáme vzájomnú polohu kamier vo svetových súradniciach. Ak je aplikácia zameraná na 3D rekonštrukciu priestoru z viacerých kamier, vzájomnou kalibráciu vieme ľahšie spojiť pohľady do jedného spoločného zosúladeného priestoru. 
+Pri multi-kamerovej kalibrácii hľadáme vzájomnú polohu kamier vo svetových súradniciach. Ak je aplikácia zameraná na 3D rekonštrukciu priestoru z viacerých kamier, vzájomnou kalibráciu vieme ľahšie spojiť pohľady do jedného spoločného zosúladeného priestoru. 
 
 
 \section{Afinné transformácie v priestore}
@@ -393,14 +393,14 @@ X \\ Y \\ Z \\ 1
 \end{aligned}
 \end{equation}
 
-ktorá je základným matematickým opisom dierkovej kamery a prevodu svetový súradníc do súradnicového systému obrazových bodov. 
+ktorá je základným matematickým opisom dierkovej kamery a prevodu svetových súradníc do súradnicového systému obrazových bodov. 
 
 \section{Skreslenie šošoviek}
 
-V reálnych kamerách sa vyskytuje určité typy nelineárneho skreslenia, ktoré sú spôsobené pridaním šošovky do ideálnej kamery. Tieto skreslenia spôsobujú nesprávnu perspektívnu projekciu, čím sa následne stráca presná informácia o snímanej scéne. Tieto skreslenia je však možné odstrániť získaním vnútorných parametrov kamery. Medzi najčastejšie skreslenia patria radiálne a tangenciálne skreslenie. 
+V reálnych kamerách sa vyskytujú určité typy nelineárneho skreslenia, ktoré sú spôsobené pridaním šošovky do ideálnej kamery. Tieto skreslenia spôsobujú nesprávnu perspektívnu projekciu, čím sa následne stráca presná informácia o snímanej scéne. Tieto skreslenia je však možné odstrániť získaním vnútorných parametrov kamery. Medzi najčastejšie skreslenia patrí radiálne a tangenciálne skreslenie. 
 
 \subsection{Radiálne skreslenie}
-Je spôsobené, keď svetelné lúče ohnú viac v blízkosti okrajov šošovky ako v optickom centre. Čím je objektív menší, tým väčšie je skreslenie. Typickými radiálnymi skresleniami sú súdkovité a poduškové. Koeficienty radiálneho skreslenia modelujú tento typ skreslenia. Deformované body sú označené ako $x'$ a $y'$. Prvky $k_1$ až $k_6$ predstavujú koeficienty radiálneho skreslenia. 
+Toto skreslenie vznikne, keď sa svetelné lúče ohnú viac v blízkosti okrajov šošovky ako v optickom centre. Čím je objektív menší, tým väčšie je skreslenie. Typickými radiálnymi skresleniami sú súdkovité a poduškové. Koeficienty radiálneho skreslenia modelujú tento typ skreslenia. Deformované body sú označené ako $x'$ a $y'$. Prvky $k_1$ až $k_6$ predstavujú koeficienty radiálneho skreslenia. 
 
 \begin{figure}[h]
 	\centering
@@ -470,7 +470,7 @@ r^2=x^2+y^2
 
 \subsection{Model reálnej kamery s korekciou skreslenia šošoviek}
 
-V reálnych podmienkach je model ideálnej (dutinkovej) kamery doplnený o rovnice korekcie skreslenia šošoviek, tangenciálneho a radiálneho. Potreba získania koeficientov kamery je veľmi dôležitá z hľadiska správnej spätnej rekonštrukcie 2D obrazu do 3D priestoru.
+V reálnych podmienkach je model ideálnej (dutinkovej) kamery doplnený o rovnice korekcie skreslenia šošoviek (tangenciálneho a radiálneho). Potreba získania koeficientov kamery je veľmi dôležitá z hľadiska správnej spätnej rekonštrukcie 2D obrazu do 3D priestoru.
 
 \begin{equation}
 \label{eq::real_camera::a}
@@ -522,7 +522,8 @@ Kalibrácia kamery je nevyhnutný krok v 3D spracovaní obrazu, kde sa získavaj
 Kalibrácia kamery sa vykonáva pozorovaním kalibračného objektu, ktorého geometria v 3D priestore je známa s veľmi presnou presnosťou. Kalibráciu je možné vykonať veľmi efektívne. Kalibračný objekt sa obvykle skladá z dvoch alebo troch rovín kolmých na seba.
 %O. Faugeras,Three-Dimensional Computer Vision: A Geometric Viewpoint.MITPress, 1993.
 
-\textbf{Autokalibrácia}
+\textbf{Autokalibrácia} 
+
 Táto technika nepoužíva žiadny kalibračný objekt. Posunutím kamery v statickej scéne je možné vypočítať vnútorné parametre kamier. Ak sú snímky zosnímané tou istou kamerou s pevnými vnútornými parametrami, korešpondencia medzi tromi obrázkami je dostatočná na vypočítanie interných aj externých parametrov, ktoré nám umožňujú rekonštruovať 3D štruktúru. 
 
 \textbf{Kalibrácia pomocou 2D roviny v 3D priestore}
