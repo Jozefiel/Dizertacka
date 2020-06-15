@@ -96,15 +96,15 @@ Z výsledkov PH vyplýva, že súčasné topologické analýzy dát neviedli k p
 \newpage
 
 
-Pre použitie CNN metódy boli z filtrovaných modelov vytvorené série snímok, ktoré zachytávali objekty z rôznych perspektív. Je to kvôli tomu, aby konvolučná neurónová sieť dokázala lepšie pochopiť povrch tváre. Následne boli dáta rozdelené v pomere $80\%$ pre trénovanie a $20\%$ pre testovanie. V článku sa používali CNN architektúry: InceptionV3, InceptionResV2, MobileNetV2 a NASNetLarge. Tie boli predtrénované na ImageNet datasete. 
+Pre použitie CNN metódy boli z filtrovaných modelov vytvorené série snímok, ktoré zachytávali objekty z rôznych perspektív. Je to kvôli tomu, aby konvolučná neurónová sieť dokázala lepšie pochopiť povrch tváre. Následne boli dáta rozdelené v pomere $80\%$ pre trénovanie a $20\%$ pre testovanie. V článku sa používali CNN architektúry: \textit{InceptionV3}, \textit{InceptionResV2}, \textit{MobileNetV2} a \textit{NASNetLarge}. Tie boli predtrénované na ImageNet datasete. 
 
-Výsledky trénovania pre MobileNetV2 a NASNetLarge sú zobrazené na obr. \ref{fig:resers:d}. Z nich vyplýva, že validácia výstupného modelu nedosahovala očakávané výsledky. 
+Výsledky trénovania pre \textit{MobileNetV2} a \textit{NASNetLarge} sú zobrazené na obr. \ref{fig:resers:d}. Z nich vyplýva, že validácia výstupného modelu nedosahovala očakávané výsledky. 
 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/resers_d.png}
-	\caption{Grafy iteračného učenia (školenia a validácie) pre MobileNetV2 (vľavo) a NasNetLarge (vpravo). Spodný riadok ukazuje nákladovosť krížovej entropie a horný presnosť klasifikácie.}
+	\caption{Grafy iteračného učenia (školenia a validácie) pre \textit{MobileNetV2} (vľavo) a \textit{NasNetLarge} (vpravo). Spodný riadok ukazuje nákladovosť krížovej entropie a horný presnosť klasifikácie.}
 	\label{fig:resers:d}
 \end{figure}
 
@@ -153,10 +153,10 @@ V článku \textit{Deep Learning of Facial Depth Maps for Obstructive Sleep Apne
 \label{fig:resers:2}
 \end{figure}
 
-K trénovaniu si vybrali tri rozdielne neuronové siete, ktoré už boli predtrénované pre detekciu a rozpoznanie tváre. Neboli však trénované na hĺbkových mapách.  VGG-Face bol trénovaný na 2.6 miliónovom datasete s presnosťou 98.95\%. Taktiež boli vybrané Pose-Aware CNN modely AlexNet a VGG-19. 
-Jemné dolaďovanie modelov sa vykonávalo v \textit{Matlab deep learning toolbox}. Z databázy hĺbkových máp bolo 70\% použitých pre trénovanie (14 modelov na testovanie) a 30\% pre validáciu. Celý blokový diagram je znázornený na obr. \ref{fig:resers:e}. 
+K trénovaniu si vybrali tri rozdielne neuronové siete, ktoré už boli predtrénované pre detekciu a rozpoznanie tváre. Neboli však trénované na hĺbkových mapách.  \textit{VGG-Face} bol trénovaný na 2.6 miliónovom datasete s presnosťou $ 98.95\% $. Taktiež boli vybrané \textit{Pose-Aware CNN} modely \textit{AlexNet} a \textit{VGG-19}. 
+Jemné dolaďovanie modelov sa vykonávalo v \textit{Matlab deep learning toolbox}. Z databázy hĺbkových máp bolo 70\% použitých pre trénovanie (14 modelov na testovanie) a $ 30\% $ pre validáciu. Celý blokový diagram je znázornený na obr. \ref{fig:resers:e}. 
 
-Výsledné modely výstupnej vrstvy po natrénovaní siete s rôznymi vstupnými parametrami sú zobrazené na obr. \ref{fig:resers:g}. Pri PAMs je možné vidieť rôznu aktiváciu očí a nosa na rôznych miestach modelu, pretože model sa musel vysporiadať s rozličnými pózami a natočeniami.  Výstupom VGG Face vrstvy je frontálny obraz tváre bez rotácie.
+Výsledné modely výstupnej vrstvy po natrénovaní siete s rôznymi vstupnými parametrami sú zobrazené na obr. \ref{fig:resers:g}. Pri PAMs je možné vidieť rôznu aktiváciu očí a nosa na rôznych miestach modelu, pretože model sa musel vysporiadať s rozličnými pózami a natočeniami.  Výstupom \textit{VGG Face} vrstvy je frontálny obraz tváre bez rotácie.
 
 \begin{figure}[h]
 	\centering
@@ -178,7 +178,7 @@ Výsledné modely výstupnej vrstvy po natrénovaní siete s rôznymi vstupnými
 	\label{fig:resers:3}
 \end{figure}
 
-Výsledné porovnanie sietí sa nachádza v tabuľke \ref{tab:resers:2}. Z výsledkov vyplýva, že VGG-Face dosahovala lepšie výsledky ako PAMs-VGG19 a PAMs-Alex. Jej výhoda je, že bola predtrénovaná na veľkom datasate. 
+Výsledné porovnanie sietí sa nachádza v tabuľke \ref{tab:resers:2}. Z výsledkov vyplýva, že \textit{VGG-Face} dosahovala lepšie výsledky ako \textit{PAMs-VGG19} a \textit{PAMs-Alex}. Jej výhoda je, že bola predtrénovaná na veľkom datasate. 
 
 \begin{table}[H]
 	\caption{\label{tab:resers:2} Presnosť klasifikácie použitých modelov. }
@@ -187,8 +187,8 @@ Výsledné porovnanie sietí sa nachádza v tabuľke \ref{tab:resers:2}. Z výsl
 		\toprule
 		\textbf{} & \textbf{VGG Face} & \textbf{PAMs-VGG19} & \textbf{PAMs-Alex}     \\ 
 		\midrule
-		\textbf{Presnosť validácie}		& 68.75		& 62.5		& 60.15		\\ 
-		\textbf{Presnosť testovania}	& 67.42		& 57.14  	& 59.37		\\ 
+		\textbf{Presnosť validácie}		& 68,75		& 62,5		& 60,15		\\ 
+		\textbf{Presnosť testovania}	& 67,42		& 57,14  	& 59,37		\\ 
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -234,7 +234,7 @@ Dva z týchto bodov boli vyznačené na tvári pacienta ešte pred skenovaním.
 
 Na základe prahu $AHI\geq5$ boli vstupné dáta rozdelené na kontrolné (100) a OSA (300). Pomocou tejto hodnoty bol navrhnutý a natrénovaný \textit{Linear Discriminant Analysis} (LDA) algoritmus, ktorý využíval geodetickú vzdialenosť, euklidovskú vzdialenosť a uhol každej snímky. Úlohou algoritmu bolo klasifikovať nové prípady podľa prahu AHI s hodnotami 5, 10, 15, 20, 25, 30, 35, 40, 45 a 50.
 
-Cieľom LDA algoritmu bolo pomocou všetkých popísaných príznakov nájsť 1D priestor, kde vzdialenosť medzi príznakmi v rámci rovnakej triedy bola minimálna a zároveň vzdialenosť medzi príznakmi dvoch odlišných tried maximálna. Dáta boli týmto spôsobom rozdelené do desiatich skupín. Z každej skupiny bolo 90\% dát použitých na trénovanie a zvyšných 10\% pre testovanie. 
+Cieľom LDA algoritmu bolo pomocou všetkých popísaných príznakov nájsť 1D priestor, kde vzdialenosť medzi príznakmi v rámci rovnakej triedy bola minimálna a zároveň vzdialenosť medzi príznakmi dvoch odlišných tried maximálna. Dáta boli týmto spôsobom rozdelené do desiatich skupín. Z každej skupiny bolo $ 90\% $ dát použitých na trénovanie a zvyšných 10\% pre testovanie. 
 
 \begin{figure}[h]
 	\centering
@@ -243,4 +243,4 @@ Cieľom LDA algoritmu bolo pomocou všetkých popísaných príznakov nájsť 1D
 	\label{fig:resers:l}
 \end{figure}
 
-Štúdia ukazuje, že geodetická informácia výrazne zlepšuje schopnosť identifikovať rizikových pacientov. Najväčšia presnosť (91\%) klasifikácie bola získaná pri kombinácií geodetickej a euklidovskej vzdialenosti. Výsledné dáta tejto štúdie nasvedčujú tomu, že 3D skenovanie má potenciálnu úlohu pri skríningu OSA, avšak nedokáže nahradiť PSG vyšetrenie. Z výsledkov taktiež vyplýva, že pomocou geodetickej vzdialenosti je možné určiť aj stupeň závažnosti OSA.
+Štúdia ukazuje, že geodetická informácia výrazne zlepšuje schopnosť identifikovať rizikových pacientov. Najväčšia presnosť ($ 91\% $) klasifikácie bola získaná pri kombinácií geodetickej a euklidovskej vzdialenosti. Výsledné dáta tejto štúdie nasvedčujú tomu, že 3D skenovanie má potenciálnu úlohu pri skríningu OSA, avšak nedokáže nahradiť PSG vyšetrenie. Z výsledkov taktiež vyplýva, že pomocou geodetickej vzdialenosti je možné určiť aj stupeň závažnosti OSA.

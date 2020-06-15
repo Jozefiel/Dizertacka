@@ -458,7 +458,7 @@ Pre porovnanie 5 a 68 bodového detektora sa štatisticky analyzovalo, koľko de
 \begin{table}[h]
 	\caption{\label{tab:dlib:compare} Štatistické porovnanie 68 bodového a 5 bodového detektora na 87 hĺbkových mapách.}
 	\centering
-	\begin{tabular}{cccccc}
+	\begin{tabular}{lccccc}
 		\toprule
 		\textbf{Model} & \textbf{Počet bodov} & \textbf{$d_i=0$} & \textbf{$F(d_i=0)$} & \textbf{$d_i=0 [\%]$ } & \textbf{$F(d_i=0) [\%]$} \\ 
 		\midrule
@@ -471,7 +471,7 @@ Pre porovnanie 5 a 68 bodového detektora sa štatisticky analyzovalo, koľko de
 Oba detektory mali veľmi nízku hodnotu prípadov, kedy identifikovanému bodu $P_i$ chýbala hĺbková informácia. Avšak pri 68 bodovom detektore približne každý štvrtý snímok obsahoval takýto bod. 
 
 
-Pre porovnanie stability detekcie kľučových bodov sme vykonali meranie euklidovských vzdialeností $d_e$ medzi jednotlivými bodmi. Zisťované boli šírka ľavého a pravého oka, vonkajší a vnútorný rozostup očí. Meranie bolo vykonané na datasete, ktorý obsahoval 135 párov snímok (RGB-D, hĺbková mapa).
+Pre porovnanie stability detekcie kľučových bodov sme vykonali meranie euklidovských vzdialeností $d_e$ medzi jednotlivými bodmi. Zisťované boli šírka ľavého a pravého oka, vonkajší a vnútorný rozostup očí. Meranie bolo vykonané na datasete, ktorý obsahoval 135 párov snímok (RGB-D, hĺbková mapa) pre oba detektory.
 
 \begin{equation}
 \label{eq:euclidean}
@@ -480,19 +480,19 @@ d_{e}\left(P_i,P_j\right)= \sqrt{\left(P_i(x) - P_j(x)\right)^2 + \left(P_i(y) -
 \end{aligned}
 \end{equation}
 
-Z výsledkov sa vypočítal medián, priemerná hodnota a rozdiel medzi maximálnu a minimálnou nameranou hodnotou. 
+Z výsledkov sa vypočítal medián, priemerná hodnota a rozdiel medzi maximálnu a minimálnou nameranou hodnotou. Údaje pre jednotlivé detektory sa nachádzajú v tabuľkách \ref{tab:dlib:5points} a \ref{tab:dlib:68points}
  
 \begin{table}[h]
 	\caption{\label{tab:dlib:5points} Meranie vybraných faciálnych rozmerov pomocou 5 bodového detektora.}
 	\centering
-	\begin{tabular}{cccc}
+	\begin{tabular}{lccc}
 		\toprule
 		\textbf{Meranie} & \textbf{Medián [mm]} & \textbf{Priemer [mm]} & \textbf{Rozdiel(Max-Min) [mm]} \\ 
 		\midrule
-		\textbf{Šírka ľavého oka} 	& 28.38 & 28.41	& 5.03 \\
-		\textbf{Šírka pravého oka} 	& 26.21	& 26.17 & 4.39 \\
-		\textbf{Vnútorný rozostup očí} 	& 38.43	& 38.22 & 2.32 \\
-		\textbf{Vonkajší rozostup očí} 	& 90.06	& 89.89 & 3.22 \\
+		\textbf{Šírka ľavého oka} 	& 28,38 & 28,41	& 5,03 \\
+		\textbf{Šírka pravého oka} 	& 26,21	& 26,17 & 4,39 \\
+		\textbf{Vnútorný rozostup očí} 	& 38,43	& 38,22 & 2,32 \\
+		\textbf{Vonkajší rozostup očí} 	& 90,06	& 89,89 & 3,22 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -504,10 +504,10 @@ Z výsledkov sa vypočítal medián, priemerná hodnota a rozdiel medzi maximál
 		\toprule
 		\textbf{Meranie} & \textbf{Medián [mm]} & \textbf{Priemer [mm]} & \textbf{Rozdiel(Max-Min) [mm]} \\ 
 		\midrule
-		\textbf{Šírka ľavého oka} 	& 28.46 & 28.52	& 5.40 \\
-		\textbf{Šírka pravého oka} 	& 27.13	& 27.22 & 4.81 \\
-		\textbf{Vnútorný rozostup očí} 	& 37.13	& 37.00 & 3.16 \\
-		\textbf{Vonkajší rozostup očí} 	& 85.99	& 89.70 & 4.16 \\
+		\textbf{Šírka ľavého oka} 	& 28,46 & 28,52	& 5,40 \\
+		\textbf{Šírka pravého oka} 	& 27,13	& 27,22 & 4,81 \\
+		\textbf{Vnútorný rozostup očí} 	& 37,13	& 37,00 & 3,16 \\
+		\textbf{Vonkajší rozostup očí} 	& 85,99	& 89,70 & 4,16 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -519,12 +519,12 @@ V nich môžeme vidieť, že výsledky sú podobné. Dôležitým parametrom je 
 	\centering
 	\begin{tabular}{lccc}
 		\toprule
-		\textbf{Meranie} & \textbf{Median [mm]} & \textbf{Average [mm]} & \textbf{Diff(Max-Min) [mm]} \\ 
+		\textbf{Meranie} & \textbf{Medián [mm]} & \textbf{Priemer [mm]} & \textbf{Rozdiel(Max-Min) [mm]} \\ 
 		\midrule
-		\textbf{Šírka ľavého oka} 	& -0.08 & -0.11	& -0.38 \\
-		\textbf{Šírka pravého oka} 	& -0.93	& -1.05 & -0.42 \\
-		\textbf{Vnútorný rozostup očí} 	& 1.30	& 1.21 & -0.83 \\
-		\textbf{Vonkajší rozostup očí} 	& 0.51	& 0.19 & -0.93 \\
+		\textbf{Šírka ľavého oka} 	& -0,08 & -0,11	& -0,38 \\
+		\textbf{Šírka pravého oka} 	& -0,93	& -1,05 & -0,42 \\
+		\textbf{Vnútorný rozostup očí} 	& 1,30	& 1,21 & -0,83 \\
+		\textbf{Vonkajší rozostup očí} 	& 0,51	& 0,19 & -0,93 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -542,13 +542,30 @@ V ďalšom kroku sa vykonáva IMBM filtrácia, ktorej úlohou je identifikovať 
 
 Filter pracuje s hĺbkovými mapami, výstupom z filtra je taktiež hĺbková mapa. Pre lepšiu vizualizáciu funkčnosti jednotlivých krokov IMBM sú hĺbkové mapy prevedené do mračien bodov.  
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{figures/prepared_models.png}
-	\caption{Porovnanie vplyvu filtrácie na vstupné dáta}
-	\label{fig:imbm:result:a}
-	\label{fig:imbm:result:b}
-	\label{fig:imbm:result:c}
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[height=4.4cm]{figures/prepared_models_a.png}
+		\caption{}
+		\label{fig:imbm:result:a}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[height=4.4cm]{figures/prepared_models_b.png}
+		\caption{}
+		\label{fig:imbm:result:b}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[height=4.4cm]{figures/prepared_models_c.png}
+		\caption{}
+		\label{fig:imbm:result:c}
+	\end{subfigure}
+	\caption{IMBM filtrácia: (\textbf{a}) Ukážka vplyvu interferencie. (\textbf{b}) Extrakcia interferovaných miest. (\textbf{c}) Filtrované dáta s interpolovaním chybných miest.}
+	\label{fig:imbm:result}
 \end{figure}
 
 Ukážka vplyvu interferencie na mračno bodov sa nachádza na obr. \ref{fig:imbm:result:a}. To je vytvorené zo série hĺbkových máp jednej kamery. Model obsahuje veľké množstvo chybných pixelov, ktoré sú rozptýlené okolo povrchu modelu. Navyše sa interferencia prejavuje v oblasti komplexnej geometrickej štruktúry. 
@@ -643,7 +660,7 @@ Pri multi-kamerovej kalibrácií sme získali rotačné a translačné parametre
 	\label{fig:3dm}
 \end{figure}
 
-Aplikovaním \textit{Incremental registration ICP} metódy sa zabezpečí opätovné zarovnanie mračien bodov do spoločného priestoru. Registrácia sa vykonáva postupne medzi dvojicami mračien bodov. Predný pohľad tváre je určený ako referenčný a mračno bodov je statické. Rotačná a translačná matica má tvar identickej afinnej transformácie (rovnica \ref{eq_kalib_ident}). Pre ostatné mračná su vypočítané nové rotačné a translačné parametre zložené z ostatných afinných transformácií. Vstupné nastavenia pre \textit{Incremental registration ICP} sú \textit{MaximumIterations}$=20$, \textit{MaxCorrespondenceDistance}$=0.005$ a \textit{RansacOutlierRejectionThreshold}$=0.005$. Zarovnané mračná z jednotlivých kamier sa následne spoja do jedného uceleného mračna. Kvôli vyššej hustote bodov v miestach zarovnania sa v mračne bodov miesta redukujú podľa mriežky (GRID). Týmto sa získa uniformná hustota bodov v celom mračne. 
+Aplikovaním \textit{Incremental registration ICP} metódy sa zabezpečí opätovné zarovnanie mračien bodov do spoločného priestoru. Registrácia sa vykonáva postupne medzi dvojicami mračien bodov. Predný pohľad tváre je určený ako referenčný a mračno bodov je statické. Rotačná a translačná matica má tvar identickej afinnej transformácie (rovnica \ref{eq_kalib_ident}). Pre ostatné mračná su vypočítané nové rotačné a translačné parametre zložené z ostatných afinných transformácií. Vstupné nastavenia pre \textit{Incremental registration ICP} sú \textit{MaximumIterations}$=20$, \textit{MaxCorrespondenceDistance}$=0,005$ a \textit{RansacOutlierRejectionThreshold}$=0,005$. Zarovnané mračná z jednotlivých kamier sa následne spoja do jedného uceleného mračna. Kvôli vyššej hustote bodov v miestach zarovnania sa v mračne bodov miesta redukujú podľa mriežky (GRID). Týmto sa získa uniformná hustota bodov v celom mračne. 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.32\textwidth}
@@ -800,12 +817,12 @@ Vychádzali sme z modelu, ktorý už podstúpil trénovanie na ImageNet obrazovo
 		\toprule
 		\textbf{} & \textbf{30 epocha} & \textbf{60 epocha} & \textbf{validácia} \\ 
 		\midrule
-		\textbf{loss} 					& 5.4736 	& 4.579 & 4.698	\\
-		\textbf{rpn class loss} 		& 0.6676 	& 0.435 & 0.205	\\
-		\textbf{rpn bbox loss} 			& 2.4274	& 2.144 & 2.596	\\
-		\textbf{mrcnn class loss} 		& 0.6545	& 0.394 & 0.264	\\
-		\textbf{mrcnn bbox loss} 		& 1.0124	& 0.894	& 0.939	\\
-		\textbf{mrcnn mask loss} 		& 0.7118	& 0.712	& 0.692	\\
+		\textbf{loss} 					& 5,4736 	& 4,579 & 4,698	\\
+		\textbf{rpn class loss} 		& 0,6676 	& 0,435 & 0,205	\\
+		\textbf{rpn bbox loss} 			& 2,4274	& 2,144 & 2,596	\\
+		\textbf{mrcnn class loss} 		& 0,6545	& 0,394 & 0,264	\\
+		\textbf{mrcnn bbox loss} 		& 1,0124	& 0,894	& 0,939	\\
+		\textbf{mrcnn mask loss} 		& 0,7118	& 0,712	& 0,692	\\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -841,7 +858,7 @@ Celková stratová funkcia $L$ (\textit{loss}) predstavuje súčet chyby klasifi
 Z výsledkov segmentácie vidíme, že nie všetky oblasti boli klasifikované.
 Niektoré ROI masky boli relatívne dobre segmentované (tvár, nos, ústa). Niektoré však chýbali úplne (oči, krk). Predpokladom je, že rozšírením trénovacieho datasetu o nové RGB-D obrazy sa môže výrazne zvýšiť presnosť klasifikácie a segmentácie. \newline
 
-Pre tieto účely bol navrhnutý snímací systém pracujúci kamerami Intel RealSense d415, ktorý je umiestnený v spánkovom laboratóriu na klinike detí a dorastu v Martine. Ten zabezpečuje zber hĺbkových a RGB-D obrazov pediatrických pacientov z troch perspektív. Nastavenie polohy hlavy je kontrolované pomocou Haarovych kaskád. Grafické prostredie snímacieho systému je zachytené na obr. \ref{fig:hmi_web:a} a \ref{fig:hmi_web:b}.
+Pre tieto účely bol navrhnutý snímací systém pracujúci kamerami Intel RealSense d415, ktorý je v detskom spánkovom laboratóriu na klinika detí a dorastu JLF UK, Martine. Ten zabezpečuje zber hĺbkových a RGB-D obrazov pediatrických pacientov z troch perspektív. Nastavenie polohy hlavy je kontrolované pomocou Haarovych kaskád. Grafické prostredie snímacieho systému je zachytené na obr. \ref{fig:hmi_web:a} a \ref{fig:hmi_web:b}.
  
 
 \begin{figure}[H]

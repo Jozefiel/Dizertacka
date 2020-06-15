@@ -10,34 +10,14 @@
 \lhead{Úvod}
 
 
-
-
-
 Syndróm obštrukčného spánkového apnoe je ochorenie, ktoré patrí medzi najčastejšie sa
-%vyskytujúce spánkové problémy u rôznej vekovej skupiny ľudí. Komplexná diagnostika tejto
-%poruchy prebieha v špecializovaných spánkových labolatóriách pomocou polysomnografie.
-%Takéto vyšetrenie je však časovo a finančne nákladné, čo spôsobuje dlhé čakacie doby na
-%vyšetrenie. Pomocným riešením je diagnostikovať rizikových pacientov, ktorí môžu byť následne
-%uprednostnení na lekárske vyšetrenie. V praxi sa používa dotazník nazývaný „Klinický záznam
-%o spánku“, ktorý subjektívnym spôsobom lekára určuje pravdepodobnosť ochorenia. Výsledky
-%dotazníka sú však ovplyvnené subjektívnym hodnotením vyšetrujúceho.
-%
-%Objektivizácia vyšetrenia môže byť zvýšena pomocou skríningového nástroja, ktorý by dokázal
-%nahradiť manuálne vykonávané merania parametrov tváre predurčujúce spomínané ochorenie.
-%V dnešnej dobe sa špecifické vlastnosti merajú manuálne kontaktnými meracími prístrojmi. Tento
-%spôsob merania je pomalý a stresujúci predovšetkým u padiatrických pacientov. Práve stres
-%u pacientov častokrát znemožňuje objektívny prístup k potrebným informáciám. Bezkontaktnou
-%metódou merania by sa zvýšila objektivita a presnosť merania. Taktiež by sa znížila časová
-%náročnosť vyšetrenia a umožnilo by sa meranie parametrov, ktoré obvykle nie sú zaznamenávané.
-%
-%RGB-D kamery okrem farby dokážu zachytiť aj informáciu o hĺbke prostredia. Pomocou tejto
-%informácie je následne možné reprodukovať geometrické vlasnosti tváre pacienta do 3D modelu.
-%3D rekonštrukcia objektov je technický problém, ktorý sa uplatnuje v širokom spektre od herného
-%priemyslu cez strojárstvo až k medicíne. Práve v medicíne je 3D modelovanie interdisciplinárne.
-%Model pacienta môže byť využívaný pri rôznych vyšetreniach bez potreby jeho prítomnosti.
-%S využívanám umelej inteligencie vzniká aj možnosť určitého stupňa automatizácie.
-%
-%O spomínaný skríningový nástroj prejavili záujem svetoví odbornící, ktorí sa špecializujú na vyšetrovanie spánkových porúch.
+vyskytujúce spánkové problémy u rôznej vekovej skupiny ľudí. Komplexná diagnostika tejto poruchy prebieha v špecializovaných spánkových laboratóriách pomocou polysomnografie. Takéto vyšetrenie je však časovo a finančne nákladné, čo spôsobuje dlhé čakacie doby na vyšetrenie.
 
+Z tohto dôvodu sa v posledných rokoch výskum intenzívne zameriava na vývoj skríningového nástroja, ktorý by vedel klasifikovať pacientov do jednotlivých rizikových skupín. Síce ide o medicínu problematiku, na jej riešenie sa využívajú technológie spadajúce do oblasti telekomunikácii. Z aktuálnych výskumov vyplýva, že nové diagnostické metódy využívajú k predikcii 2D snímky a 3D modely pacientov.  
+Pre získanie týchto informácií s využívajú moderné snímacie zariadenia, ktoré poskytujú kvalitné dáta. Cena týchto zariadení je pomerne vysoká. Taktiež momentálne neexistuje komplexný systém, ktorý by sa špecializoval výlučne na detekciu obštrukčného spánkového apnoe. Jednotlivé problémy sa riešia čiastkovo a nie sú plne automatizované.     
+
+Výsledkom tejto práce je návrh cenovo dostupného snímacieho systému a vývoj príslušného algoritmu. Zariadenie pomocou RGB-D snímačov zachytáva priestorovú informáciu pacienta a umožňuje automatizovane meranie špecifické kranio-faciálnych parametre tváre. Taktiež poskytuje možnosť vytvárania dátového setu, ktorý bude nápomocný pri vývoji klasifikačných nástrojov v neskorších fázach výskumu. 
+\newpage
+V praktickej časti práce sme navrhli metodiku snímania a filtrovania dát. Opísali sme spôsob kalibrácie multi-kamerového systému, pri ktorom sme zisťovali vnútorné a vonkajšie parametre používaných kamier. Opísali sme jav multi-kamerovej interferencie vznikajúcej pri paralelnej spolupráci ToF kamier. Navrhli sme filtračnú metódu IMBM, ktorá potláča vplyv tejto interferencie na hĺbkových mapách. Navrhli sme algoritmus umožňujúci spracovanie prijatých obrazových informácii Kinect v2 v reálnom čase. Implementovali sme detektor kľúčových bodov tváre na identifikáciu pohybu objektu a pre automatizovanie merania euklidovských vzdialenosti kranio-faciálnych parametrov. Taktiež sme navrhli metodiku segmentácie tváre pomocou Mask R-CNN neurónovej siete. Tá slúži k rozdeleniu konzistentného mračna bodov vytvoreného z viacerých kamier do klasifikačných skupín (oko, ucho, tvár, ...). Takéto segmentovanie umožní vytvorenie jedinečnej databázy, ktorej dáta budu použité pri trénovaní OSA klasifikátora. Pre tento účel bol vytvorený samostatný snímací systém, ktorého cieľom je získavanie dát určených k trénovaniu segmentačnej siete. Ten je umiestnený v detskom spánkovom laboratórium na klinike detí a dorastu JLF UK v Martine. 
 
 

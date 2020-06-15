@@ -7,7 +7,7 @@
 \renewcommand{\footrulewidth}{1pt}
 \lhead{Medicínske pozadie výskumu}
 
-Snahou hĺbkových kamier je zachytiť okrem informácii o farbe prostredia aj informáciu o hĺbke priestoru. V praxi to znamená, že sa transformuje 3D priestor do 2D priestoru. Táto informácia je uchovávaná v matici, ktorá je nazývaná hĺbková mapa. Spôsob vytvárania hĺbkovej mapy kamerou závisí od použitej technológie. Medzi základné spôsoby patrí stereo-vízia, snímanie štrukturovaným svetlom (SLS) a meranie doby letu (TOF).
+Snahou hĺbkových kamier je zachytiť okrem informácii o farbe prostredia aj informáciu o hĺbke priestoru. V praxi to znamená, že sa transformuje 3D priestor do 2D priestoru. Táto informácia je uchovávaná v matici, ktorá je nazývaná hĺbková mapa. Spôsob vytvárania hĺbkovej mapy kamerou závisí od použitej technológie. Medzi základné spôsoby patrí stereo-vízia, snímanie štrukturovaným svetlom (SLS) a meranie doby letu (ToF).
 
 \section{Skenovanie v reálnom čase pomocou \mbox{RGB-D} senzorov}
 
@@ -98,7 +98,7 @@ Mračná bodov zo všetkých Kinect v2 sa následne spájajú do jedného mračn
 \end{figure}
 
 V článku sa zamerali aj na meranie rýchlosti spracovania filtrácie. Pre prácu použili CUDA paralelné spracovanie na grafickej karte GeForce 780GTX. 
-Meranie rýchlosti spracovania jednotlivých častí algoritmu sa vykonávalo na 400 hĺbkových mapách. Priemerný čas filtrácie so sieťovou rekonštrukciou trval $14.19ms$. 
+Meranie rýchlosti spracovania jednotlivých častí algoritmu sa vykonávalo na 400 hĺbkových mapách. Priemerný čas filtrácie so sieťovou rekonštrukciou trval 14,19ms. 
 
 Autori predstavili návrh multi-kamerovej spolupráce 3 ToF snímačov značky Kinect v2. Bol opísaný spôsob kalibrácie a registrácie mračien bodov z jednotlivých kamier. Zároveň sa zamerali aj na filtráciu a trojuholníkovú rekonštrukciu snímaných objektov, pričom testovali rýchlosť spracovania.
 
@@ -182,14 +182,14 @@ Hlavnou výhodou štruktúrovaného svetla je dosiahnutie vysokého priestorové
 
 Konštantná vlnová dĺžka je zabezpečená malým Peltierovým článkom, slúžiacim na udržiavanie nemennej teploty laserovej diódy. Takým spôsobom je zabezpečená stabilná výstupná vlnová dĺžka, vzhľadom na zmeny teploty a výkonu. Osvetlenie okolitého prostredia je problémom, ktorý je možné zmierniť využitím filtra, ktorý prepúšťa iba IR frekvenčné pásmo. Avšak kamera nedokáže fungovať správne na miestach osvetlených slnečným žiarením. Preto je využívanie kamier na princípe štruktúrovaného svetla výhodnejšie využívať v interiéri (8).
 
-\subsection{TOF snímače}
+\subsection{ToF snímače}
 \label{sec:tof}
-Kamery pracujúce na princípe \textit{Time of Flight} (TOF) produkujú hĺbkový obraz, ktorého každý pixel kóduje vzdialenosť od zodpovedajúceho bodu snímanej scény pomocou merania fázového oneskorenia infračerveného svetla. Kamery obsahujú zdroj infračerveného svetla a senzor, ktorý zachytáva odrazené svetlo. Taktiež sú často kombinované s RGB snímačom, ktorý dokáže zachytiť farebnú textúru snímanej scény. Infračervené svetlo je modulované harmonicky sínusovým signálom alebo impulzne. V praxi sa viac využíva impulzná modulácia, pretože je ľahšia na realizáciu a spracovanie. Obr. \ref{fig:tof_principle} popisuje princíp detekcie hĺbky TOF senzorom so sínusovou moduláciou.
+Kamery pracujúce na princípe \textit{Time of Flight} (ToF) produkujú hĺbkový obraz, ktorého každý pixel kóduje vzdialenosť od zodpovedajúceho bodu snímanej scény pomocou merania fázového oneskorenia infračerveného svetla. Kamery obsahujú zdroj infračerveného svetla a senzor, ktorý zachytáva odrazené svetlo. Taktiež sú často kombinované s RGB snímačom, ktorý dokáže zachytiť farebnú textúru snímanej scény. Infračervené svetlo je modulované harmonicky sínusovým signálom alebo impulzne. V praxi sa viac využíva impulzná modulácia, pretože je ľahšia na realizáciu a spracovanie. Obr. \ref{fig:tof_principle} popisuje princíp detekcie hĺbky ToF senzorom so sínusovou moduláciou.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/tof_principle.png} 
-	\caption{Princíp činnosti TOF senzorov}
+	\caption{Princíp činnosti ToF senzorov}
 	\label{fig:tof_principle}
 \end{figure}
 
@@ -201,7 +201,7 @@ Depth=\frac{c}{2}\frac{\Delta \varphi}{2 \pi f}
 \end{aligned}
 \end{equation}
 
-Pri impulznej modulácii môže byť emitované svetlo sekvenčne alebo kontinuálne (11). Na Obr. 3.3 je znázornený princíp impulznej sekvenčej modulácie, kde je svetelný zdroj rozsvietený na krátky čas (Δt) a odrazená energia je prerozdelená na každý pixel paralelne pomocou dvoch fázových okien C1 a C2 s rovnakým trvaním Δt. Elektrické náboje, ktoré sa nahromadili počas týchto vzoriek, Q 1 a Q 2 , sú merané a použité na výpočet vzdialenosti pomocou vzťahu 3.3:
+Pri impulznej modulácii môže byť emitované svetlo sekvenčne alebo kontinuálne (11). Na Obr. 3.3 je znázornený princíp impulznej sekvenčej modulácie, kde je svetelný zdroj rozsvietený na krátky čas ($ \Delta t $) a odrazená energia je prerozdelená na každý pixel paralelne pomocou dvoch fázových okien $C_1$ a $C_2$ s rovnakým trvaním $ \Delta t $. Elektrické náboje, ktoré sa nahromadili počas týchto vzoriek, $Q_1$ a $Q_2$ , sú merané a použité na výpočet vzdialenosti pomocou vzťahu 3.3:
 
 \begin{equation}
 \label{eq3}
@@ -213,17 +213,17 @@ Depth=\frac{c}{2}\cdot\Delta t \left( \frac{Q_2}{Q_1 + Q_2}\right)
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.65\textwidth]{figures/tof_principle_a.png} 
-	\caption{Sekvenčná impulzná modulácia TOF senzora}
+	\caption{Sekvenčná impulzná modulácia ToF senzora}
 	\label{fig:tof_principle_a}
 \end{figure}
 
-Metóda s použitím kontinuálnej vlny obsahuje viac vzoriek pre jedno meranie, pričom každá vzorka je posunutá s fázovým oneskorením o 90 stupňov. Meranie fázového rozdielu medzi vyžarovanými a odrazenými IR vlnami je zabezpečené prepočtom vzdialenosti od objektu na základe vzťahu 3.4 medzi štyrmi rôznymi hodnotami elektrického náboja.
+Metóda s použitím kontinuálnej vlny obsahuje viac vzoriek pre jedno meranie, pričom každá vzorka je posunutá s fázovým oneskorením o $90^\circ$. Meranie fázového rozdielu medzi vyžarovanými a odrazenými IR vlnami je zabezpečené prepočtom vzdialenosti od objektu na základe vzťahu 3.4 medzi štyrmi rôznymi hodnotami elektrického náboja.
 
 \begin{figure}[H]
 
 	\centering
 	\includegraphics[width=0.65\textwidth]{figures/tof_principle_b.png} 
-	\caption{Kontinuálna impulzná modulácia TOF senzora}
+	\caption{Kontinuálna impulzná modulácia ToF senzora}
 	\label{fig:tof_principle_b}
 
 \end{figure}
@@ -263,7 +263,7 @@ Amplitúda intenzity A a ofset B majú vplyv na presnosť merania hĺbky. Odchý
 \end{aligned}
 \end{equation}
 
-v nej modulačný kontrast $ c_d $ opisuje ako efektívny zobrazovací kremík oddeľuje a zbiera fotoelektróny. Amplitúda intenzity $ A $ je funkciou optickej sily a offset $ B $ je funkciou okolitého svetla. Z tejto rovnice možno vyvodiť, že vysoká odrazená amplitúda, frekvencia vysokej modulácie a kontrast s vysokou moduláciou prispievajú k zvýšeniu presnosti. Vysoký offset na druhej strane môže viesť k sýtosti a zníženiu presnosti. Snímače TOF s vysokou odchýlkou všeobecne prinášajú vyššiu presnosť (12). Hlavnou výhodou TOF kamier je používanie iba jedného pohľadu pri výpočte hĺbky, vďaka čomu sú zachované ostré hrany objektov a redukovaná prítomnosť otvorov vo výslednom obraze, pričom je zanechaná vysoká presnosť údajov. Hustotu nameraných dát je možné ovplyvniť počtom meraní. Výhodou je aj to, že okolité osvetlenie už nevplýva na zaznamenávanie obrazu, pretože nedochádza k ovplyvňovaniu frekvencie vyžarovaného svetla. K ďalším kladným vlastnostiam patrí vysoký dynamický rozsah a absencia cenovo náročných materiálov v zariadení. Medzi nevýhody kamier s TOF zaraďujeme nižšiu kvalitu priestorového rozlíšenia zapríčinenú extra spracovaním na úrovni snímača, a taktiež náchylnosť na pohybové artefakty pri viacnásobnom počte záberov. Pri kamere využívajúcej TOF je potrebné vopred vedieť rýchlosť šírenia signálu v danom prostredí. Namerané výsledky sú závislé aj od materiálu meraného subjektu. Pri nevhodnom materiáli môže dochádzať k niekoľkonásobnému odrazu. Negatívne vlastnosti TOF sa prejavujú prevažne na okrajových pixeloch (13)
+v nej modulačný kontrast $ c_d $ opisuje ako efektívny zobrazovací kremík oddeľuje a zbiera fotoelektróny. Amplitúda intenzity $ A $ je funkciou optickej sily a offset $ B $ je funkciou okolitého svetla. Z tejto rovnice možno vyvodiť, že vysoká odrazená amplitúda, frekvencia vysokej modulácie a kontrast s vysokou moduláciou prispievajú k zvýšeniu presnosti. Vysoký offset na druhej strane môže viesť k sýtosti a zníženiu presnosti. Snímače TOF s vysokou odchýlkou všeobecne prinášajú vyššiu presnosť (12). Hlavnou výhodou TOF kamier je používanie iba jedného pohľadu pri výpočte hĺbky, vďaka čomu sú zachované ostré hrany objektov a redukovaná prítomnosť otvorov vo výslednom obraze, pričom je zanechaná vysoká presnosť údajov. Hustotu nameraných dát je možné ovplyvniť počtom meraní. Výhodou je aj to, že okolité osvetlenie už nevplýva na zaznamenávanie obrazu, pretože nedochádza k ovplyvňovaniu frekvencie vyžarovaného svetla. K ďalším kladným vlastnostiam patrí vysoký dynamický rozsah a absencia cenovo náročných materiálov v zariadení. Medzi nevýhody kamier s ToF zaraďujeme nižšiu kvalitu priestorového rozlíšenia zapríčinenú extra spracovaním na úrovni snímača, a taktiež náchylnosť na pohybové artefakty pri viacnásobnom počte záberov. Pri kamere využívajúcej ToF je potrebné vopred vedieť rýchlosť šírenia signálu v danom prostredí. Namerané výsledky sú závislé aj od materiálu meraného subjektu. Pri nevhodnom materiáli môže dochádzať k niekoľkonásobnému odrazu. Negatívne vlastnosti ToF sa prejavujú prevažne na okrajových pixeloch (13)
 
 \section{Mračno bodov a 3D povrch}
 
@@ -382,7 +382,7 @@ T\left(m\right)=\bar{A}m+\bar{t}
 
 Matica \textbf{A} sa skladá zo štyroch samostatných parametrov $\left\lbrace a, \theta, b, c \right\rbrace$, ktoré spôsobujú zmenu veľkosti, rotáciu, horizontálnu a vertikálnu geometrickú transformáciu.
 
-Účelová funkcia je reprezentovaná rovnicou 3.12 pričom v nej platí podmienka 3.13:
+\noindent Účelová funkcia je reprezentovaná rovnicou 3.12 pričom v nej platí podmienka 3.13:
 
 \begin{equation}
 \label{eq12}
