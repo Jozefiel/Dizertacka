@@ -318,9 +318,9 @@ Efektívnejším spôsobom je hľadanie vzájomnej pozície kamier cez kľúčov
 \section{Návrh algoritmu}
 
 Úlohou algoritmu je vytvoriť konzistentné mračno bodov dynamického objektu z multi-kamerového systému, ktoré bude použité pre skríning OSA. Dynamický objekt je reprezentovaný hlavou pediatrického pacienta. Algoritmus má taktiež vykonávať automatizované meranie určitých kranio-faciálnych parametrov tváre pomocou euklidovskej vzdialenosti. V tejto časti práce je opísaný spôsob snímania objektu a spracovanie získaných dát. Taktiež je spomenutý návrh algoritmu pre segmentáciu hĺbkových máp, ktorý identifikuje a rozdelí jednotlivé časti tváre podľa preddefinovanej klasifikácie.
-Z takto segmentovanej hĺbkovej mapy bude možné vytvoriť mračná bodov jednotlivých časti tváre (oči, nos, brada, ústa,...). Takto segmentované body budú v ďalšom výskume použité ako vstupné množiny do neurónových sieti pracujúcich s 3D dátami. \newline
+Z takto segmentovanej hĺbkovej mapy bude možné vytvoriť mračná bodov jednotlivých častí tváre (oči, nos, brada, ústa,...). Takto segmentované body budú v ďalšom výskume použité ako vstupné množiny do neurónových sietí pracujúcich s 3D dátami. \newline
 
-\noindent Algoritmus môžeme rozdeliť podľa funkcionality na 4 časti. 
+\noindent Algoritmus môžeme rozdeliť podľa funkcionality na 4 časti: 
 
 \begin{itemize}
 	\item Zber a príprava dát v reálnom čase
@@ -329,11 +329,11 @@ Z takto segmentovanej hĺbkovej mapy bude možné vytvoriť mračná bodov jedno
 	\item Segmentácia bodov podľa klasifikácie 
 \end{itemize}
 
-V prvej časti sa rieši paralelné spracovanie dát zo všetkých pripojených kamier. Vykonáva sa geometrická kalibrácia, základná 2D filtrácia spolu s identifikáciou pohybu tváre. Požiadavka na tento proces je, aby bol vykonávaný v reálnom čase. Ak frekvencia snímania je $30Hz$, časový rozstup medzi snímkami je $33ms$. Preto sú procesy spúšťané paralelne na CPU a GPU. Výstupom z tejto časti je obrazový zásobník, ktorý obsahuje obrazové informácie pediatrického pacienta v pokojovom stave. \newline
+V prvej časti sa rieši paralelné spracovanie dát zo všetkých pripojených kamier. Vykonáva sa geometrická kalibrácia a základná 2D filtrácia spolu s identifikáciou pohybu tváre. Požiadavka na tento proces je, aby bol vykonávaný v reálnom čase. Ak frekvencia snímania je $30Hz$, časový rozstup medzi snímkami je $33ms$. Preto sú procesy spúšťané paralelne na CPU a GPU. Výstupom z tejto časti je obrazový zásobník, ktorý obsahuje obrazové informácie pediatrického pacienta v pokojovom stave. \newline
 
 V druhej časti sa zo získaných obrazových dát vytvára trojrozmerná reprezentácia snímaného objektu. Prijaté dáta podstupujú filtráciu, ktorou sa zlepšuje kvalita výstupného modelu. Proces využíva štatistické filtre, ktorými sa odstraňujú chybné dáta. Aplikovaním ICP metódy sa minimalizuje chyba multi-kamerovej kalibrácie. Do priebehu tohto procesu vstupujú aj tretí a štvrtý proces. Tie pracujú s RGB-D obrazmi a hĺbkovými mapami, ktoré sú výstupom IMBM filtrácie. \newline
 
-Tretia časť sa zameriava na meranie euklidovských vzdialenosti špecifických vybraných parametrov. V RGB-D obraze sa identifikujú kľúčové body, ktoré su následne prenesené do hĺbkovej mapy. Z týchto bodov sa vypočítajú 3D súradnice a vzdialenosti medzi jednotlivými pármi bodov. Týmto prístupom sa do určitej miery automatizuje vyšetrenie, ktoré je inač vykonávané kontaktným spôsobom. Bezkontaktný prístup je príjemnejší a menej stresujúci pre pediatrických pacientov. Taktiež skracuje dobu vyšetrenia.\newline 
+Tretia časť sa zameriava na meranie euklidovských vzdialeností špecifických vybraných parametrov. V RGB-D obraze sa identifikujú kľúčové body, ktoré sú následne prenesené do hĺbkovej mapy. Z týchto bodov sa vypočítajú 3D súradnice a vzdialenosti medzi jednotlivými pármi bodov. Týmto prístupom sa do určitej miery automatizuje vyšetrenie, ktoré je inak vykonávané kontaktným spôsobom. Bezkontaktný prístup je príjemnejší a menej stresujúci pre pediatrických pacientov. Taktiež skracuje dobu vyšetrenia.\newline 
 
 V poslednej fáze sa vykonáva segmentácia výstupných RGB-D obrazov, v ktorých sa hľadajú pixely prislúchajúce jednotlivým častiam ľudskej tváre. Takouto segmentáciou v 2D obraze sa následne dokáže rozdeliť aj ucelené mračno bodov. Výstupom RGB-D segmentácie sú binárne masky, ktoré klasifikujú jednotlivé regióny v hĺbkových mapách. Pri priestorovej rekonštrukcii sa následne konkrétnym bodom nastaví identifikátor, ktorým sa body klasifikujú do tried. Takto je možné rozdeliť jedno zarovnané mračno vytvorené z viacerých hĺbkových máp. \newline
 
@@ -348,7 +348,7 @@ Algoritmus a príslušný softvér bol vyvíjaný v jazyku C++17 na operačnom s
 Proces prípravy vstupných dát môžeme rozdeliť na 4 sekvencie.
 V prvej sa vykonáva inicializácia kamier a nastavenie konfiguračných parametrov. Medzi základné konfiguračné parametre patria kalibračné koeficienty. 
 
-Po úspešnej inicializácii sa začína proces snímania. Každé snímanie je vykonávané vo vlastnom CPU vlákne, ktoré je nezávislé od hlavnej slučky programu. Každá kamera tak vykonáva úlohy vo vlastnej oddelenej slučke. Samostatne sa tak prijímajú obrazové informácie z jednotlivých kamier. Získava sa 8-bitový RGB obraz, 32-bitový infračervený obraz a taktiež 32-bitová hĺbková mapa. Tieto obrazy sú zbavené skreslenia šošoviek. Mapovaním farebného obrazu na hĺbkovú mapu sa získava RGB-D obraz. Ten popisuje textúru hĺbkovej mapy. Z hĺbkovej mapy je prahovaním odstránené pozadie, pričom hranice prahu sú určené topológiou kamerového systému. Takto vznikne binárna maska objektu, ktorej eróziou zmenšíme plochu na hranách. Pomocou nej je maskovaný RGB-D obraz. 
+Po úspešnej inicializácii sa začína proces snímania. Každé snímanie je vykonávané vo vlastnom CPU vlákne, ktoré je nezávislé od hlavnej slučky programu. Každá kamera tak vykonáva úlohy vo vlastnej oddelenej slučke. Samostatne sa tak prijímajú obrazové informácie z jednotlivých kamier. Získava sa 8-bitový RGB obraz, 32-bitový infračervený obraz a taktiež 32-bitová hĺbková mapa. Tieto obrazy sú zbavené skreslenia šošoviek. Mapovaním farebného obrazu na hĺbkovú mapu sa získava RGB-D obraz. Ten popisuje textúru hĺbkovej mapy. Z hĺbkovej mapy je prahovaním odstránené pozadie, pričom hranice prahu sú určené topológiou kamerového systému. Takto vznikne binárna maska objektu, ktorej eróziou zmenšíme plochu na hranách. Pomocou nej je maskovaný RGB-D obraz: 
 
 \begin{description}[leftmargin=*, font=$\bullet$~\normalfont\scshape\color{black}]
 	\item[RGB:] 	8-bitový 3-kanálový obraz s rozlíšením $1920 \times 1080$
@@ -357,20 +357,20 @@ Po úspešnej inicializácii sa začína proces snímania. Každé snímanie je 
 	\item[RGB-D:] Maskovaný 8-bitový 3-kanálový obraz s rozlíšením $512 \times 424$
 \end{description}
 
-V nasledujúcom kroku sa jednotlive obrazové dáta z kamier ukladajú do dátového zásobníka. Ten sa skladá z obrazových zásobníkov a zásobníkov mračien bodov. Jeho úlohou je spravovať sériu uložených dát, mazať staré a aktualizovať nové. Veľkosť zásobníka je prestaviteľná. Minimálnu hodnotu určuje IMBM filter, ktorý je určený potlačeniu multi-kamerovej interferencie. Jeho spravovanie beží v samostatnom vlákne, čim je znížená časová náročnosť obsluhy jednotlivých dát. Dátový zásobník poskytuje obrazové ďalším procesom. 
+V nasledujúcom kroku sa jednotlivé obrazové dáta z kamier ukladajú do dátového zásobníka. Ten sa skladá z obrazových zásobníkov a zásobníkov mračien bodov. Jeho úlohou je spravovať sériu uložených dát, mazať staré a aktualizovať nové. Veľkosť zásobníka je prestaviteľná. Minimálnu hodnotu určuje IMBM filter, ktorý je určený na potlačenie multi-kamerovej interferencie. Jeho spravovanie beží v samostatnom vlákne, čím je znížená časová náročnosť obsluhy jednotlivých dát. Dátový zásobník poskytuje obrazové informácie ďalším procesom. 
 
 Vždy po prijatí nových obrazových dát spustí proces generovania mračna bodov, ktorý beží v samostatnom vlákne. Takto generované mračná slúžia ako 3D nadhľad v grafickom prostredí. Užívateľovi umožňujú vizuálnu kontrolu snímanej scény v reálnom čase (obr. \ref{fig:hmi:a} a \ref{fig:hmi:b}). Body mračna majú štruktúru \textit{XYZRGB}. Kvôli rýchlejšiemu spracovaniu sa organizovaná štruktúra bodov (217088 bodov z hĺbkovej mapy) prevádza na 1D pole, čím je možné odstrániť prebytočné body reprezentované 0 hodnotou pixelu v hĺbkovej mape. Takto sa počet bodov môže redukovať až o $90\%$, čím sa výrazne zníži výpočtová náročnosť. Mračná bodov jednotlivých kamier sa zarovnávajú do spoločného priestoru pomocou extrinzických parametrov získaných pri multi-kamerovej kalibrácii. 
 
-Prácu s grafickým prostredím vykonáva užívateľ, ktorý si zároveň stabilizuje snímaný objekt do požadovanej polohy. Prostredie mu umožňuje vizuálne kontrolovať zmenu polohy a pohyb objektu v reálnom čase. Ak snímaná scéna vyhovuje požiadavkám, užívateľ spusti ďalší proces spracovania dát. V tomto procese sa hľadá séria snímok, kedy poloha objektu vykazuje minimálne zmeny. Táto požiadavka vyplýva z nutnosti použitia IMBM filtrácie. Nasledujúci spôsob detekcie polohy hlavy sa nachádza ďalšej časti práce. 
+Prácu s grafickým prostredím vykonáva užívateľ, ktorý si zároveň stabilizuje snímaný objekt do požadovanej polohy. Prostredie mu umožňuje vizuálne kontrolovať zmenu polohy a pohyb objektu v reálnom čase. Ak snímaná scéna vyhovuje požiadavkám, užívateľ spustí ďalší proces spracovania dát. V tomto procese sa hľadá séria snímok, kedy poloha objektu vykazuje minimálne zmeny. Táto požiadavka vyplýva z nutnosti použitia IMBM filtrácie. Nasledujúci spôsob detekcie polohy hlavy sa nachádza v ďalšej časti práce. 
 
 
 \subsection{Identifikácia polohy hlavy}
 
 Z dôvodov, ktoré sú opísané v sekcii \ref{sec:data_prep} je potrebné ukladať sériu snímok do dátového zásobníka. Z dát v zásobníku sa následne generuje mračno bodov, ktoré má čo najvernejšie reprezentovať snímaný objekt. Problém však nastáva, ak je objekt počas doby snímania dynamický. Pohybom môže vzniknúť problém s následným zarovnaním dát do spoločného modelu. Taktiež je veľmi pravdepodobné, že výsledný model nebude geometricky odpovedať skutočným rozmerom. Vplyv pohybových artefaktov je znázornený na \ref{sec:serial_parallel}. Požiadavkou je získať sériu obrazových dát s minimálnou zmenou polohy snímaného objektu. \newline 
 
-Keďže kamery sú staticky umiestnené a zamerané na spoločný centrálny bod, pohyb objektu v hociktorom smere sa prejaví vo všetkých mapách. Tento fakt je rozhodujúci pri návrhu identifikačného systému. Z toho logicky vyplýva, že stačí analyzovať pohyb objektu len z dát jednej kamery. Identifikovanie kľúčových bodov, ktoré budú zhodné pre každú snímku v obrazovom zásobníku, pomôže vypočítať pohyb a rozptyl polohy. \newline
+Keďže kamery sú staticky umiestnené a zamerané na spoločný centrálny bod, pohyb objektu v hociktorom smere sa prejaví vo všetkých mapách. Tento fakt je rozhodujúci pri návrhu identifikačného systému. Z toho logicky vyplýva, že stačí analyzovať pohyb objektu len z dát jednej kamery. Identifikovanie kľúčových bodov, ktoré budú zhodné pre každú snímku v obrazovom zásobníku pomôže vypočítať pohyb a rozptyl polohy. \newline
 
-Ak je pixel $P$ reprezentovaný konkrétnym stĺpcom $r_{i}$ a riadkom $c_{i}$, tak bod záujmu $P_{i}$ prestavuje jedinečnú pozíciu v obraze. Index $i$ predstavuje konkrétny kľúčový bod detektora a $N$ snímku v zásobníku. Bodu $P_{i}$ prislúcha informácia o farbe $R_{i};G_{i};B_{i}$ (získanej z RGB-D obrazu) a o hĺbke $d_{i}$ (získanej z hĺbkovej mapy).
+Ak je pixel $P$ reprezentovaný konkrétnym stĺpcom $r_{i}$ a riadkom $c_{i}$, tak bod záujmu $P_{i}$ predstavuje jedinečnú pozíciu v obraze. Index $i$ predstavuje konkrétny kľúčový bod detektora a $N$ snímku v zásobníku. Bodu $P_{i}$ prislúcha informácia o farbe $R_{i};G_{i};B_{i}$ (získanej z RGB-D obrazu) a o hĺbke $d_{i}$ (získanej z hĺbkovej mapy).
 
 \begin{equation}
 \label{eq:pixels:a}
@@ -417,7 +417,7 @@ P_d\left(z\right)=\left|  max\lbrace d_{i;N} \rbrace -min\lbrace d_{i;N} \rbrace
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/rgbd_views.png}
-	\caption{Prahované RGB-D snímky vytvorené multi-kamerovým systémom zachytávajúce dynamický objekt rovnakom čase.}
+	\caption{Prahované RGB-D snímky vytvorené multi-kamerovým systémom zachytávajúce dynamický objekt v rovnakom čase.}
 	\label{fig:dlib:views}
 \end{figure}
 
@@ -433,7 +433,7 @@ Základný detektor identifikuje 68 bodov tváre, pričom vie ohraničiť tvár,
 	\label{fig:dlib:points}
 \end{figure}
  
-Problém nastáva pri chýbajúcich dátach v RGB-D obraze, ktoré vznikajú pri mapovaní RGB obrazu na poškodenú hĺbkovú mapu. Kvôli spracovaniu v reálnom čase je detekcia vykonávaná ešte pred filtráciou a opravou RGB-D obrazu. Preto sa k detekcii používajú ešte nefiltrované dáta. Na nich môže dochádzať k nesprávnej detekcii bodov. Problematické su aj body 0 až 16, pretože v závislosti na fenotype tváre sa ich umiestnenie môže vyskytnúť mimo objektu. 
+Problém nastáva pri chýbajúcich dátach v RGB-D obraze, ktoré vznikajú pri mapovaní RGB obrazu na poškodenú hĺbkovú mapu. Kvôli spracovaniu v reálnom čase je detekcia vykonávaná ešte pred filtráciou a opravou RGB-D obrazu. Preto sa k detekcii používajú ešte nefiltrované dáta. Na nich môže dochádzať k nesprávnej detekcii bodov. Problematické sú aj body 0 až 16, pretože v závislosti na fenotype tváre sa ich umiestnenie môže vyskytnúť mimo objektu. 
 
 Redukovanie počtu detekovaných kľúčových bodov na minimálny počet zabezpečí zníženie stavu, kedy bude mať bod $P_i$ hodnotu $d_i=0$. K nasledujúcej detekcii bol použitý detektor identifikujúci 5 kľúčových bodov. 
  
@@ -471,7 +471,7 @@ Pre porovnanie 5 a 68 bodového detektora sa štatisticky analyzovalo, koľko de
 Oba detektory mali veľmi nízku hodnotu prípadov, kedy identifikovanému bodu $P_i$ chýbala hĺbková informácia. Avšak pri 68 bodovom detektore približne každý štvrtý snímok obsahoval takýto bod. 
 
 
-Pre porovnanie stability detekcie kľučových bodov sme vykonali meranie euklidovských vzdialeností $d_e$ medzi jednotlivými bodmi. Zisťované boli šírka ľavého a pravého oka, vonkajší a vnútorný rozostup očí. Meranie bolo vykonané na datasete, ktorý obsahoval 135 párov snímok (RGB-D, hĺbková mapa) pre oba detektory.
+Pre porovnanie stability detekcie kľučových bodov sme vykonali meranie euklidovských vzdialeností $d_e$ medzi jednotlivými bodmi. Zisťovaná bola šírka ľavého a pravého oka, vonkajší a vnútorný rozostup očí. Meranie bolo vykonané na datasete, ktorý obsahoval 135 párov snímok (RGB-D, hĺbková mapa) pre oba detektory.
 
 \begin{equation}
 \label{eq:euclidean}
@@ -480,7 +480,7 @@ d_{e}\left(P_i,P_j\right)= \sqrt{\left(P_i(x) - P_j(x)\right)^2 + \left(P_i(y) -
 \end{aligned}
 \end{equation}
 
-Z výsledkov sa vypočítal medián, priemerná hodnota a rozdiel medzi maximálnu a minimálnou nameranou hodnotou. Údaje pre jednotlivé detektory sa nachádzajú v tabuľkách \ref{tab:dlib:5points} a \ref{tab:dlib:68points}
+Z výsledkov sa vypočítal medián, priemerná hodnota a rozdiel medzi maximálnou a minimálnou nameranou hodnotou. Údaje pre jednotlivé detektory sa nachádzajú v tabuľkách \ref{tab:dlib:5points} a \ref{tab:dlib:68points}
  
 \begin{table}[h]
 	\caption{\label{tab:dlib:5points} Meranie vybraných faciálnych rozmerov pomocou 5 bodového detektora.}
@@ -530,7 +530,7 @@ V nich môžeme vidieť, že výsledky sú podobné. Dôležitým parametrom je 
 \end{table}
 
 Pre lepšie porovnanie sme odčítali výsledky merania 5 bodového detektora od 68 bodového detektora. Z výsledkov vyplýva, že rozdiel medzi presnosťou jednotlivých detektorov je minimálny. Maximálna hodnota rozdielu je $1.3mm$ pri meraní vnútorného rozostupu očí.
-Pre identifikáciu pohybu objektu bol zvolený 5 bodový detektor, pretože doba spracovania procesu trvala v priemere približne o $ 10\% $ menej času ako pri 68 bodovom detektore.  
+Pre identifikáciu pohybu objektu bol zvolený 5 bodový detektor, pretože doba spracovania procesu trvala v priemere o $ 10\% $ menej času ako pri 68 bodovom detektore.  
 
   
 
@@ -569,18 +569,18 @@ Filter pracuje s hĺbkovými mapami, výstupom z filtra je taktiež hĺbková ma
 \end{figure}
 
 Ukážka vplyvu interferencie na mračno bodov sa nachádza na obr. \ref{fig:imbm:result:a}. To je vytvorené zo série hĺbkových máp jednej kamery. Model obsahuje veľké množstvo chybných pixelov, ktoré sú rozptýlené okolo povrchu modelu. Navyše sa interferencia prejavuje v oblasti komplexnej geometrickej štruktúry. 
-Na obr. \ref{fig:imbm:result:b} sa nachádza mračno bodov po odstránení poškodených regiónov, vytvorené z jednej hĺbkovej mapy. V porovnaní s prvým modelom je vidieť, že oblasť interferencie je značná. Tento model stále obsahuje šum a interferenčné miesta, ktoré neboli identifikované IMBM filtrom.  
-Výsledné mračno bodov (obr. \ref{fig:imbm:result:c}) je vytvorené zo stredných hodnôt jednotlivých filtrovaných mračien bodov. Tento model má podstatné znížený šum a počet lietajúcich pixelov bez straty interferovaných regiónov. Filtráciou však môžu v modeli vzniknúť diery. Ak sú malé a nenachádzajú sa v komplexných oblastiach, IMBM dokáže tieto hodnoty interpolovať. 
+Na obr. \ref{fig:imbm:result:b} sa nachádza mračno bodov po odstránení poškodených regiónov vytvorené z jednej hĺbkovej mapy. V porovnaní s prvým modelom je vidieť, že oblasť interferencie je značná. Tento model stále obsahuje šum a interferenčné miesta, ktoré neboli identifikované IMBM filtrom.  
+Výsledné mračno bodov (obr. \ref{fig:imbm:result:c}) je vytvorené zo stredných hodnôt jednotlivých filtrovaných mračien bodov. Tento model má podstatne znížený šum a počet lietajúcich pixelov bez straty interferovaných regiónov. Filtráciou však môžu v modeli vzniknúť diery. Ak sú malé a nenachádzajú sa v komplexných oblastiach, IMBM dokáže tieto hodnoty interpolovať. 
 
 Výstupný RGB-D obraz z IMBM je priemerom vstupných RGB-D obrazov. Pomocou tohto obrazu sa nanáša textúra na mračno bodov. Na obr. \ref{fig:dlib:rbbd5} je vidieť, že vstupné obrazy obsahujú prázdne miesta (0 hodnoty pixelov) aj v oblastiach, kde hĺbka nie je nulová.
-Tieto miesta su do určitej miery odstránené vo výstupnom RGB-D obraze.
+Tieto miesta sú do určitej miery odstránené vo výstupnom RGB-D obraze.
 % , ale nie úplne.
 
 %K úplnému odstráneniu používame weight-median (WM) filter. K aplikácií použijeme hĺbkovú mapu a RGB-D obraz z IMBM filtra. 
 %V prvom kroku si potrebujeme identifikovať masku objektu. Tú získame binarizáciu hĺbkovej mapy. Následne identifikujeme čierne miesta prislúchajúce objektu v RGB-D mape. Kontrolujeme, kedy má binárna maska pozitívnu hodnotu pixelu a kedy prislúchajúce pixely kanálov R,G a B majú 0 hodnoty. Takto dostávame masku chýbajúcej textúry objektu.  
 
 
-Po tomto kroku máme pripravené mediány hĺbkových máp, ktoré su použité pri meraní kranio-faciálnych parametrov tváre a pri segmentácií hĺbkovej mapy. Tieto spracovania sú opísané v samostatných kapitolách. Z týchto dát následne vytvárame mračna bodov. Pomocou nasledujúcich rovníc prebieha rekonštrukcia snímaného priestoru. 
+Po tomto kroku máme pripravené mediány hĺbkových máp, ktoré su použité pri meraní kranio-faciálnych parametrov tváre a pri segmentácii hĺbkovej mapy. Tieto spracovania sú opísané v samostatných kapitolách. Z týchto dát následne vytvárame mračna bodov. Pomocou nasledujúcich rovníc prebieha rekonštrukcia snímaného priestoru. 
 
 \begin{equation}
 \label{eq:project:x}
@@ -601,7 +601,7 @@ z=P_{i}(d_{i})
 \end{aligned}
 \end{equation}
 
-Intrinsické parametre $c_x, c_y, f_x, f_y$ su unikátne pre každú kameru a sú výstupom geometrickej kalibrácie kamier. Parametre $P_i(c_i),P_i(r_i)$ sa odkazujú na rovnice (\ref{eq:pixels:a}) až (\ref{eq:pixels:c}). Pomocou rotačných a translačných parametrov, ktoré boli získane pri viac kamerovej kalibrácii, zarovnávame mračná bodov z jednotlivých kamier do spoločnej súradnicovej sústavy. Tieto mračná sú filtrované pomocou \textit{Radius Outlier Removal} filtra (ROR). Bližší opis tohto filtra sa nachádza v kapitole \ref{sec:ror}. 
+Intrinzické parametre $c_x, c_y, f_x, f_y$ sú unikátne pre každú kameru a sú výstupom geometrickej kalibrácie kamier. Parametre $P_i(c_i),P_i(r_i)$ sa odkazujú na rovnice (\ref{eq:pixels:a}) až (\ref{eq:pixels:c}). Pomocou rotačných a translačných parametrov, ktoré boli získane pri viackamerovej kalibrácii, zarovnávame mračná bodov z jednotlivých kamier do spoločnej súradnicovej sústavy. Tieto mračná sú filtrované pomocou \textit{Radius Outlier Removal} filtra (ROR). Bližší opis tohto filtra sa nachádza v kapitole \ref{sec:ror}. 
 
 
 \begin{figure}[h]
@@ -630,9 +630,9 @@ Intrinsické parametre $c_x, c_y, f_x, f_y$ su unikátne pre každú kameru a s�
 	\label{fig:ror}
 \end{figure}
 
-Na obr. \ref{fig:ror:a} sa nachádza mračno bodov, vytvorené z IMBM filtrovanej hĺbkovej mapy. Výstup ROR filtra, ktorého nastavenia boli $rad=0.009$ a $pts=30$ sa nachádza na obr. \ref{fig:ror:b}. Optimálne nastavenie filtrácie je individuálne pre jednotlivé modely. Grafické prostredie programu umožňuje nastavenie parametrov a vizuálne zobrazenie filtrovaných dát. 
+Na obr. \ref{fig:ror:a}, sa nachádza mračno bodov vytvorené z IMBM filtrovanej hĺbkovej mapy. Výstup ROR filtra, ktorého nastavenia boli $rad=0.009$ a $pts=30$ sa nachádza na obr. \ref{fig:ror:b}. Optimálne nastavenie filtrácie je individuálne pre jednotlivé modely. Grafické prostredie programu umožňuje nastavenie parametrov a vizuálne zobrazenie filtrovaných dát. 
 
-Pri multi-kamerovej kalibrácií sme získali rotačné a translačné parametre pre jednotlivé kamery. Pomocou nich dokážeme dostatočne presne zarovnať filtrované mračná do spoločného priestoru. Presnosť kalibrácie je však ovplyvnená pracovnou teplotou kamery. Jej zmena spôsobuje posun jednotlivých mračien v priestore, čím je ovplyvnená konzistentnosť modelov.
+Pri multi-kamerovej kalibrácii sme získali rotačné a translačné parametre pre jednotlivé kamery. Pomocou nich dokážeme dostatočne presne zarovnať filtrované mračná do spoločného priestoru. Presnosť kalibrácie je však ovplyvnená pracovnou teplotou kamery. Jej zmena spôsobuje posun jednotlivých mračien v priestore, čím je ovplyvnená konzistentnosť modelov.
 
 \begin{figure}[h]
 	\centering
@@ -656,11 +656,11 @@ Pri multi-kamerovej kalibrácií sme získali rotačné a translačné parametre
 		\caption{}
 		\label{fig:icp:c}
 	\end{subfigure}
-	\caption{Zarovnanie mračien pomocou ICP algoritmu: (\textbf{a}) Referenčné mračno bodov, rozdiel medzi nefiltrovaným (červena) a filtrovaným (zelena) mračnom. (\textbf{b}) Rozdiel medzi nezarovnaným nefiltrovaným (modra) a zarovnaným filtrovaným (žltá) mračnom. (\textbf{c}) Rozdiel medzi nezarovnaným nefiltrovaným (modra) a zarovnaným filtrovaným (zelena) mračnom.}
+	\caption{Zarovnanie mračien pomocou ICP algoritmu: (\textbf{a}) Referenčné mračno bodov, rozdiel medzi nefiltrovaným (červená) a filtrovaným (zelená) mračnom. (\textbf{b}) Rozdiel medzi nezarovnaným nefiltrovaným (modrá) a zarovnaným filtrovaným (žltá) mračnom. (\textbf{c}) Rozdiel medzi nezarovnaným nefiltrovaným (modrá) a zarovnaným filtrovaným (zelená) mračnom.}
 	\label{fig:3dm}
 \end{figure}
 
-Aplikovaním \textit{Incremental registration ICP} metódy sa zabezpečí opätovné zarovnanie mračien bodov do spoločného priestoru. Registrácia sa vykonáva postupne medzi dvojicami mračien bodov. Predný pohľad tváre je určený ako referenčný a mračno bodov je statické. Rotačná a translačná matica má tvar identickej afinnej transformácie (rovnica \ref{eq_kalib_ident}). Pre ostatné mračná su vypočítané nové rotačné a translačné parametre zložené z ostatných afinných transformácií. Vstupné nastavenia pre \textit{Incremental registration ICP} sú \textit{MaximumIterations}$=20$, \textit{MaxCorrespondenceDistance}$=0,005$ a \textit{RansacOutlierRejectionThreshold}$=0,005$. Zarovnané mračná z jednotlivých kamier sa následne spoja do jedného uceleného mračna. Kvôli vyššej hustote bodov v miestach zarovnania sa v mračne bodov miesta redukujú podľa mriežky (GRID). Týmto sa získa uniformná hustota bodov v celom mračne. 
+Aplikovaním \textit{Incremental registration ICP} metódy sa zabezpečí opätovné zarovnanie mračien bodov do spoločného priestoru. Registrácia sa vykonáva postupne medzi dvojicami mračien bodov. Predný pohľad tváre je určený ako referenčný a mračno bodov je statické. Rotačná a translačná matica má tvar identickej afinnej transformácie (rovnica \ref{eq_kalib_ident}). Pre ostatné mračná sú vypočítané nové rotačné a translačné parametre zložené z ostatných afinných transformácií. Vstupné nastavenia pre \textit{Incremental registration ICP} sú \textit{MaximumIterations}$=20$, \textit{MaxCorrespondenceDistance}$=0,005$ a \textit{RansacOutlierRejectionThreshold}$=0,005$. Zarovnané mračná z jednotlivých kamier sa následne spoja do jedného uceleného mračna. Kvôli vyššej hustote bodov v miestach zarovnania sa v mračne bodov tieto miesta redukujú podľa mriežky (GRID). Týmto sa získa uniformná hustota bodov v celom mračne. 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.32\textwidth}
@@ -683,19 +683,19 @@ Aplikovaním \textit{Incremental registration ICP} metódy sa zabezpečí opäto
 		\caption{}
 		\label{fig:model:result}
 	\end{subfigure}
-	\caption{Proces filtrácie: (\textbf{a}) Mračna bodov získane paralelným snímaním. (\textbf{b}) \, Mračna bodov po IMBM filtrácii. (\textbf{c}) Mračno bodov po ROR + ICP + GRID.}
+	\caption{Proces filtrácie: (\textbf{a}) Mračna bodov získané paralelným snímaním. (\textbf{b}) \, Mračna bodov po IMBM filtrácii. (\textbf{c}) Mračno bodov po ROR + ICP + GRID.}
 	\label{fig:model}
 \end{figure}
 
 
-Na obr. \ref{fig:model:input} sa nachádza mračno bodov, ktoré je vytvorené zo série piatich hĺbkových máp zachytených troma ToF kamerami Kinect v2. Snímanie objektu trvalo pod $200ms$. Vplyv multi-kamerovej interferencie je však viditeľný. Pomocou IMBM filtra bol potlačený vplyv multi-kamerovej interferencie. Výstup sa nachádza na obr. \ref{fig:model:imbm}. Mračno stále obsahuje šum a lietajúce pixely. Taktiež aj zarovnanie nie je postačujúce. Následným spracovaním pomocou ROR, ICP a GRID sa odstránia chybné pixely a vytvorí sa konzistentné uniformné mračno bodov (obr. \ref{fig:model:result}).
+Na obr. \ref{fig:model:input} sa nachádza mračno bodov, ktoré je vytvorené zo série piatich hĺbkových máp zachytených troma ToF kamerami Kinect v2. Snímanie objektu trvalo pod $200ms$. Vplyv multi-kamerovej interferencie je však viditeľný. Na obr. \ref{fig:model:imbm} sa nachádza výstup IMBM filtra, kde je potlačený vplyv multi-kamerovej interferencie. Mračno stále obsahuje šum a lietajúce pixely. Taktiež aj zarovnanie nie je postačujúce. Následným spracovaním pomocou ROR, ICP a GRID sa odstránia chybné pixely a vytvorí sa konzistentné uniformné mračno bodov (obr. \ref{fig:model:result}).
 
 
 
 \subsection{Automatizované meranie vzdialenosti tvárových čŕt}
 Pomocou 68 bodového DLib detektora je možné automatizovať meranie určitých parametrov tváre, ktoré sa vyskytujú v dotazníku (TEN Z MARTINA). 
 Identifikovaním špecifických kľúčových bodov tváre a prenesením týchto bodov do hĺbkovej mapy je možné pomocou euklidovskej vzdialenosti (rovnica \ref{eq:euclidean}) získať geometrické vlastnosti tvárových parametrov.
-Pre meranie OSA vybraných týchto 19 párov kľúčových bodov: 
+Pre meranie OSA bolo vybraných týchto 19 párov kľúčových bodov: 
 \vskip 0.2in
 
 \begin{compactitem}
@@ -724,7 +724,7 @@ Pre meranie OSA vybraných týchto 19 párov kľúčových bodov:
 Meranie bolo vykonané na datasete 270 párov obrazov (RGB-D + hĺbková mapa). Na detekciu kľúčových bodov bol použitý DLib model \textit{shape-predictor-68-face-landmarks}. Každý objekt, ktorý bol použitý pri automatizovanom meraní, mal priradené referenčné hodnoty vzdialenosti pre jednotlivé tvárové parametre. 
 
 
-Vypočítané hodnoty boli následne porovnané s referenčnými, čím sa získal histogram absolútnej chyby pre všetky merania (Obr. \ref{fig:histogram}). Z celkového počtu 5130 meraní malo 4598 absolútnu chybu menšiu ako 5mm. Zvyšných 532 vykázalo vyššiu chybu merania nad 10mm. 
+Vypočítané hodnoty boli následne porovnané s referenčnými, čím sa získal histogram absolútnej chyby pre všetky merania (Obr. \ref{fig:histogram}). Z celkového počtu 5130 meraní malo 4598 absolútnu chybu menšiu ako 5mm. Zvyšných 532 vykazovalo vyššiu chybu merania nad 10mm. 
 
 \begin{figure}[H]
 	\centering
@@ -733,7 +733,7 @@ Vypočítané hodnoty boli následne porovnané s referenčnými, čím sa získ
 	\label{fig:histogram}
 \end{figure}
 
-Vyšší rozdiel medzi referenčnými a nameranými hodnotami môže byť spôsobený zmenou geometrie tváre (zmena mimiky tváre). Takáto chyba sa prejavila napríklad pri výške pier a brady. Problematickými sa javí aj meranie rozmerov spánkov a lícnych častí. Ich príslušné kľúčové parametre sa pri frontálnom pohľade nachádzajú na hranici hĺbkovej mapy. Preto aj pri minimálnej nepresnosti určenia pozície stredov pravého (2) a ľavého ucha (16) môže dojsť k výraznejšej zmene hĺbky (Obr. \ref{fig:dlib:cloud}). 
+Vyšší rozdiel medzi referenčnými a nameranými hodnotami môže byť spôsobený zmenou geometrie tváre (zmena mimiky tváre). Takáto chyba sa prejavila napríklad pri výške pier a brady. Problematickými sa javí aj meranie rozmerov spánkov a lícnych častí. Ich príslušné kľúčové parametre sa pri frontálnom pohľade nachádzajú na hranici hĺbkovej mapy. Preto aj pri minimálnej nepresnosti určenia pozície stredov pravého (2) a ľavého ucha (16) môže dôjsť k výraznejšej zmene hĺbky (Obr. \ref{fig:dlib:cloud}). 
 
 \begin{figure}[H]
 	\centering
@@ -786,7 +786,7 @@ Stredné a priemerné hodnoty sú vypočítané z rozdielov výsledných vzdiale
 	\end{tabular}
 \end{table}
 
-Merania vzdialenosti tvárových parametrov, ktorých kľúčové body sa nenachádzajú na hraniciach hĺbkovej mapy, vykazujú malú absolútnu chybu voči referencii. Problémom je získanie všetkých parametrov z frontálneho pohľadu. Tento problém je však možné vyriešiť dvoma meraniami, kedy poloha tváre pacienta bude vždy mierne natočená.
+Meranie vzdialenosti tvárových parametrov, ktorých kľúčové body sa nenachádzajú na hraniciach hĺbkovej mapy, vykazujú malú absolútnu chybu voči referencii. Problémom je získanie všetkých parametrov z frontálneho pohľadu. Tento problém je však možné vyriešiť dvoma meraniami, kedy poloha tváre pacienta bude vždy mierne natočená.
 
 \subsection{Segmentácia hĺbkovej mapy}
 
@@ -801,7 +801,7 @@ Mask R-CNN je rozšírením Faster R-CNN siete a slúži k segmentácii obrazov 
 	\label{fig:mask_rcnn}
 \end{figure}
 
-Pre trénovanie tejto sieť sme vytvorili dátový set, ktorý pozostával z 65 RGB-D obrazov obsahujúcich 6 rôznych osôb v rozličných pozíciach. 50 snímok 4 osôb boli použité pre trénovanie a zvyšných 15 obrazov 2 osôb pre testovanie. Vo všetkých obrazoch sa označili
+Pre trénovanie tejto siete sme vytvorili dátový set, ktorý pozostával z 65 RGB-D obrazov obsahujúcich 6 rôznych osôb v rozličných polohách. 50 snímok 4 osôb boli použité pre trénovanie a zvyšných 15 obrazov 2 osôb pre testovanie. Vo všetkých obrazoch sa označili
 regióny prislúchajúce jednotlivým klasifikačným triedam.\newpage
 
 \noindent Klasifikované boli tieto oblasti: tvár, nos, ústa, brada, krk, ucho, oko, obočie. \newline
@@ -858,13 +858,13 @@ Celková stratová funkcia $L$ (\textit{loss}) predstavuje súčet chyby klasifi
 Z výsledkov segmentácie vidíme, že nie všetky oblasti boli klasifikované.
 Niektoré ROI masky boli relatívne dobre segmentované (tvár, nos, ústa). Niektoré však chýbali úplne (oči, krk). Predpokladom je, že rozšírením trénovacieho datasetu o nové RGB-D obrazy sa môže výrazne zvýšiť presnosť klasifikácie a segmentácie. \newline
 
-Pre tieto účely bol navrhnutý snímací systém pracujúci kamerami Intel RealSense d415, ktorý je v detskom spánkovom laboratóriu na klinika detí a dorastu JLF UK, Martine. Ten zabezpečuje zber hĺbkových a RGB-D obrazov pediatrických pacientov z troch perspektív. Nastavenie polohy hlavy je kontrolované pomocou Haarovych kaskád. Grafické prostredie snímacieho systému je zachytené na obr. \ref{fig:hmi_web:a} a \ref{fig:hmi_web:b}.
+Pre tieto účely bol navrhnutý snímací systém pracujúci s kamerami Intel RealSense d415, ktorý je umiestnený v detskom spánkovom laboratóriu na klinike detí a dorastu v Martine. Ten zabezpečuje zber hĺbkových a RGB-D obrazov pediatrických pacientov z troch perspektív. Nastavenie polohy hlavy je kontrolované pomocou Haarovych kaskád. Grafické prostredie snímacieho systému je zachytené na obr. \ref{fig:hmi_web:a} a \ref{fig:hmi_web:b}.
  
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/hmi_web1.png}
-	\caption{Zobrazenie webového rozhranie pre zber dát, RGB obraz.}
+	\caption{Zobrazenie webového rozhrania pre zber dát, RGB obraz.}
 	\label{fig:hmi_web:a}
 \end{figure}
 
