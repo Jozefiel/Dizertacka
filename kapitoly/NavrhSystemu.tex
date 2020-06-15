@@ -341,7 +341,7 @@ V poslednej fáze sa vykonáva segmentácia výstupných RGB-D obrazov, v ktorý
 
 \subsection{Nástroje použíté pri vývoji algoritmu}
 
-Algoritmus a príslušný softvér bol vyvíjaný v jazyku C++17 na operačnom systéme Linux Mint 18.1. Projekt bol konfigurovaný cez \textit{CMake 3.5}. Využíval pracovné rozhranie \textit{Qt 5.13.9}, v ktorom bolo vyvíjané aj grafické rozhranie projektu. Kamery Kinecvt v2 využívali ovládač \textit{libfreenect2} s podporou \textit{CudaKDE}. Pre spracovanie 2D obrazu bola použitá knižnica \textit{OpenCV 4}. Pre prácu s 3D dátami sa využívala knižnica \textit{Point Cloud Library 1.9} s vizuálnou podporou knižnice \textit{VTK 6.3}. Identifikácia kľúčových bodov využívala prostriedky \textit{DLib 19.16}. Taktiež sa používali štandardné C++ knižnice a knižnica \textit{Boost 1.63}. Algoritmus využíval procesorové vlákna. Softvér má predpripravené rozhranie pre spoluprácu s kamerami RealSense.      
+Algoritmus a príslušný softvér bol vyvíjaný v jazyku C++17 na operačnom systéme Linux Mint 18.1. Projekt bol konfigurovaný cez \textit{CMake 3.5}. Využíval pracovné rozhranie \textit{Qt 5.13.9}, v ktorom bolo vyvíjané aj grafické rozhranie projektu. Kamery Kinecvt v2 využívali ovládač \textit{libfreenect2} s podporou \textit{CudaKDE}. Pre spracovanie 2D obrazu bola použitá knižnica \textit{OpenCV 4}. Pre prácu s 3D dátami sa využívala knižnica \textit{Point Cloud Library 1.9} s vizuálnou podporou knižnice \textit{VTK 6.3}. Identifikácia kľúčových bodov využívala prostriedky \textit{DLib 19.16}. Taktiež sa používali štandardné C++ knižnice a knižnica \textit{Boost 1.63}. Algoritmus využíval procesorové vlákna. Softvér má predpripravené rozhranie pre spoluprácu s kamerami RealSense. 
 
 \subsection{Príprava vstupných dát}
 \label{sec:data_prep}
@@ -359,7 +359,7 @@ Po úspešnej inicializácii sa začína proces snímania. Každé snímanie je 
 
 V nasledujúcom kroku sa jednotlive obrazové dáta z kamier ukladajú do dátového zásobníka. Ten sa skladá z obrazových zásobníkov a zásobníkov mračien bodov. Jeho úlohou je spravovať sériu uložených dát, mazať staré a aktualizovať nové. Veľkosť zásobníka je prestaviteľná. Minimálnu hodnotu určuje IMBM filter, ktorý je určený potlačeniu multi-kamerovej interferencie. Jeho spravovanie beží v samostatnom vlákne, čim je znížená časová náročnosť obsluhy jednotlivých dát. Dátový zásobník poskytuje obrazové ďalším procesom. 
 
-Vždy po prijatí nových obrazových dát spustí proces generovania mračna bodov, ktorý v beží v samostatnom vlákne. Takto generované mračná slúžia ako 3D nadhľad v grafickom prostredí. Užívateľovi umožňujú vizuálnu kontrolu snímanej scény v reálnom čase. Body mračna majú štruktúru \textit{XYZRGB}. Kvôli rýchlejšiemu spracovaniu sa organizovaná štruktúra bodov (217088 bodov z hĺbkovej mapy) prevádza na 1D pole, čím je možné odstrániť prebytočné body reprezentované 0 hodnotou pixelu v hĺbkovej mape. Takto sa počet bodov môže redukovať až o $90\%$, čím sa výrazne zníži výpočtová náročnosť. Mračná bodov jednotlivých kamier sa zarovnávajú do spoločného priestoru pomocou extrinzických parametrov získaných pri multi-kamerovej kalibrácii. 
+Vždy po prijatí nových obrazových dát spustí proces generovania mračna bodov, ktorý beží v samostatnom vlákne. Takto generované mračná slúžia ako 3D nadhľad v grafickom prostredí. Užívateľovi umožňujú vizuálnu kontrolu snímanej scény v reálnom čase (obr. \ref{fig:hmi:a} a \ref{fig:hmi:b}). Body mračna majú štruktúru \textit{XYZRGB}. Kvôli rýchlejšiemu spracovaniu sa organizovaná štruktúra bodov (217088 bodov z hĺbkovej mapy) prevádza na 1D pole, čím je možné odstrániť prebytočné body reprezentované 0 hodnotou pixelu v hĺbkovej mape. Takto sa počet bodov môže redukovať až o $90\%$, čím sa výrazne zníži výpočtová náročnosť. Mračná bodov jednotlivých kamier sa zarovnávajú do spoločného priestoru pomocou extrinzických parametrov získaných pri multi-kamerovej kalibrácii. 
 
 Prácu s grafickým prostredím vykonáva užívateľ, ktorý si zároveň stabilizuje snímaný objekt do požadovanej polohy. Prostredie mu umožňuje vizuálne kontrolovať zmenu polohy a pohyb objektu v reálnom čase. Ak snímaná scéna vyhovuje požiadavkám, užívateľ spusti ďalší proces spracovania dát. V tomto procese sa hľadá séria snímok, kedy poloha objektu vykazuje minimálne zmeny. Táto požiadavka vyplýva z nutnosti použitia IMBM filtrácie. Nasledujúci spôsob detekcie polohy hlavy sa nachádza ďalšej časti práce. 
 
@@ -535,7 +535,7 @@ Pre identifikáciu pohybu objektu bol zvolený 5 bodový detektor, pretože doba
   
 
 \subsection{Filtrácia a registrácia mračna bodov}
-
+\label{sec:filtration}
 V predchádzajúcom kroku sa zabezpečilo získanie série snímok, ktoré zachytávali objekt v statickej polohe (alebo minimálne pohyby). Veľkosť série snímok určuje IMBM filter, ktorého detailny opis a optimálne nastavenia sa nachádzajú v kapitole \ref{kap:interference}. Podstatnými dátami sú hĺbkové mapy a RGB-D obrazy jednotlivých pohľadov. Tieto dáta už podstúpili jednoduchú filtráciu akou bola erózia a prahovanie (pozri \ref{fig:dlib:rbbd5} a \ref{fig:dlib:depth5}). 
 
 V ďalšom kroku sa vykonáva IMBM filtrácia, ktorej úlohou je identifikovať a odstrániť multi-kamerovú interferenciu. Multi-kamerová interferencia je v tomto prípade dôsledok využitia paralelnej spolupráce viacerých ToF kamier. Spôsobuje zašumenie hĺbkovej mapy a vznik odľahlých pixelov. IMBM filter dokáže identifikovať interferujúce miesta a odstrániť chybné pixely. 
@@ -773,47 +773,89 @@ Merania vzdialenosti tvárových parametrov, ktorých kľúčové body sa nenach
 
 \subsection{Segmentácia hĺbkovej mapy}
 
-Pre segmentáciu tvárových častí sa používa hĺbková mapa a RGB-D obraz získaný z IMBM filtra. Pomocou \textit{Mask R-CNN} neurónovej siete dokážeme v RGB-D obraze ohraničiť príslušné tvárové časti. Následným prenesením identifikovaných regiónov do hĺbkovej mapy dokážeme konkrétnym pixelom nastaviť klasifikátor, ktorý ich priraďuje do preddefinovaných skupín.
+Pre segmentáciu tvárových častí sa používa hĺbková mapa a RGB-D obraz získaný z IMBM filtra. Pomocou \textit{Mask R-CNN} neurónovej siete dokážeme v RGB-D obraze ohraničiť príslušné tvárové časti. Následným prenesením identifikovaných regiónov do hĺbkovej mapy vieme konkrétnym pixelom nastaviť klasifikátor, ktorý ich priraďuje do preddefinovaných skupín. 
+
+Mask R-CNN je rozšírením Faster R-CNN siete a slúži k segmentácii obrazov na úrovni pixelov. Princíp činnosti je znázornený na obr. \ref{fig:mask_rcnn}. Sieť Faster R-CNN  klasifikuje a ohraničuje regióny záujmu (ROI) .V tomto ROI sa následne predpovedajú masky klasifikovaných objektov. Segmentácia na úrovni pixelov vyžaduje jemnejšie zarovnanie, ktoré sa vykonáva cez ROIAlign vrstvu siete. Tá zabezpečuje presnejšie mapovanie masky do pôvodného obrazu. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\textwidth]{figures/mask_rcnn.png}
+	\includegraphics[width=0.75\textwidth]{figures/mask_rcnn.png}
 	\caption{Princíp činnosti neurónovej siete Mask R-CNN .}
 	\label{fig:mask_rcnn}
 \end{figure}
 
-\begin{figure}[H]
+Pre trénovanie tejto sieť sme vytvorili dátový set, ktorý pozostával z 65 RGB-D obrazov obsahujúcich 6 rôznych osôb v rozličných pozíciach. 50 snímok 4 osôb boli použité pre trénovanie a zvyšných 15 obrazov 2 osôb pre testovanie. Vo všetkých obrazoch sa označili
+regióny prislúchajúce jednotlivým klasifikačným triedam.\newpage
+
+\noindent Klasifikované boli tieto oblasti: tvár, nos, ústa, brada, krk, ucho, oko, obočie. \newline
+
+Vyznačené boli základné časti tváre pomocou nástroja \textit{Via Image Anotator}. Ukážka RGB-D obrazu s označenými oblasťami sa nachádza v prílohe \ref{fig:mask_label}. Snahou bolo zachytiť tieto oblasti z rôznych uhlov tak, aby boli rozpoznateľné pri použitej multi-kamerovej topológii a pri rôznych pozíciach natočenia hlavy. 
+
+Vychádzali sme z modelu, ktorý už podstúpil trénovanie na ImageNet obrazovom datasete. Tento model bol dotrénovaný na naších dátach. Trénovanie prebiehalo v 60 epochách s  1000 iteráciami. Bola použitá \textit{resnet101} sieťová architektúra. Výsledky trénovania a chyby konkrétnych vrstiev siete sa nachádzajú v tabuľke \ref{tab:rcnn:results}. 
+
+\begin{table}[h]
+	\caption{\label{tab:rcnn:results} Vyhodnotenie trénovania Mask R-CNN siete.}
 	\centering
-	\includegraphics[width=0.85\textwidth]{figures/rcnn_label3.png}
-	\caption{Princíp činnosti neurónovej siete Mask R-CNN .}
-	\label{fig:mask_label}
-\end{figure}
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{} & \textbf{30 epocha} & \textbf{60 epocha} & \textbf{validácia} \\ 
+		\midrule
+		\textbf{loss} 					& 5.4736 	& 4.579 & 4.698	\\
+		\textbf{rpn class loss} 		& 0.6676 	& 0.435 & 0.205	\\
+		\textbf{rpn bbox loss} 			& 2.4274	& 2.144 & 2.596	\\
+		\textbf{mrcnn class loss} 		& 0.6545	& 0.394 & 0.264	\\
+		\textbf{mrcnn bbox loss} 		& 1.0124	& 0.894	& 0.939	\\
+		\textbf{mrcnn mask loss} 		& 0.7118	& 0.712	& 0.692	\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Celková stratová funkcia $L$ (\textit{loss}) predstavuje súčet chyby klasifikácie $L_{cls}$ (\textit{class loss}), lokalizácie $L_{box}$ (\textit{bbox loss}) a segmentácie $ L_{mask}$ (\textit{mask loss}). Pre overenie funkčnosti sme klasifikátor použili na nových objektoch. Výsledky segmentácie sa nachádzajú na obr. \ref{fig:rcnn:label}.
 
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
+	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/rcnn_detect1.png}
+		\includegraphics[height=4.7cm]{figures/rcnn_detect1.png}
 		\caption{}
 		\label{fig:rcnn:label:a}
 	\end{subfigure}
 	\hskip 0.0in
-	\begin{subfigure}[b]{0.49\textwidth}
+	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[width=0.9\textwidth]{figures/rcnn_detect2.png}
+		\includegraphics[height=4.7cm]{figures/rcnn_detect2.png}
 		\caption{}
 		\label{fig:rcnn:label:b}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.49\textwidth}
+	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[width=0.9\textwidth]{figures/rcnn_detect3.png}
+		\includegraphics[height=4.7cm]{figures/rcnn_detect3.png}
 		\caption{}
 		\label{fig:rcnn:label:c}
 	\end{subfigure}
-	\caption{Ukážka mračna bodov s vyznačenými kľúčovými bodmi: (\textbf{a}) Všetky detekované body boli pod 5mm hranicou absolútnej chyby. (\textbf{b}) Červený bod označuje nepresnú detekciu kľúčového bodu.}
+	\caption{Ukážka segmentácie RGB-D obrazu použitím Mask R-CNN siete: (\textbf{a}) Ľavý pohľad, identifikované ucho a hlava. (\textbf{b}) Predný pohľad, identifikované obočie, hlava, nos, ústa.}
 	\label{fig:rcnn:label}
 \end{figure}
 
+Z výsledkov segmentácie vidíme, že nie všetky oblasti boli klasifikované.
+Niektoré ROI masky boli relatívne dobre segmentované (tvár, nos, ústa). Niektoré však chýbali úplne (oči, krk). Predpokladom je, že rozšírením trénovacieho datasetu o nové RGB-D obrazy sa môže výrazne zvýšiť presnosť klasifikácie a segmentácie. \newline
 
-Trénovanie 
+Pre tieto účely bol navrhnutý snímací systém pracujúci kamerami Intel RealSense d415, ktorý je umiestnený v spánkovom laboratóriu na klinike detí a dorastu v Martine. Ten zabezpečuje zber hĺbkových a RGB-D obrazov pediatrických pacientov z troch perspektív. Nastavenie polohy hlavy je kontrolované pomocou Haarovych kaskád. Grafické prostredie snímacieho systému je zachytené na obr. \ref{fig:hmi_web:a} a \ref{fig:hmi_web:b}.
+ 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/hmi_web1.png}
+	\caption{Zobrazenie webového rozhranie pre zber dát, RGB obraz.}
+	\label{fig:hmi_web:a}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/hmi_web2.png}
+	\caption{Zobrazenie webového rozhranie pre zber dát, hĺbkový obraz.}
+	\label{fig:hmi_web:b}
+\end{figure}
+
+Spolu s týmito dátami sú ukladané aj informácie o klinickom vyšetrení snímaného pediatrického pacienta (obr. \ref{fig:hmi_web:b} ). Ukážka snímacieho zariadenia sa nachádza na obr \ref{fig:hmi_web:d}. 

@@ -1,0 +1,22 @@
+\chapter{Záver}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[CE,CO]{\thepage}
+
+%\fancyfoot{\leftmark}
+\lhead{Záver}
+
+Táto dizertačná práca bola zameraná na prácu s 2D obrazovými a 3D priestorovými dátami. Cieľom bolo navrhnúť snímací systém a algoritmus, ktorý by slúžil ako podpora pre medicínske aplikácie. V posledných rokoch sa medicínsky výskum intenzívnejšie zaoberá diagnostikou OSA pomocou 3D informácií pacientov. Síce tento problém je medicínsky, pre jeho riešenie a ďalší rozvoj je taktiež potrebný výskum v technickej oblasti. \newline
+
+Navrhnutý algoritmus mal umožniť vytvorenie precízneho priestorového modelu objektu s použitím viacerých RGB-D kamier. Algoritmus mal taktiež umožniť detekciu vybraných kľúčových bodov na snímanom objekte a automatizovať meranie geometrických parametrov.  \newline
+
+Systém bol optimalizovaný pre snímanie pediatrických pacientov, ktorí svojimi vlastnosťami špecifikovali určité kritéria a požiadavky. Základnou požiadavkou bolo minimalizovanie doby skenovania a bezkontaktné meranie euklidovskej vzdialenosti kranio-faciálnych parametrov.  \newline
+
+V prvej časti sme navrhovali multi-kamerový systém a určovali sme pracovné podmienky. Experimentálne sme overili, že pre skenovanie detských pacientov je potrebné pracovať s viac-kamerovým systémom. Taktiež sme poukázali na nutnosť použitia paralelnej spolupráce kamier. Detailne sme opísali spôsob geometrickej a multi-kamerovej kalibrácie, ktoré su využívané v procese snímania.  \newpage
+
+V druhej časti opisujeme algoritmus, ktorým je vykonávaný proces snímania. Našim návrhom sme vytvorili systém pre zber dát z viacerých RGB-D kamier v reálnom čase. Týmto návrhom sme minimalizovali vplyv pohybu na výslednú presnosť 3D modelu. Navrhli sme systém, ktorý využíva detekciu kľúčových bodov na tvári k meraniu pohybu objektu počas doby skenovania. K zvýšeniu kvality zosnímaných dát sme implementovali známe filtračné a registračné metódy. K potlačeniu multi-kamerovej interferencie, ktorá je dôsledkom paralelnej spolupráce viacerých ToF kamier, sme navrhli vlastnú filtračnú metódu s názvom IMBM. Tá dokáže odstrániť interferované regióny v hĺbkovej mape a do určitej miery rekonštruovať tieto poškodené miesta. Pomocou 68 bodového detektora kľúčových bodov sme navrhli metódu merania euklidovských vzdialenosti vybraných kranio-faciálnych parametrov. Overili sme presnosť merania na živých objektoch. Zároveň ako rozšírenie práce sme navrhli algoritmus, ktorý umožňuje segmentáciu ľudskej tváre. Takéto segmentovanie ma potenciálne využitie pri procese prípravy datasetu, ktorý bude zložený z mračien bodov a bude použitý k vytvoreniu OSA klasifikátora. \newline 
+
+Z dôsledku potrieb pri návrhu algoritmu bol taktiež vytvorený systém pre zber obrazových dát, ktorý je umiestnený spánkovom laboratóriu. Tento systém zaznamenáva hĺbkové a RGB-D informácie pediatrických pacientov spolu s dokumentáciou o vyšetrení. 
+
+V ďalšom vývoji a výskume sa zameriame na implementáciu novších cenovo dostupných hĺbkových snímačov. Cieľom bude zvýšiť presnosť snímania pediatrických pacientov. Taktiež sa budeme venovať zvyšovaniu presnosti segmentácie tváre. 
