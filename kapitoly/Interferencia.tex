@@ -356,21 +356,21 @@ Tieto morfologicky spracované snímky sa používajú na výpočet mediánu hĺ
 	\centering
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=5.5cm]{figures/importance_map-a.png}
+		\includegraphics[height=5.2cm]{figures/importance_map-a.png}
 		\caption{}
 		\label{fig:imap:a}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=5.5cm]{figures/importance_map-b.png}
+		\includegraphics[height=5.2cm]{figures/importance_map-b.png}
 		\caption{}
 		\label{fig:imap:b}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=5.5cm]{figures/importance_map-c.png}
+		\includegraphics[height=5.2cm]{figures/importance_map-c.png}
 		\caption{}
 		\label{fig:imap:c}
 	\end{subfigure}
@@ -378,9 +378,7 @@ Tieto morfologicky spracované snímky sa používajú na výpočet mediánu hĺ
 	\label{fig:imap}
 \end{figure}
 
-Pixely v mediáne (obr. \, \ref{fig:imap:b}) s vybranou dôležitosťou vyššou ako $ k \cdot \, N $ sú zachované, ostatné pixely sú nastavené na nulu. $K$ predstavuje prahovú hodnotu dôležitosti mapy a $N$ je veľkosť obrazového zásobníka. Koeficient $k$ môže mať rozsah hodnôt od 0 do 1. 
-
-Tento krok je posledný, znižuje vplyv interferencie na hĺbkové mapy. Ostatné časti filtračného algoritmu zabezpečujú rekonštrukciu filtrovaných dát, ale nie sú nevyhnutné. 
+Pixely v mediáne (obr. \, \ref{fig:imap:b}) s vybranou dôležitosťou vyššou ako $ k \cdot \, N $ sú zachované, ostatné pixely sú nastavené na nulu. $K$ predstavuje prahovú hodnotu dôležitosti mapy a $N$ je veľkosť obrazového zásobníka. Koeficient $k$ môže mať rozsah hodnôt od 0 do 1. Tento krok je posledný, znižuje vplyv interferencie na hĺbkové mapy. Ostatné časti filtračného algoritmu zabezpečujú rekonštrukciu filtrovaných dát, ale nie sú nevyhnutné. 
 
 Interpolácia filtrovaných miest je nasledujúcim krokom IMBM. Rekonštrukcia dát využíva bilineárnu interpoláciu \cite{Volak2019}, pričom tá je vykonávaná iba na špecifických filtrovaných miestach spĺňajúcich definované podmienky. K obmedzeniu interpolácie dochádza na neuzavretých dierach, pri veľkých dierach a pri vysokých rozdieloch medzi interpolačnými pixelmi. Bilineárna interpolácia môže byť nahradená inou metódou interpolácie (napr. Bikubická, biquadratická ...). Z hľadiska výpočtu je bilineárna transformácia dobrým kompromisom medzi metódou najbližšieho suseda a inými zložitejšími metódami interpolácie.
 
@@ -686,7 +684,7 @@ Po získaní najlepších nastavení pre konkrétne metódy filtrovania je potre
 	\label{fig:best}
 \end{figure}
 
-Porovnanie výstupných mračien bodov pre jednotlivé filtračné metódy je zobrazené na obr. \ref{fig:best}. Interferovaná časť objektu obsahovala relatívne komplexné detaily (oči, brada, nos). Filtre pracujúce na princípe štatistiky (SOR, ROR, IMBM) dokázali lepšie odstrániť interferujúce miesta ako filter založený na princípe neurónových sietí (PointCleanNet). Ten odstránil prevažne silno interferované body a mierne potlačil povrchovú interferenciu. Sieť však nebola trénovaná na odstránenie takéhoto typu šumu. Dotrénovaním siete na interferovaných mračnách môže tento filter vykazovať najlepšie výsledky. Je však potrebné vytvoriť dataset interferovaných mračien bodov. SOR a ROR odstránili väčšinu poškodených pixelov. Problém však je, že boli odstránené aj užitočné body, a to práve v miestach interferencie. Takouto stratou nie je možné spätne rekonštruovať poškodené regióny. Problematickými časťami filtrov SOR a ROR sú rohy a hrany, ktoré sa filtrovaním zaobľujú. Ako je uvedené v štúdii \cite{Pirate}, filter SOR vníma body na hranách ako odľahlé body. Tieto filtre tiež odstraňujú malé ostrovy bodov (zhluky bodov, ktoré nie sú bodmi rušenia) \cite{Schaller}. Ako je uvedené v \cite{Balta}, filtrovanie SOR nie je úplne vhodné pre výkon v reálnom čase. IMBM filter dokázal potlačiť interferenciu bez väčšej straty plochy objektu, čo je znázornené aj na obr. \ref{fig:best:e}. IMBM sa nezameriava iba na odstraňovanie rušenia, ale poskytuje aj interpoláciu chýbajúcich bodov, avšak výrazne predlžuje dobu spracovania dát.  Nedokázal ani odstrániť všetky chybné body. Je to spôsobené tým, že tieto body boli podobné vo všetkých hĺbkových mapách v obrazovom zásobníku. Na základe výsledkov tohto prieskumu je odporúčané používať metódy filtrovania pre konkrétne aplikácie podľa ich funkcií opísaných v tabuľke \ref{tab:functionality}.
+Porovnanie výstupných mračien bodov pre jednotlivé filtračné metódy je zobrazené na obr. \ref{fig:best}. Interferovaná časť objektu obsahovala relatívne komplexné detaily (oči, brada, nos). Filtre pracujúce na princípe štatistiky (SOR, ROR, IMBM) dokázali lepšie odstrániť interferujúce miesta ako filter založený na princípe neurónových sietí (PointCleanNet). Ten odstránil prevažne silno interferované body a mierne potlačil povrchovú interferenciu. Sieť však nebola trénovaná na odstránenie takéhoto typu šumu. Dotrénovaním siete na interferovaných mračnách môže tento filter vykazovať najlepšie výsledky. Je však potrebné vytvoriť dataset interferovaných mračien bodov. SOR a ROR odstránili väčšinu poškodených pixelov. Problém však je, že boli odstránené aj užitočné body, a to práve v miestach interferencie. Takouto stratou nie je možné spätne rekonštruovať poškodené regióny. Problematickými časťami filtrov SOR a ROR sú rohy a hrany, ktoré sa filtrovaním zaobľujú. Ako je uvedené v štúdii \{Pirate}, filter SOR vníma body na hranách ako odľahlé body. Tieto filtre tiež odstraňujú malé ostrovy bodov (zhluky bodov, ktoré nie sú bodmi rušenia) \{Schaller}. Ako je uvedené v \{Balta}, filtrovanie SOR nie je úplne vhodné pre výkon v reálnom čase. IMBM filter dokázal potlačiť interferenciu bez väčšej straty plochy objektu, čo je znázornené aj na obr. \ref{fig:best:e}. IMBM sa nezameriava iba na odstraňovanie rušenia, ale poskytuje aj interpoláciu chýbajúcich bodov, avšak výrazne predlžuje dobu spracovania dát.  Nedokázal ani odstrániť všetky chybné body. Je to spôsobené tým, že tieto body boli podobné vo všetkých hĺbkových mapách v obrazovom zásobníku. Na základe výsledkov tohto prieskumu je odporúčané používať metódy filtrovania pre konkrétne aplikácie podľa ich funkcií opísaných v tabuľke \ref{tab:functionality}.
 
 \begin{table}[h]
 	\caption{\label{tab:functionality} Functionality of compared filters }

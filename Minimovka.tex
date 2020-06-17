@@ -226,9 +226,11 @@
 %\usepackage[style=numeric]{biblatex}
 %\bibliography{bibliografie.bib}
 
-\usepackage[defernumbers=true,style=numeric, sorting=none, backend=biber]{biblatex}
-\addbibresource{bibliografie.bib}
-\addbibresource{VlastniClanky.bib}
+\usepackage[defernumbers=true,style=numeric, sorting=none]{biblatex}
+%\addbibresource{bibliografie.bib}
+\addbibresource{bibliografia.tex}
+
+%\bibliographystyle{ieeetran}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%v
 % Dokument
@@ -300,9 +302,7 @@
 	\clearpage		% Další strana
 	\printacronyms[include-classes=index,name=Zoznam indexov] % Vypiš indexy
 	
-
-
-
+	
 	% Jednotlive kapitoly
 	\include{kapitoly/Podakovanie}
 	\include{kapitoly/Abstrakt}
@@ -312,11 +312,12 @@
 	\include{kapitoly/Kalibracia}
 	\include{kapitoly/Tezy}
 	\include{kapitoly/NavrhSystemu}
-	\include{kapitoly/Interferencia}
+%	\include{kapitoly/Interferencia}
 
 	\include{kapitoly/Zaver}
 	\include{kapitoly/Zhodnotenie}
-
+	\include{kapitoly/Publikacie}
+	
 	\pagestyle{fancy}
 	\fancyhf{}
 	\fancyfoot[CE,CO]{\thepage}
@@ -326,15 +327,21 @@
 	\lhead{}
 
 	% Zařadit necitované publikace do seznamu
-%	\nocite{Musak_Ing} \nocite{MPC5643LRM} \nocite{AMMCLIB} \nocite{PowerStageGuide} \nocite{LeoBoardGuide} \nocite{PMSMAppNoteLeo} \nocite{Derammelaere2016} \nocite{Lara2016} \nocite{Qian2004}
+%	\nocite{test} \nocite{MPC5643LRM} \nocite{AMMCLIB} \nocite{PowerStageGuide} \nocite{LeoBoardGuide} \nocite{PMSMAppNoteLeo} \nocite{Derammelaere2016} \nocite{Lara2016} \nocite{Qian2004}
 
 	% Vytisknout bibliografii
-	\printbibliography[notkeyword=vlastni,title={Zoznam použitej literatúry},resetnumbers=true]
+%	\printbibliography[notkeyword=vlastni,title={Zoznam použitej literatúry},resetnumbers=true]
 	
 %	\nocite{Komunikacie2018} \nocite{Elektro1_2018} \nocite{Elektro2_2018} \nocite{Sled1_2018} \nocite{Sled2_2018} \nocite{CPEE2018} \nocite{Transcom2_2019}
 
-	\printbibliography[keyword=vlastni,title={Zoznam publikačnej činnosti},resetnumbers=true]
+
 	
 	% Přílohy až za bibliografii
+	
+%	\bibliography{VlastniClanky}
+
 	\include{kapitoly/Prilohy}
+	
+	\printbibliography[title={Zoznam publikačnej činnosti},resetnumbers=true]
+	
 \end{document}
