@@ -12,7 +12,7 @@
 % http://www.cse.psu.edu/~rtc12/CSE486/lecture13.pdf
 % https://docs.opencv.org/2.4/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html
 
-Kamera je nástroj, ktorý mapuje 3D priestor do 2D roviny obrazu. Ide o technické zariadenie, ktoré je využívané širokospektrálne. Existuje viacero technologických riešení a produktov, ktoré sú špecifikované na konkrétne aplikácie. Pri potrebe merania vzdialenosti alebo zachytenia presnej hĺbkovej informácie snímanej scény je potrebné uvažovať s kalibráciou kamery. 
+Kamera je nástroj, ktorý mapuje 3D priestor do 2D roviny obrazu. Ide o technické zariadenie, ktoré je využívané širokospektrálne. Existuje viacero technologických riešení a produktov, ktoré sú špecifikované na konkrétne aplikácie. Pri potrebe merania vzdialenosti alebo zachytenia presnej hĺbkovej informácie snímanej scény je potrebné uvažovať s kalibráciou kamery \cite{zhang2000flexible}. 
 
 Geometrická kalibrácia je nevyhnutá z dôvodu skreslenia šošovky, čo spôsobuje výrazné nepresnosti pri transformácii 3D priestoru 2D obrazovej roviny. Pri kalibrácii je dôležité poznať matematický model kamery a transformácie, ktorými sa upravuje výsledný obraz. 
 
@@ -26,7 +26,7 @@ Pri multi-kamerovej kalibrácii hľadáme vzájomnú polohu kamier vo svetových
 %https://www.mathworks.com/discovery/affine-transformation.html
 
 
-Afinná transformácia je metóda lineárneho mapovania, ktorá zachováva body, priame čiary a roviny. Množiny rovnobežných čiar zostávajú po afinnej transformácii rovnobežné. Technika afinitnej transformácie sa zvyčajne používa na korekciu geometrických skreslení alebo deformácií, ktoré sa vyskytujú pri neideálnych uhloch kamery. Matematický zápis afinnej transformácie je $X'=A\cdot X$, kde $X$ predstavuje pôvodnú súradnicu bodu, $X'$ transformovanú súradnicu bodu a $A$ danú afinnú transformáciu. Afinná transformácia pre 3D priestor má tvar matice o rozmere $4\times 4$.\newline
+Afinná transformácia je metóda lineárneho mapovania, ktorá zachováva body, priame čiary a roviny \cite{affine}. Množiny rovnobežných čiar zostávajú po afinnej transformácii rovnobežné. Technika afinitnej transformácie sa zvyčajne používa na korekciu geometrických skreslení alebo deformácií, ktoré sa vyskytujú pri neideálnych uhloch kamery. Matematický zápis afinnej transformácie je $X'=A\cdot X$, kde $X$ predstavuje pôvodnú súradnicu bodu, $X'$ transformovanú súradnicu bodu a $A$ danú afinnú transformáciu \cite{affine1}. Afinná transformácia pre 3D priestor má tvar matice o rozmere $4\times 4$.\newline
 
 \textbf{\textit{Identická transformácia:}} Určená jednotkovou maticou, body $X$ a $X'$ majú totožné súradnice. 
 
@@ -223,12 +223,12 @@ x \\ y \\ z \\ 1
 
 
 \section{Dierková kamera}
-Dierková kamera (pinhole camera) predstavuje ideálnu kameru, ktorá nevykazuje žiadne skreslenia spôsobené šošovkou. Ide o najjednoduchší model kamery, ktorým svetlo namiesto šošovky prechádza cez štrbinu a prevrátené dopadá na rovinu obrazu. Dochádza tu k centrálnej projekcii bodov zo svetových súradníc do roviny obrazu.
+Dierková kamera (pinhole camera) predstavuje ideálnu kameru, ktorá nevykazuje žiadne skreslenia spôsobené šošovkou. Ide o najjednoduchší model kamery, ktorým svetlo namiesto šošovky prechádza cez štrbinu a prevrátené dopadá na rovinu obrazu. Dochádza tu k centrálnej projekcii bodov zo svetových súradníc do roviny obrazu \cite{zisserman2004multiple}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{figures/pinhole_camera.jpg} 
-	\caption{Perspektívna projekcia štrbinovou kamerou.}
+	\caption{Perspektívna projekcia štrbinovou kamerou \cite{zisserman2004multiple}.}
 	\label{fig:pinhole_camera}
 \end{figure}
 
@@ -237,7 +237,7 @@ Na obrázku \ref{fig:pinhole_camera} je znázornená geometria dierkovej kamery.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/rotat_translat.jpg} 
-	\caption{Vzťah medzi svetovou súradnicovou sústavou a súradnicovou sústavou kamery.}
+	\caption{Vzťah medzi svetovou súradnicovou sústavou a súradnicovou sústavou kamery \cite{zisserman2004multiple}.}
 	\label{fig:rotat_translat}
 \end{figure}
 
@@ -405,8 +405,8 @@ Toto skreslenie vznikne, keď sa svetelné lúče ohnú viac v blízkosti okrajo
 \begin{figure}[h]
 	\centering
 %	\url{http://www.lightcrafttech.com/support/doc/lens-grapher/how-to-use/}
-	\includegraphics[width=0.68\textwidth]{figures/radial_distortion.jpg} 
-	\caption{Radiálne skreslenie spôsobené zakrivením šošovky}
+	\includegraphics[width=0.68\textwidth]{figures/radial_distortion.png} 
+	\caption{Radiálne skreslenie spôsobené zakrivením šošovky \cite{bellavia2006underwater}.}
 	\label{fig:radial_distortion}
 \end{figure}
 

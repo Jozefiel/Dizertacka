@@ -6,7 +6,7 @@
 \fancyfoot[CE,CO]{\thepage}
 \renewcommand{\footrulewidth}{1pt}
 
-Snahou hĺbkových kamier je zachytiť okrem informácii o farbe prostredia aj informáciu o hĺbke priestoru. V praxi to znamená, že sa transformuje 3D priestor do 2D priestoru. Táto informácia je uchovávaná v matici, ktorá je nazývaná hĺbková mapa. Spôsob vytvárania hĺbkovej mapy kamerou závisí od použitej technológie. Medzi základné spôsoby patrí stereo-vízia, snímanie štrukturovaným svetlom (SLS) a meranie doby letu (ToF).
+Z predchádzajúcej kapitoly \ref{kap:Motivacia} vyplýva, že v posledných rokoch medicínsky výskum využíva priestorové videnie a 3D informáciu na predikciu OSA. K zachyteniu 3D priestoru sa využívajú hĺbkové snímače. Tie dokážu transformovať 3D priestor do 2D obrazu \cite{Malik_Choi_2008}. Táto informácia je uchovávaná v matici, ktorá je nazývaná hĺbková mapa. Spôsob vytvárania hĺbkovej mapy kamerou závisí od použitej technológie. Medzi základné spôsoby patrí stereovízia, snímanie štrukturovaným svetlom (SLS) a meranie doby letu (ToF). 
 
 \section{Skenovanie v reálnom čase pomocou \mbox{RGB-D} senzorov}
 
@@ -15,8 +15,8 @@ Skenovanie dynamických objektov v reálnom čase je v centre záujmu už nieko�
 \newpage
 \subsection{Viac-pohľadové 3D snímanie a analýza pre rekonštrukciu vysoko kvalitných mračien bodov}
 
-V článku \textit{Multiview 3D Sensing and Analysis for High Quality Point Cloud Reconstruction} sa autori zaoberajú rekonštrukciou mračien bodov pomocou viacerých ToF kamier. 
-V prvom kroku riešili kalibráciu, ktorá je kritickým krokom v celom procese. Využili metódu kalibrácie pomocou planárneho kalibračného vzoru (šachovnice), kde identifikovali rotačné a translačné parametre pre jednotlivé kamery. 
+V článku \textit{Multiview 3D Sensing and Analysis for High Quality Point Cloud Reconstruction} sa autori zaoberajú rekonštrukciou mračien bodov pomocou viacerých ToF kamier \cite{satnik2018multiview}. 
+V prvom kroku riešili kalibráciu, ktorá je kritickým krokom v celom procese. Využili metódu kalibrácie pomocou planárneho kalibračného vzoru (šachovnice), kde identifikovali rotačné a translačné parametre pre jednotlivé kamery \cite{zhang2000flexible}. 
 
 \begin{figure}[h]
 	\centering
@@ -25,7 +25,7 @@ V prvom kroku riešili kalibráciu, ktorá je kritickým krokom v celom procese.
 	\label{fig:resers:m}
 \end{figure}
 
-V práci používali trojicu kamier Kinect v2, ktoré pracovali v sekvenčnom režime. Tým sa vyhli multi-kamerovej interferencii. Kvalita hĺbkovej mapy je kľúčovým faktorom pri tvorbe a rekonštrukcii modelu. Ak sa v nej vyskytnú chyby, tie sa potom prenášajú do mračna bodov. Túto hĺbkovú mapu filtrovali použitím bilaterálneho filtra (BF), \textit{Weight Median} filtra (WM) a \textit{Radius Outlier Removal} filtra (ROR). Vplyv filtračných metód na hĺbkovú mapu je zobrazený na obr. \ref{fig:resers:5}. Okrem toho tiež použili \textit{Weighted  Inter-Frame  Average} filter (WIFA), ktorý pracuje so sériou hĺbkových máp. Ten odstraňuje priestorový šum, ale výrazný pohyb robí aplikáciu WIFA nevhodnou pre vysoko dynamické scény.
+V práci používali trojicu kamier Kinect v2 pripojených k jednému PC čo je rozdielny prístup oproti opísaným v \cite{7335499,6726991}. Pre odstránenie multi-kamerovej interferencie kamery pracovali v sekvenčnom režime. Kvalita hĺbkovej mapy je kľúčovým faktorom pri tvorbe a rekonštrukcii modelu. Ak sa v nej vyskytnú chyby, tie sa potom prenášajú do mračna bodov. Túto hĺbkovú mapu filtrovali použitím bilaterálneho filtra (BF) \cite{6272078}, \textit{Weight Median} filtra (WM) a \textit{Radius Outlier Removal} filtra (ROR). Vplyv filtračných metód na hĺbkovú mapu je zobrazený na obr. \ref{fig:resers:5}. Okrem toho tiež použili \textit{Weighted  Inter-Frame  Average} filter (WIFA), ktorý pracuje so sériou hĺbkových máp. Ten odstraňuje priestorový šum, ale výrazný pohyb robí aplikáciu WIFA nevhodnou pre vysoko dynamické scény \cite{6756961}.
 
 \begin{figure}[H]
 	\centering
@@ -59,7 +59,7 @@ V práci používali trojicu kamier Kinect v2, ktoré pracovali v sekvenčnom re
 	\caption{Výsledky filtrácie hĺbkovej mapy, kde zelená farba predstavuje rozdiely medzi prístupmi filtrácie: (\textbf{a}) Vstupná hĺbková mapa. 
 		(\textbf{b}) Filtrácia pomocou BF.
 		(\textbf{c}) Filtrácia pomocou BF + WM.
-		(\textbf{d}) Filtrácia pomocou BF + WM + ROR }
+		(\textbf{d}) Filtrácia pomocou BF + WM + ROR \cite{satnik2018multiview}. }
 	\label{fig:resers:5}
 \end{figure}
 
@@ -92,7 +92,7 @@ Mračná bodov zo všetkých Kinect v2 sa následne spájajú do jedného mračn
 	\caption{Rekonštrukcia scény z troch snímačov Kinect v2:
 		(\textbf{a}) Mrak fúzovaných bodov generovaný každým snímačom Kinect.
 		(\textbf{b}) Farebné oddelenie fúzovaných mračien bodov pre každú kameru.
-		(\textbf{c}) Trojuholníková sieť vytvorená zo spojených mračien bodov.}
+		(\textbf{c}) Trojuholníková sieť vytvorená zo spojených mračien bodov \cite{satnik2018multiview}.}
 	\label{fig:resers:6}
 \end{figure}
 
@@ -101,19 +101,47 @@ Meranie rýchlosti spracovania jednotlivých častí algoritmu sa vykonávalo na
 
 Autori predstavili návrh multi-kamerovej spolupráce 3 ToF snímačov značky Kinect v2. Bol opísaný spôsob kalibrácie a registrácie mračien bodov z jednotlivých kamier. Zároveň sa zamerali aj na filtráciu a trojuholníkovú rekonštrukciu snímaných objektov, pričom testovali rýchlosť spracovania.
 
+\subsection{VSR metóda pre registráciu mračien bodov z kamier Kinect }
+
+V článku \textit{A voxelize structured refinement method for registration of point clouds from Kinect sensors} sa autori zaoberajú rekonštrukciou mračien bodov pomocou jednej kamery Kinect. \cite{ozbay2019voxelize}. 
+
+
+
+\newpage
+
 \section{Disparitná a hĺbková mapa}
 
+
 Výstupný obraz zachytávajúci vzdialenosť je závislý od použitej technológie snímania.
-Výstupom kamery je buď disparitná alebo hĺbková mapa.
+Výstupom kamery je buď disparitná alebo hĺbková mapa \cite{davies2004machine}.
+
 Disparita zachytáva relatívnu vzdialenosť navzájom si odpovedajúcich bodov v stereo-páre
-obrazu. Pri vytváraní disparity sa predpokladá s nulovou vertikálnou paralaxou. K výpočtu je teda potrebné mať dvojicu obrazov v epipolárnej rovine. Ak teda bod vľavom obraze na pozícii [10,0] odpovedá v pravom obraze bodu [100,0], tak hodnota disparity je 90. Pri výpočte sa jeden obraz zo stereo-páru berie ako referenčný.  
+obrazu. Pri vytváraní disparity sa predpokladá s nulovou vertikálnou paralaxou. K výpočtu je teda potrebné mať dvojicu obrazov v epipolárnej rovine. Ak bod $x_1$ v ľavom obraze na pozícii [20,0] odpovedá v pravom obraze bodu $x_2$ [10,0], hodnota disparity $D$ má hodnotu 10. Pri výpočte sa jeden obraz zo stereo-páru berie ako referenčný.  
+	
+\begin{equation}
+\label{eq:disp}
+\begin{aligned}
+D=x_1-x_2
+\end{aligned}
+\end{equation}
+
 V disparitnej mape každý pixel nesie informáciu o disparite. Zobrazením vzniká obraz v odtieňoch sivej, ktorý vytvára ucelenú informáciu o priestore.
 
 Disparitná mapa je vždy vytváraná pre jeden obraz z dvojice, ktorej pozícia bodu sa berie ako referencia. Takáto mapa je už pre aplikáciu v stereovízií užitočná, pretože je z nej možné odlíšiť rozloženie snímanej scény. Neposkytuje však informáciu o reálnej vzdialenosti.
 
 Hĺbková mapa je taktiež šedo-tónový obraz, ktorý zachytáva informáciu o absolútnej
-vzdialenosti snímanej scény od kamery. 
+vzdialenosti $Z$ snímanej scény od kamery. 
 
+\begin{equation}
+\label{eq:depth}
+\begin{aligned}
+Z=\dfrac{bf}{x_1-x_2}=\dfrac{bf}{D}
+\end{aligned}
+\end{equation}
+
+Pre výpočet je potrebné poznať rozostup medzi šošovkami kamier $b$ a ohniskovú vzdialenosť $f$. 
+
+\newpage
 \section{Princíp činnosti RGB-D kamier}
 \label{sec:rgbd:principles}
 RGB-D kamery sú optické snímače, ktoré zachytávajú hĺbkovú informáciu scény. Existuje viacero metód, ktorými tieto zariadenia pracujú. V tejto časti práce sú opísané najčastejšie používané metódy pre meranie hĺbky.  
@@ -124,7 +152,6 @@ RGB-D kamery sú optické snímače, ktoré zachytávajú hĺbkovú informáciu 
 	\item \textbf{meranie času doby letu (TOF):} Microsoft Kinect v2 
 \end{itemize}
 
-\newpage
 \subsection{Stereovízia}
 
 Metóda stereovízie je založená na synchronizovanom snímaní scény pomocou viacerých párov kamier (RGB alebo IR), ktoré sú voči sebe vzájomne posunuté. Najčastejšie rozloženia kamier sú Toe-In a Off-Axis, ktorá je znázornená na obr. \ref{fig:stereovizia}. Výstupom je farebný obraz scény zosnímanej z viacerých perspektív.
@@ -132,20 +159,20 @@ Metóda stereovízie je založená na synchronizovanom snímaní scény pomocou 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{figures/stereovizia.png} 
-	\caption{Princíp stereovízie s Off-Axis nastavením kamier.}
+	\caption{Princíp stereovízie s Off-Axis nastavením kamier \cite{stereo}.}
 	\label{fig:stereovizia}
 \end{figure}
 
-Na základe rozdielu z týchto dvoch perspektív a známych vonkajších parametrov stereo-kamerovej sústavy je možné dopočítať hĺbkový obraz. Hlavnou nevýhodou je vysoká výpočtová náročnosť algoritmu a cena kvalitných snímacích RGB senzorov. Taktiež je tento systém náchylný na meniace sa svetelné podmienky, čo následne vyžaduje farebnú kalibráciu jednotlivých kamier. Výhodou je nulová vzájomná interferencia.
+Na základe rozdielu z týchto dvoch perspektív a známych vonkajších parametrov stereo-kamerovej sústavy je možné dopočítať hĺbkový obraz \cite{kala2016road}. Hlavnou nevýhodou je vysoká výpočtová náročnosť algoritmu a cena kvalitných snímacích RGB senzorov. Taktiež je tento systém náchylný na meniace sa svetelné podmienky. Výhodou je nulová vzájomná interferencia.
 
 \subsection{SLS snímače}
 \label{sec:sls}
-Structured Light Sensors (SLS) snímače sú zložené z projektora štrukturovaného svetla a snímača. Projektor aktívne osvecuje scénu so špeciálne navrhnutým 2D vzorom, častokrát priestorovo modulovaným svetlom. Kamera následne sníma osvetlenú scénu a získané dáta porovnáva s projektovaným vzorom. Ak je scéna planárna, snímaný vzor sa zhoduje s referenčným vzorom. Ak sú však v scéne povrchové variácie, geometrický tvar povrchu narúša projektované štrukturované svetlo. To sa následne nebude zhodovať s projektovaným vzorom.
+Structured Light Sensors (SLS) snímače sú zložené z projektora štrukturovaného svetla a snímača \cite{Geng}. Projektor aktívne osvecuje scénu so špeciálne navrhnutým 2D vzorom, častokrát priestorovo modulovaným svetlom. Kamera následne sníma osvetlenú scénu a získané dáta porovnáva s projektovaným vzorom. Ak je scéna planárna, snímaný vzor sa zhoduje s referenčným vzorom. Ak sú však v scéne povrchové variácie, geometrický tvar povrchu narúša projektované štrukturované svetlo. To sa následne nebude zhodovať s projektovaným vzorom.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/SLS.jpeg} 
-	\caption{Princíp SLS kamery}
+	\caption{Princíp SLS kamery \cite{Geng}.}
 	\label{fig:sls}
 \end{figure}
 
@@ -158,7 +185,7 @@ R=B\frac{\sin\theta}{\sin\alpha + \theta}
 \end{equation}
 
 Kľúčom k 3D zobrazovaniu na báze triangulačnej techniky je správne priradiť zosnímaný bod
-k projekčnému bodu (7). Na tento účel boli navrhnuté rôzne schémy, ktoré sa delia na:
+k projekčnému bodu \cite{Geng}. Na tento účel boli navrhnuté rôzne schémy, ktoré sa delia na:
 
 \begin{itemize}
 	\item \textbf{Sekvenčnú projekciu:} binárny kód, šedý kód, fázový posun, hybrid 
@@ -168,18 +195,9 @@ k projekčnému bodu (7). Na tento účel boli navrhnuté rôzne schémy, ktoré
 	\item \textbf{Hybridné metódy} 
 \end{itemize}
 
-Hlavnou výhodou štruktúrovaného svetla je dosiahnutie vysokého priestorového rozlíšenia. Kamery pracujúce na tomto princípe nevyžadujú žiadnu špeciálnu úpravu na úrovni snímača. Akékoľvek rušenie je znázornené ako variácie v povrchu (7). Táto metóda snímania so sebou prináša tri problémy, ktoré vyplývajú z hlavnej požiadavky, a to dôležitosti svetla:
+Hlavnou výhodou štruktúrovaného svetla je dosiahnutie vysokého priestorového rozlíšenia. Kamery pracujúce na tomto princípe nevyžadujú žiadnu špeciálnu úpravu na úrovni snímača. Akékoľvek rušenie je znázornené ako variácie v povrchu. Táto metóda snímania so sebou prináša problém multi-kamerovej interferencie. Tento fakt znemožňuje použitie týchto kamier v paralelnej spolupráci.
 
 
-\begin{compactitem}
-	\item Potreba konštantnej vlnovej dĺžky 
-	\item Možné problémy spôsobené okolitými svetelnými podmienkami 
-	\item Vzdialenosť limitovaná silou reflektora IR svetla
-	\item Vznik multi-kamerovej interferencie
-\end{compactitem} 
-\vline
-
-Konštantná vlnová dĺžka je zabezpečená malým Peltierovým článkom, slúžiacim na udržiavanie nemennej teploty laserovej diódy. Takým spôsobom je zabezpečená stabilná výstupná vlnová dĺžka, vzhľadom na zmeny teploty a výkonu. Osvetlenie okolitého prostredia je problémom, ktorý je možné zmierniť využitím filtra, ktorý prepúšťa iba IR frekvenčné pásmo. Avšak kamera nedokáže fungovať správne na miestach osvetlených slnečným žiarením. Preto je využívanie kamier na princípe štruktúrovaného svetla výhodnejšie využívať v interiéri (8).
 
 \subsection{ToF snímače}
 \label{sec:tof}
@@ -188,7 +206,7 @@ Kamery pracujúce na princípe \textit{Time of Flight} (ToF) produkujú hĺbkov�
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/tof_principle.png} 
-	\caption{Princíp činnosti ToF senzorov}
+	\caption{Princíp činnosti ToF senzorov \cite{hansard2012time}.}
 	\label{fig:tof_principle}
 \end{figure}
 

@@ -202,7 +202,7 @@
 % Seznam zkratek a zkratky
 \include{Seznam_Zkratek}
 \include{Seznam_Symbolu}
-\include{Seznam_Indexu}
+%\include{Seznam_Terminu}
 
 % Příkaz na vyřazení indexu z obsahu
 \newcounter{oldtocdepth}
@@ -222,15 +222,6 @@
 \author{Jozef Volák}
 \date{\today}
 
-% Bibliografie
-%\usepackage[style=numeric]{biblatex}
-%\bibliography{bibliografie.bib}
-
-\usepackage[defernumbers=true,style=numeric, sorting=none]{biblatex}
-%\addbibresource{bibliografie.bib}
-\addbibresource{bibliografia.tex}
-
-%\bibliographystyle{ieeetran}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%v
 % Dokument
@@ -300,7 +291,7 @@
 	\printacronyms[include-classes=abbrev,name=Zoznam skratiek] % Vypiš zkratky
 	
 	\clearpage		% Další strana
-	\printacronyms[include-classes=index,name=Zoznam indexov] % Vypiš indexy
+	\printacronyms[include-classes=index,name=Zoznam termínov] % Vypiš indexy
 	
 	
 	% Jednotlive kapitoly
@@ -312,8 +303,8 @@
 	\include{kapitoly/Kalibracia}
 	\include{kapitoly/Tezy}
 	\include{kapitoly/NavrhSystemu}
-%	\include{kapitoly/Interferencia}
-
+	\include{kapitoly/Interferencia}
+%
 	\include{kapitoly/Zaver}
 	\include{kapitoly/Zhodnotenie}
 	\include{kapitoly/Publikacie}
@@ -340,8 +331,15 @@
 	
 %	\bibliography{VlastniClanky}
 
+	\bibliographystyle{unsrt}
+	\bibliography{bibliografie}
+
+
 	\include{kapitoly/Prilohy}
 	
-	\printbibliography[title={Zoznam publikačnej činnosti},resetnumbers=true]
+%	\include{bibliografia}
+%	\printbibliography[title={Zoznam publikačnej činnosti},resetnumbers=true]
+	
+	
 	
 \end{document}
