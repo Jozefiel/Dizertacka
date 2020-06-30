@@ -81,7 +81,7 @@ C(\tau _3) = c(\tau _3) + b}= {{\frac{a}{2}} \cdot sin(\varphi) +b
 \begin{equation}
 \label{eq::tof::08}
 \begin{aligned}
- a =  \frac{\sqrt{{[C(\tau _3) - C(\tau _1)}]^2 + [{C(\tau _0) - C(\tau _2)}]^2}}{2}  
+a =  \frac{\sqrt{{[C(\tau _3) - C(\tau _1)}]^2 + [{C(\tau _0) - C(\tau _2)}]^2}}{2}  
 \end{aligned}
 \end{equation}
 
@@ -92,7 +92,7 @@ C(\tau _3) = c(\tau _3) + b}= {{\frac{a}{2}} \cdot sin(\varphi) +b
 \begin{equation}
 \label{eq::tof::09}
 \begin{aligned}
- d = \frac{ c \cdot \varphi }{ 2 \cdot 2 \pi f}
+d = \frac{ c \cdot \varphi }{ 2 \cdot 2 \pi f}
 \end{aligned}
 \end{equation}
 
@@ -126,7 +126,7 @@ s_3 (t) }= {s_{31}(t)+s_{32}(t)+s_{33}(t)
 \begin{equation}
 \label{eq::tof::11}
 \begin{aligned}
- s_{xy}(t) = b_{xy}+a_{xy} \cdot cos(\omega t - \varphi _{xy})
+s_{xy}(t) = b_{xy}+a_{xy} \cdot cos(\omega t - \varphi _{xy})
 \end{aligned}
 \end{equation}
 
@@ -249,7 +249,7 @@ Pri pozitívnej interferencii môže ísť hĺbka do maximálnych možných hodn
 \section{Filtračné metódy}
 \label{sec:filtmethods}
 
-Existuje niekoľko priehľadových článkov, ktoré sa zaoberajú technikami filtrácie a obnovy používanými pri 3D zobrazovaní a skenovaní. Zo všetkých z nich sa práca \cite{Han} javí ako veľmi užitočná, pretože obsahuje prehľad približne 40 metód a rozdeľuje ich do niekoľkých tried. Mnohé z týchto metód sú použiteľné na 3D mračná bodov, avšak žiadny známy nie je priamo určený pre potláčanie interferencie. Na tento účel bol navrhnutý IMBM filter, ktorý sa môže zaradiť medzi štatistické filtre. Pre porovnanie sú v tejto práci opísané ďalšie filtračné metódy založené na štatistike (SOR, ROR) alebo na princípoch umelej inteligencie (PointCleanNet).   
+Existuje niekoľko prehľadových článkov, ktoré sa zaoberajú technikami filtrácie a obnovy používanými pri 3D zobrazovaní a skenovaní. Zo všetkých z nich sa práca \cite{Han} javí ako veľmi užitočná, pretože obsahuje prehľad približne 40 metód a rozdeľuje ich do niekoľkých tried. Mnohé z týchto metód sú použiteľné na 3D mračná bodov, avšak žiadny známy nie je priamo určený pre potláčanie interferencie. Na tento účel bol navrhnutý IMBM filter, ktorý sa môže zaradiť medzi štatistické filtre. Pre porovnanie sú v tejto práci opísané ďalšie filtračné metódy založené na štatistike (SOR, ROR) alebo na princípoch umelej inteligencie (PointCleanNet).   
 
 \subsection{SOR filter}
 
@@ -264,7 +264,7 @@ PointCleanNet je dvojfázový algoritmus hĺbkového učenia, ktorý odstraňuje
 
 \subsection{Importance Map Based Median filter}
 
-Tento filtračný algoritmus je založený na identifikácií, extrakcii a interpolácií interferenčnej oblasti zo sekvencie hĺbkových máp získaných z ToF senzorov. Cieľom nie je poškodené miesta úplne odstrániť, ale čo najviac minimalizovať vplyv interferencie bez veľkej straty užitočných dát. Primárne využitie filtra je pre aplikáciu skenovania ľudských hláv, ale nie je obmedzené iba na túto činnosť. Základnou požiadavkou je získať dostatočný počet hĺbkových máp do obrazového zásobníka, pričom snímaná scéna nebola výrazne zmenená. Táto podmienka je splnená, ak je snímaný objekt statický alebo v pokoji (pacient nie je v strese). V prípade dynamickej scény je žiadúca minimalizácia veľkosti zásobníka, inač by mohlo dôjsť k vytvoreniu pohybových artefaktov v hĺbkovej mape.
+Nami navrhnutý filtračný algoritmus je založený na identifikácií, extrakcii a interpolácií interferenčnej oblasti zo sekvencie hĺbkových máp získaných z ToF senzorov. Cieľom nie je poškodené miesta úplne odstrániť, ale čo najviac minimalizovať vplyv interferencie bez veľkej straty užitočných dát. Primárne využitie filtra je pre aplikáciu skenovania ľudských hláv, ale nie je obmedzené iba na túto činnosť. Základnou požiadavkou je získať dostatočný počet hĺbkových máp do obrazového zásobníka, pričom snímaná scéna nebola výrazne zmenená. Táto podmienka je splnená, ak je snímaný objekt statický alebo v pokoji (pacient nie je v strese). V prípade dynamickej scény je žiadúca minimalizácia veľkosti zásobníka, inač by mohlo dôjsť k vytvoreniu pohybových artefaktov v hĺbkovej mape.
 
 \begin{figure}[h]
 	\centering
@@ -449,25 +449,25 @@ Aby bolo možné objektívne vyhodnotiť výkon potlačenia rušenia, musí sa i
 \noindent Kroky v tomto procese sú opísané nasledovne:
 
 \begin{itemize}
-\item \textbf{Buffering} - zachytenie niekoľkých mračien bodov z konkrétneho pohľadu a zlúčenie do jedného mračna.
-\item \textbf{Filtrovanie} - použitie jednej z metód filtrovania opísaných v podkapitole \ref{sec:filtmethods}.
-\item \textbf{Porovnanie s referenciou} - výpočet Hausdorffových vzdialeností voči referenčnej sieti pre konkrétny pohľad.
-\item \textbf{Priestorové filtrovanie} - štatistické rozhodnutie, či ide o rušenie alebo nie na základe Hausdorffovej vzdialenosti. Za rušenie sa považujú štatistické odľahlé hodnoty.
-\item \textbf{Analýza} - vyhodnotenie výsledkov pomocou známych metrík z ROC analýzy.
+	\item \textbf{Buffering} - zachytenie niekoľkých mračien bodov z konkrétneho pohľadu a zlúčenie do jedného mračna.
+	\item \textbf{Filtrovanie} - použitie jednej z metód filtrovania opísaných v podkapitole \ref{sec:filtmethods}.
+	\item \textbf{Porovnanie s referenciou} - výpočet Hausdorffových vzdialeností voči referenčnej sieti pre konkrétny pohľad.
+	\item \textbf{Priestorové filtrovanie} - štatistické rozhodnutie, či ide o rušenie alebo nie na základe Hausdorffovej vzdialenosti. Za rušenie sa považujú štatistické odľahlé hodnoty.
+	\item \textbf{Analýza} - vyhodnotenie výsledkov pomocou známych metrík z ROC analýzy.
 \end{itemize}
 
 V experimentálnej časti používame na hodnotenie výkonnosti konkrétnych metód nasledujúce metriky.
 
 \begin{itemize}
-\item \textbf{Accuracy} odráža celkový výkon algoritmu, takže zohľadňuje aj skutočné negatívne predpovede (bod nie je interferovaný). Presnosť je vysoká, keď je počet skutočných pozitívnych a pravdivých negatívnych predpovedí vysoký.
-
-\item \textbf{Recall} predstavuje počet odstránených bodov, ktoré boli interferované. Nezohľadňuje ale počet falošne pozitívnych odstránených bodov. Recall je vysoké, keď je počet skutočných predpovedí (filtrovaných interferenčných bodov) veľký, bez ohľadu na to, koľko užitočných bodov stratíme.
-
-\item \textbf{Precision} odráža počet skutočných predpovedí s ohľadom na počet falošne pozitívnych predpovedí.
-
-\item \textbf{F1 score} je hodnota rovnováhy medzi Recall a Precision. To znamená, že skóre F1 nie je skreslené veľkým počtom skutočne negatívnych predpovedí a môže sa považovať za rozhodujúce.
-
-\item \textbf{Hausdorffova vzdialenosť} meria euklidovskú vzdialenosť dvoch vzájomné porovnávaných bodov. Používa sa stredná hodnota vzdialenosti od bodu v mračne k najbližšiemu povrchu v referenčnej sieti .
+	\item \textbf{Accuracy} odráža celkový výkon algoritmu, takže zohľadňuje aj skutočné negatívne predpovede (bod nie je interferovaný). Presnosť je vysoká, keď je počet skutočných pozitívnych a pravdivých negatívnych predpovedí vysoký.
+	
+	\item \textbf{Recall} predstavuje počet odstránených bodov, ktoré boli interferované. Nezohľadňuje ale počet falošne pozitívnych odstránených bodov. Recall je vysoké, keď je počet skutočných predpovedí (filtrovaných interferenčných bodov) veľký, bez ohľadu na to, koľko užitočných bodov stratíme.
+	
+	\item \textbf{Precision} odráža počet skutočných predpovedí s ohľadom na počet falošne pozitívnych predpovedí.
+	
+	\item \textbf{F1 score} je hodnota rovnováhy medzi Recall a Precision. To znamená, že skóre F1 nie je skreslené veľkým počtom skutočne negatívnych predpovedí a môže sa považovať za rozhodujúce.
+	
+	\item \textbf{Hausdorffova vzdialenosť} meria euklidovskú vzdialenosť dvoch vzájomné porovnávaných bodov. Používa sa stredná hodnota vzdialenosti od bodu v mračne k najbližšiemu povrchu v referenčnej sieti .
 \end{itemize}
 
 \section{Výsledky experimentu}

@@ -315,10 +315,10 @@ Efektívnejším spôsobom je hľadanie vzájomnej pozície kamier cez kľúčov
 	\label{fig:calib:multi:haus}
 \end{figure}
 
-\section{Návrh algoritmu}
+\section{Návrh skenovacej metodiky}
 
-Úlohou algoritmu je vytvoriť konzistentné mračno bodov dynamického objektu z multi-kamerového systému, ktoré bude použité pre skríning OSA. Dynamický objekt je reprezentovaný hlavou pediatrického pacienta. Algoritmus má taktiež vykonávať automatizované meranie určitých kranio-faciálnych parametrov tváre pomocou euklidovskej vzdialenosti. V tejto časti práce je opísaný spôsob snímania objektu a spracovanie získaných dát. Taktiež je spomenutý návrh algoritmu pre segmentáciu hĺbkových máp, ktorý identifikuje a rozdelí jednotlivé časti tváre podľa preddefinovanej klasifikácie.
-Z takto segmentovanej hĺbkovej mapy bude možné vytvoriť mračná bodov jednotlivých častí tváre (oči, nos, brada, ústa,...). Takto segmentované body budú v ďalšom výskume použité ako vstupné množiny do neurónových sietí pracujúcich s 3D dátami. \newline
+Úlohou skenovacej metodiky zloženej z prezentovaných čiastkových algoritmov je vytvoriť konzistentné mračno bodov dynamického objektu z multi-kamerového systému. Toto mračno (model) bude použité pre skríning a automatizovanú diagnostiku OSA v klinickej medicíne. Dynamický objekt je reprezentovaný hlavou pediatrického pacienta. Súčasťou skenovacieho procesu sú algoritmy na podporu automatizovaného merania vybraných kranio-faciálnych parametrov pomocou euklidovskej vzdialenosti. Jadrom a vlastným vedeckým prínosom tejto časti práce je návrh metódy na potláčanie interferenčných artefaktov a vybraných degradačných procesov, na interpoláciu a opravu poškodených častí modelov. Súčasťou metodiky je tiež návrh algoritmu pre segmentáciu hĺbkových máp, ktorý identifikuje a rozdelí jednotlivé časti tváre podľa preddefinovanej klasifikácie.
+Z takto segmentovanej hĺbkovej mapy bude možné vytvoriť mračná bodov jednotlivých častí tváre (oči, nos, brada, ústa,...). Takto segmentované oblasti budú v ďalšom výskume použité ako vstupné údaje do procesu automatizovanej diagnostiky. \newline
 
 \noindent Algoritmus môžeme rozdeliť podľa funkcionality na 4 časti: 
 

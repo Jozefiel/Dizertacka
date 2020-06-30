@@ -43,7 +43,7 @@ prítomnosti ADHD dokáže s určitou presnosťou identifikovať prítomnosť OS
 pacienti sú následne uprednostňovaní na vyšetrenie PSG \cite{Villa}.
 
 Vyšetrenie pomocou kontaktných meracích prístrojov je pre pediatrických pacientov častokrát
-stresujúce. Deti sú nepokojné a nedokážu spolupracovať s doktorom, čo predlžuje vyšetrenie a vytvára nepresnosť pri meraní parametrov tváre. Práve z tohto dôvodu vznikla požiadavka na vytvorenie meracieho
+stresujúce. Deti sú nepokojné a nedokážu spolupracovať s lekárom, čo predlžuje vyšetrenie a vytvára nepresnosť pri meraní parametrov tváre. Práve z tohto dôvodu vznikla požiadavka na vytvorenie meracieho
 systému, ktorý by dokázal zmerať požadované parametre bezkontaktne.
 
 Jedným z možných riešení je vytvorenie skenovacieho zariadenia, ktoré dokáže s určitou
@@ -56,7 +56,7 @@ Z dôvodu finančnej a časovej nákladnosti diagnostiky OSAS sa kladie vyšší
 \newpage
 \subsection{Diagnostika pediatrickej OSA prostredníctvom klasifikácie tváre s použitím CNN}
 
-V článku \textit{Diagnosis of Pediatric Obstructive Sleep Apnea via Face Classification with Persistent Homology and Convolutional Neural Networks} je opísaná štúdia, v ktorej sa snažia vytvoriť klasifikátor pre rozdelenie vysoko rizikových pacientov od tých menej rizikových \cite{Kiaee2019DiagnosisOP}. K analýze využívali 3D modely a 2D fotografie obsahujúce snímky týchto 3D objektov. Podľa súčasných štúdií, na ktoré sa v práci odkazujú, využili pre klasifikáciu perzistentnú homológiu (PH) \cite{edelsbrunner2008persistent} a konvolučné neurónové siete (CNN) \cite{szegedy2017inception,szegedy2016rethinking}. Pri prvom prístupe analyzujú trojuholníkové siete cez geometrické príznaky tváre, pri CNN sa pre trénovanie používajú klasifikované 2D obrazy tváre. Použitý dátový set obsahoval 172 detských pacientov. Objekty boli rozdelené lekárom do skupín podľa toho, či patrili do vyššej alebo nižšej rizikovej skupiny OSA. Každý 3D model podstúpil filtráciu (vyplnenie dier v sieti, vyhladenie), pri ktorej sa ale dbalo na to, aby nebola znehodnotená geometrická informácia. 
+V článku \textit{Diagnosis of Pediatric Obstructive Sleep Apnea via Face Classification with Persistent Homology and Convolutional Neural Networks} \cite{Kiaee2019DiagnosisOP} je opísaná štúdia, v ktorej sa snažia vytvoriť klasifikátor pre rozdelenie vysoko rizikových pacientov od tých menej rizikových. K analýze využívali 3D modely a 2D fotografie obsahujúce snímky týchto 3D objektov. Podľa súčasných štúdií, na ktoré sa v práci odkazujú, využili pre klasifikáciu perzistentnú homológiu (PH) \cite{edelsbrunner2008persistent} a konvolučné neurónové siete (CNN) \cite{szegedy2017inception,szegedy2016rethinking}. Pri prvom prístupe analyzujú trojuholníkové siete cez geometrické príznaky tváre, pri CNN sa pre trénovanie používajú klasifikované 2D obrazy tváre. Použitý dátový set obsahoval 172 detských pacientov. Objekty boli rozdelené lekárom do skupín podľa toho, či patrili do vyššej alebo nižšej rizikovej skupiny OSA. Každý 3D model podstúpil filtráciu (vyplnenie dier v sieti, vyhladenie), pri ktorej sa ale dbalo na to, aby nebola znehodnotená geometrická informácia. 
 
 Z výsledkov PH vyplýva, že súčasné topologické analýzy dát neviedli k presnej klasifikácii. Niektoré rysy tváre síce môžu súvisieť s vysokým rizikom OSA, ale neboli postačujúce pre identifikáciu rizikových pacientov. 
 
