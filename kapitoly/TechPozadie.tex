@@ -101,21 +101,16 @@ Meranie rýchlosti spracovania jednotlivých častí algoritmu sa vykonávalo na
 
 Autori predstavili návrh multi-kamerovej spolupráce 3 ToF snímačov značky Kinect v2. Bol opísaný spôsob kalibrácie a registrácie mračien bodov z jednotlivých kamier. Zároveň sa zamerali aj na filtráciu a trojuholníkovú rekonštrukciu snímaných objektov, pričom testovali rýchlosť spracovania.
 
-\subsection{VSR metóda pre registráciu mračien bodov z kamier Kinect }
-
-V článku \textit{A voxelize structured refinement method for registration of point clouds from Kinect sensors} sa autori zaoberajú rekonštrukciou mračien bodov pomocou jednej kamery Kinect. \cite{ozbay2019voxelize}. 
-
-
+%\subsection{VSR metóda pre registráciu mračien bodov z kamier Kinect }
+%
+%V článku \textit{A voxelize structured refinement method for registration of point clouds from Kinect sensors} sa autori zaoberajú rekonštrukciou mračien bodov pomocou jednej kamery Kinect. \cite{ozbay2019voxelize}. 
 
 \newpage
 
 \section{Disparitná a hĺbková mapa}
 
 
-Výstupný obraz zachytávajúci vzdialenosť je závislý od použitej technológie snímania.
-Výstupom kamery je buď disparitná alebo hĺbková mapa \cite{davies2004machine}.
-
-Disparita zachytáva relatívnu vzdialenosť navzájom si odpovedajúcich bodov v stereo-páre
+Výstupný obraz zachytávajúci vzdialenosť je závislý od použitej technológie snímania. Výstupom kamery je buď disparitná alebo hĺbková mapa \cite{davies2004machine}. Disparita zachytáva relatívnu vzdialenosť navzájom si odpovedajúcich bodov v stereo-páre
 obrazu. Pri vytváraní disparity sa predpokladá s nulovou vertikálnou paralaxou. K výpočtu je teda potrebné mať dvojicu obrazov v epipolárnej rovine. Ak bod $x_1$ v ľavom obraze na pozícii [20,0] odpovedá v pravom obraze bodu $x_2$ [10,0], hodnota disparity $D$ má hodnotu 10. Pri výpočte sa jeden obraz zo stereo-páru berie ako referenčný.  
 	
 \begin{equation}
@@ -125,12 +120,16 @@ D=x_1-x_2
 \end{aligned}
 \end{equation}
 
-V disparitnej mape každý pixel nesie informáciu o disparite. Zobrazením vzniká obraz v odtieňoch sivej, ktorý vytvára ucelenú informáciu o priestore.
+V disparitnej mape každý pixel nesie informáciu o disparite. Zobrazením vzniká obraz v odtieňoch sivej, ktorý vytvára ucelenú informáciu o priestore. Disparitná mapa je vždy vytváraná pre jeden obraz z dvojice, ktorej pozícia bodu sa berie ako referencia. Takáto mapa je už pre aplikáciu v stereovízií užitočná, pretože je z nej možné odlíšiť rozloženie snímanej scény. Neposkytuje však informáciu o reálnej vzdialenosti.
 
-Disparitná mapa je vždy vytváraná pre jeden obraz z dvojice, ktorej pozícia bodu sa berie ako referencia. Takáto mapa je už pre aplikáciu v stereovízií užitočná, pretože je z nej možné odlíšiť rozloženie snímanej scény. Neposkytuje však informáciu o reálnej vzdialenosti.
+Hĺbková mapa je taktiež šedo-tónový obraz, ktorý zachytáva informáciu o absolútnej vzdialenosti $Z$ snímanej scény od kamery. 
 
-Hĺbková mapa je taktiež šedo-tónový obraz, ktorý zachytáva informáciu o absolútnej
-vzdialenosti $Z$ snímanej scény od kamery. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=4cm]{figures/depth_map.jpeg} 
+	\caption{Ukážka hĺbkovej mapy povrchu tváre \cite{fabry2010surface}.}
+	\label{fig:depth_map}
+\end{figure}
 
 \begin{equation}
 \label{eq:depth}
@@ -144,13 +143,13 @@ Pre výpočet je potrebné poznať rozostup medzi šošovkami kamier $b$ a ohnis
 \newpage
 \section{Princíp činnosti RGB-D kamier}
 \label{sec:rgbd:principles}
-RGB-D kamery sú optické snímače, ktoré zachytávajú hĺbkovú informáciu scény. Existuje viacero metód, ktorými tieto zariadenia pracujú. V tejto časti práce sú opísané najčastejšie používané metódy pre meranie hĺbky.  
+RGB-D kamery sú optické snímače, ktoré zachytávajú hĺbkovú informáciu scény. Existuje viacero metód, ktorými tieto zariadenia pracujú. V tejto časti práce sú opísané najčastejšie používané metódy pre meranie hĺbky. \newline 
 
-\begin{itemize}
+\begin{compactitem}
 	\item \textbf{stereo-vízia:} ZED, Intel RealSense d415, stereo RGB
 	\item \textbf{snímanie štrukturovaným svetlom (SLS):} Intel RealSense SR300 
-	\item \textbf{meranie času doby letu (TOF):} Microsoft Kinect v2 
-\end{itemize}
+	\item \textbf{meranie času doby letu (ToF):} Microsoft Kinect v2 
+\end{compactitem}
 
 \subsection{Stereovízia}
 
@@ -171,7 +170,7 @@ Structured Light Sensors (SLS) snímače sú zložené z projektora štrukturova
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{figures/SLS.jpeg} 
+	\includegraphics[width=0.47\textwidth]{figures/SLS.jpeg} 
 	\caption{Princíp SLS kamery \cite{Geng}.}
 	\label{fig:sls}
 \end{figure}
@@ -187,13 +186,13 @@ R=B\frac{\sin\theta}{\sin\alpha + \theta}
 Kľúčom k 3D zobrazovaniu na báze triangulačnej techniky je správne priradiť zosnímaný bod
 k projekčnému bodu \cite{Geng}. Na tento účel boli navrhnuté rôzne schémy, ktoré sa delia na:
 
-\begin{itemize}
+\begin{compactitem}
 	\item \textbf{Sekvenčnú projekciu:} binárny kód, šedý kód, fázový posun, hybrid 
 	\item \textbf{Priebežne meniacu projekciu:} dúhový kód, priebežne meniaci farebný kód 
 	\item \textbf{Pásikový index:} farebne kódované pásy, segmentované pásy, De Bruijn, ...
 	\item \textbf{Mriežkovaný index:} pseudo-náhodné binárne body, mini-vzor ako kód, ...
 	\item \textbf{Hybridné metódy} 
-\end{itemize}
+\end{compactitem}
 
 Hlavnou výhodou štruktúrovaného svetla je dosiahnutie vysokého priestorového rozlíšenia. Kamery pracujúce na tomto princípe nevyžadujú žiadnu špeciálnu úpravu na úrovni snímača. Akékoľvek rušenie je znázornené ako variácie v povrchu. Táto metóda snímania so sebou prináša problém multi-kamerovej interferencie. Tento fakt znemožňuje použitie týchto kamier v paralelnej spolupráci.
 
@@ -201,61 +200,66 @@ Hlavnou výhodou štruktúrovaného svetla je dosiahnutie vysokého priestorové
 
 \subsection{ToF snímače}
 \label{sec:tof}
-Kamery pracujúce na princípe \textit{Time of Flight} (ToF) produkujú hĺbkový obraz, ktorého každý pixel kóduje vzdialenosť od zodpovedajúceho bodu snímanej scény pomocou merania fázového oneskorenia infračerveného svetla. Kamery obsahujú zdroj infračerveného svetla a senzor, ktorý zachytáva odrazené svetlo. Taktiež sú často kombinované s RGB snímačom, ktorý dokáže zachytiť farebnú textúru snímanej scény. Infračervené svetlo je modulované harmonicky sínusovým signálom alebo impulzne. V praxi sa viac využíva impulzná modulácia, pretože je ľahšia na realizáciu a spracovanie. Obr. \ref{fig:tof_principle} popisuje princíp detekcie hĺbky ToF senzorom so sínusovou moduláciou.
+
+Technológia \textit{Time of Flight} priniesla revolúciu v 3D strojovom videní, pretože umožňuje meranie hĺbky pomocou lacného CMOS chipu a aktívneho modulovaného sveta \cite{li2014time}. Kamera obsahuje zdroj IR svetla, ktorý je reprezentovaný polovodičovým laserom alebo LED s vlnovou dĺžkou $\sim$850nm. Vyžiarené svetlo sa odráža od snímaných objektov a spätne dopadá do prijímača IR svetla. Pre získanie vzdialenosti $d$ sa zisťuje fázový posun $\varphi$ medzi vyžiareným a prijatým signálom. Parameter $c$ predstavuje rýchlosť šírenia elektromagnetickej vlny v priestore. 
+
+\begin{equation}
+\label{eq2}
+\begin{aligned}
+d=\frac{c}{2}\frac{\Delta \varphi}{2 \pi f}
+\end{aligned}
+\end{equation}
+
+Vyžiarené svetlo sa moduluje pulzne alebo kontinuálnou vlnou (continuous wave). Pulzná modulácia je bežnejšia kvôli ľahšej realizácii pomocou elektronických obvodov \cite{hansard2012time}. Na obr. \ref{fig:tof_principle} sa nachádza princíp detekcie hĺbky použitím ToF technológie so sínusovou moduláciou IR svetla \cite{van2006time}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{figures/tof_principle.png} 
+	\includegraphics[width=0.65\textwidth]{figures/tof_principle.png} 
 	\caption{Princíp činnosti ToF senzorov \cite{hansard2012time}.}
 	\label{fig:tof_principle}
 \end{figure}
 
-Infračervené svetlo s moduláciou je vyžiarené z emitora, po dopade na objekt sa odrazí a spätne dopadá s fázovým oneskorením do senzora (10). Hĺbka je vypočítavaná podľa rovnice 3.2.
-\begin{equation}
-\label{eq2}
-\begin{aligned}
-Depth=\frac{c}{2}\frac{\Delta \varphi}{2 \pi f}
-\end{aligned}
-\end{equation}
-
-Pri impulznej modulácii môže byť emitované svetlo sekvenčne alebo kontinuálne (11). Na Obr. 3.3 je znázornený princíp impulznej sekvenčej modulácie, kde je svetelný zdroj rozsvietený na krátky čas ($ \Delta t $) a odrazená energia je prerozdelená na každý pixel paralelne pomocou dvoch fázových okien $C_1$ a $C_2$ s rovnakým trvaním $ \Delta t $. Elektrické náboje, ktoré sa nahromadili počas týchto vzoriek, $Q_1$ a $Q_2$ , sú merané a použité na výpočet vzdialenosti pomocou vzťahu 3.3:
+Pri pulznej modulácii sa zdroj svetla rozsvecuje na dobu $\Delta t$. Odrazená energia sa paralelne vzorkuje pomocou dvoch vzorkovacích okien $C_1$ a $C_2$, ktoré sú fázovo posunuté o $180^\circ$. Elektrické náboje $Q_1$ a $Q_2$, akumulované počas doby vzorkovania, sa používajú pri výpočte vzdialenosti $d$ pomocou vzorca \ref{eq3}. Časový diagram pulznej modulácie sa nachádza na obr. \ref{fig:tof_principle_a}. 
 
 \begin{equation}
 \label{eq3}
 \begin{aligned}
-Depth=\frac{c}{2}\cdot\Delta t \left( \frac{Q_2}{Q_1 + Q_2}\right) 
+d=\frac{c}{2}\cdot\Delta t \left( \frac{Q_2}{Q_1 + Q_2}\right) 
 \end{aligned}
 \end{equation}
+
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.65\textwidth]{figures/tof_principle_a.png} 
-	\caption{Sekvenčná impulzná modulácia ToF senzora}
+	\caption{Pulzná modulácia ToF senzora \cite{li2014time}.}
 	\label{fig:tof_principle_a}
 \end{figure}
 
-Metóda s použitím kontinuálnej vlny obsahuje viac vzoriek pre jedno meranie, pričom každá vzorka je posunutá s fázovým oneskorením o $90^\circ$. Meranie fázového rozdielu medzi vyžarovanými a odrazenými IR vlnami je zabezpečené prepočtom vzdialenosti od objektu na základe vzťahu 3.4 medzi štyrmi rôznymi hodnotami elektrického náboja.
+Metóda s použitím kontinuálnej vlny (CW) využíva 4 vzorkovacie okna $C_1$ až $C_4$ posunuté voči sebe o $90^\circ$. Počas doby vzorkovania sa akumulujú náboje $Q$. Použitím tejto techniky je možné vypočítať fázový uhol $\varphi$ medzi prijatým a vyžiareným svetlom. Ten sa následne používa pre výpočet hĺbky. 
 
 \begin{figure}[H]
-
 	\centering
 	\includegraphics[width=0.65\textwidth]{figures/tof_principle_b.png} 
-	\caption{Kontinuálna impulzná modulácia ToF senzora}
+	\caption{Modulácia ToF senzora pomocou kontinuálnej vlny \cite{li2014time}.}
 	\label{fig:tof_principle_b}
-
 \end{figure}
-
-Pomocou tejto techniky je vypočítaný fázový uhol $\Delta \varPhi$ medzi osvetlením a odrazom. Tento fázový posun je následne prepočítaný na hĺbku.
 
 \begin{equation}
 \label{eq4}
 \begin{aligned}
-\Delta \varphi=\tan^{-1} \left( \frac{Q_3 - Q_4}{Q_1-Q2} \right) 
+\varphi=\arctan \left( \frac{Q_3 - Q_4}{Q_1-Q_2} \right) 
 \end{aligned}
 \end{equation}
 
-K spresneniu merania a eliminácii vplyvu akejkoľvek konštanty posunutia od merania sa z
-prijatých odrazov počíta amplitúda intenzity A 3.5 a ofset B 3.6:
+\begin{equation}
+\label{eq:cw:depth}
+\begin{aligned}
+d=\dfrac{c}{4\pi f}\varphi 
+\end{aligned}
+\end{equation}
+
+Pri CW modulácii sa z nameraných nábojov $Q_1$ až $Q_4$ vypočítava intenzita pixelu $A$ a ofset $B$. 
 
 \begin{equation}
 \label{eq5}
@@ -271,7 +275,7 @@ B=\frac{Q_1 + Q_2 +Q_3 + Q_4}{4}
 \end{aligned}
 \end{equation}
 
-Amplitúda intenzity A a ofset B majú vplyv na presnosť merania hĺbky. Odchýlku merania hĺbky je možné aproximovať podľa vzťahu 3.7:
+CW modulácia zabezpečuje zníženie chyby merania spôsobenej zmenou vnútorných parametrov elektronických komponentov. Napríklad zmena teploty kamery môže mať dopad na výsledné zosilnenie prijatých elektrických nábojov $Q$.V konečnom dôsledku to pri pulznej modulácií spôsobí nepresný výpočet hĺbky $d$ v rovnici \ref{eq3}. Pomocou parametrov $A$ a $B$ je možné aproximovať rozptyl hĺbky $\sigma$ \cite{li2014time}.
 
 \begin{equation}
 \label{eq7}
@@ -280,216 +284,227 @@ Amplitúda intenzity A a ofset B majú vplyv na presnosť merania hĺbky. Odchý
 \end{aligned}
 \end{equation}
 
-v nej modulačný kontrast $ c_d $ opisuje ako efektívny zobrazovací kremík oddeľuje a zbiera fotoelektróny. Amplitúda intenzity $ A $ je funkciou optickej sily a offset $ B $ je funkciou okolitého svetla. Z tejto rovnice možno vyvodiť, že vysoká odrazená amplitúda, frekvencia vysokej modulácie a kontrast s vysokou moduláciou prispievajú k zvýšeniu presnosti. Vysoký offset na druhej strane môže viesť k sýtosti a zníženiu presnosti. Snímače TOF s vysokou odchýlkou všeobecne prinášajú vyššiu presnosť (12). Hlavnou výhodou TOF kamier je používanie iba jedného pohľadu pri výpočte hĺbky, vďaka čomu sú zachované ostré hrany objektov a redukovaná prítomnosť otvorov vo výslednom obraze, pričom je zanechaná vysoká presnosť údajov. Hustotu nameraných dát je možné ovplyvniť počtom meraní. Výhodou je aj to, že okolité osvetlenie už nevplýva na zaznamenávanie obrazu, pretože nedochádza k ovplyvňovaniu frekvencie vyžarovaného svetla. K ďalším kladným vlastnostiam patrí vysoký dynamický rozsah a absencia cenovo náročných materiálov v zariadení. Medzi nevýhody kamier s ToF zaraďujeme nižšiu kvalitu priestorového rozlíšenia zapríčinenú extra spracovaním na úrovni snímača, a taktiež náchylnosť na pohybové artefakty pri viacnásobnom počte záberov. Pri kamere využívajúcej ToF je potrebné vopred vedieť rýchlosť šírenia signálu v danom prostredí. Namerané výsledky sú závislé aj od materiálu meraného subjektu. Pri nevhodnom materiáli môže dochádzať k niekoľkonásobnému odrazu. Negatívne vlastnosti ToF sa prejavujú prevažne na okrajových pixeloch (13)
+Modulačný kontrast $ c_d $ opisuje ako efektívne ToF senzor separuje a zbiera prijaté fotoelektróny. Intenzita pixelu $ A $ je funkciou optického výkonu, $ B $ predstavuje ofset okolitého svetla a reziduálneho systému. Z tejto rovnice možno vyvodiť, že vysoká hodnota $A$, vysoká modulačná frekvencia frekvencia $f$ a vysoký modulačný kontrast zvyšujú presnosť merania. Naopak veľká úroveň ofsetu $B$ spôsobuje saturáciu prijímača a znižuje presnosť systému \cite{li2014time}. 
+
+Medzi výhody ToF snímačov patrí zníženie vplyvu externého osvetlenia na kvalitu merania. Je to spôsobene tým, že nedochádza k ovplyvňovaniu frekvencie vyžarovaného svetla. Naopak pri použití viac-kamerového systému s rovnakou modulačnou frekvenciou môže dochádzať k vzájomnej interferencii signálov. Tento jav je detailne opísaný v kapitole \ref{kap:interference}.
 
 \section{Mračno bodov a 3D povrch}
 
-Pri reprojekcii 3D priestoru z 2D obrazu sa často používa technológia mračien bodov (Point Cloud). Základnou jednotkou mračna bodov je dátový bod, ktorý v sebe ukladá informáciu o polohe (x,y,z) v 3D priestore. Dátový bod môže v sebe uchovávať aj iné informácie ako napríklad farbu, jas, normálový vektor a podobne. Takéto mračno bodov má veľké využitie v priemyselných 3D CAD modeloch, pri metrológií a inšpekcii kvality a v iných sférach, kde sa vizuálne prezentujú 3D objekty. Výhodou oproti 2D zobrazovaniu je, že 3D model dokáže poskytnúť presnú geometrickú a lepšiu vizuálnu informáciu pre užívateľa.
+Hĺbková mapa zachytáva 3D priestor v 2D rovine. Tento obraz je získavaný z optických hĺbkových snímačov. Pre spätnú transformáciu hĺbkového obrazu do 3D priestoru sa jednotlivé obrazové pixely prevádzajú do takzvaných mračien bodov (anglicky Point Cloud). Základnou jednotkou mračna bodov je dátový bod, ktorý v sebe ukladá informáciu o polohe (x,y,z). Dátový bod môže v sebe uchovávať aj iné informácie ako napríklad farbu, jas, normálový vektor a podobne \cite{chua2017standards}. 
+
+Takéto mračno bodov má veľké využitie v priemyselných 3D CAD modeloch, pri metrológií a inšpekcii kvality a v iných sférach, pretože reprezentuje geometrické vlastnosti reálnych objektov. 
 
 \begin{figure}[!h]
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\centering
-		\includegraphics[width=0.7\textwidth]{figures/point_cloud_a.png}
+		\includegraphics[height=4.5cm]{figures/point_cloud.jpeg}
 		\caption{}
 		\label{fig:point_cloud:a}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.45\textwidth}
 		\centering
-		\includegraphics[width=0.7\textwidth]{figures/point_cloud_b.png}
+		\includegraphics[height=4.5cm]{figures/point_cloud_b.png}
 		\caption{}
 		\label{fig:point_cloud:b}
 	\end{subfigure}
-	\caption{Mračno bodov torusu pri rozdielných pohľadoch}
+	\caption{Mračno bodov: (\textbf{a}) Priestorová rekonštrukcia tváre vytvorenej z hĺbkovej mapy (Obr. \ref{fig:depth_map}) \cite{fabry2010surface}. (\textbf{b}) Priestorová rekonštrukcia torusu \cite{point_intel}. }
 	\label{fig:point_cloud}
 \end{figure}
 
 
-Prevod mračna bodov na 3D povrch je realizovaný pomocou rekonštrukcie povrchu (\textit{surfacere construction}). Medzi známe rekonštrukčné metódy patrí Ball-Pivoting a  Poissonova rekonštrukcia, kde sú dátove body transformované do siete. Polygónová sieť je zložená z vertexov (vertices), hrán (edges) a masiek (faces), taktiež definuje tvar polyhedrálneho objektu v 3D grafike. Masky sa zvyčajne skladajú z trojuholníkov, štvorhranov a iných jednoduchých konvexných polygónov. Volumetrické siete explicitne reprezentujú povrch aj objem štruktúry, pričom polygónová sieť reprezentuje iba povrch. Objekty vytvorené z polygónov musia ukladať rôzne typy elementov. To zahŕňa vertexy, hrany, masky, polygóny a povrchy. Veľakrát sú polygóny transformované na trojuholníky.
+Prevod mračna bodov na 3D povrch je realizovaný pomocou rekonštrukcie povrchu (\textit{surfacere construction}). Medzi známe rekonštrukčné metódy patrí Ball-Pivoting \cite{bernardini1999ball} a  Poissonova rekonštrukcia \cite{kazhdan2006poisson}, kde sú dátove body transformované do siete. Polygónová sieť je zložená z vertexov (vertices), hrán (edges) a masiek (faces), taktiež definuje tvar polyhedrálneho objektu v 3D grafike. Masky sa zvyčajne skladajú z trojuholníkov, štvorhranov a iných jednoduchých konvexných polygónov. Volumetrické siete explicitne reprezentujú povrch aj objem štruktúry, pričom polygónová sieť reprezentuje iba povrch. Objekty vytvorené z polygónov musia ukladať rôzne typy elementov. To zahŕňa vertexy, hrany, masky, polygóny a povrchy. Polygóny sú zvyčajne reprezentované trojuholníkmi \cite{smith2006vertex}. 
 
-\begin{figure}[h]
-
-	\centering
-	\includegraphics[width=0.7\textwidth]{figures/vertex_edge_polygon.png} 
-	\caption{Elementy používané pri 3D spracovaní a modelovaní objektov }
-	\label{fig:vertex_edge_polygon}
-
-\end{figure}
-
-\begin{description}[leftmargin=*,labelsep=5.8mm, font=$\bullet$~\normalfont\scshape\color{black!20!black}]
-	\item[Vertex] Dátový bod, informácia o polohe, poprípade farbe a normále 
-	\item[Hrana] Spojenie medzi dvomi vertexmi 
-	\item[Maska] Polygón zložený z najbližších hrán
-	\item[Povrch] Skupina polygónov, ktorá vytvára povrch objektu.
-\end{description}
-
-\newpage
-\section{Spájanie a registrácia mračien bodov}
-
-Bodová registrácia tiež známa ako bodová zhoda je proces, pri ktorom sa hľadá priestorová transformácia zarovnávajúca dve mračná bodov. Účelom transformácie je zlúčenie viacerých mračien do jedného konzistentného modelu. Mračná môžu byť získané rôznymi typmi snímačov a rôznymi spôsobmi. Niektoré typy snímačov boli opísané v kapitole \ref{sec:rgbd:principles}. Pre získanie priestorovej transformácie existuje viacero algoritmov, ktoré sú opísané nižšie.
+%\newpage
+%\section{Spájanie a registrácia mračien bodov}
+%
+%Bodová registrácia tiež známa ako bodová zhoda je proces, pri ktorom sa hľadá priestorová transformácia zarovnávajúca dve mračná bodov. Účelom transformácie je zlúčenie viacerých mračien do jedného konzistentného modelu. Mračná môžu byť získané rôznymi typmi snímačov a rôznymi spôsobmi. Niektoré typy snímačov boli opísané v kapitole \ref{sec:rgbd:principles}. Pre získanie priestorovej transformácie existuje viacero algoritmov, ktoré sú opísané nižšie.
 
 
-\subsection{Problematika registrácie mračien bodov}
+%\subsection{Problematika registrácie mračien bodov}
+%
+%Problematika registrácie mračien bola opísaná v práci „Robust Point Set Registration Using Gaussian Mixture Models„ \cite{jian2010robust}. Nech $\left\lbrace M, S \right\rbrace $ sú dva konečné mračná bodov v konečno-rozmernom reálnom vektorovom priestore. $M$ označuje pohyblivý modelový súbor a $S$ označuje statickú scénu. Obe množiny sa označujú ako podmnožiny konečno-priestorového vektora $\textbf{R}_{\textbf{d}}$ a môžu mať rozdielne veľkosti. Spoločným približovaním sa (registráciou) bodových množín $M$ a $S$ je možné odhadnúť mapovanie z $\textbf{R}_\textbf{d}$ do $\textbf{R}_\textbf{d}$ , čo prináša najlepšie zarovnanie medzi transformovanou a statickou sadou bodov. Transformačný model môže byť zapísaný ako $\textbf{T(M)}$ alebo $\textbf{T(M, $\theta$)}$, kde $\theta$ predstavuje optimalizačný parameter. Pri konvergencii bodov $M$ a $S$ je žiadané, aby vzdialenosť medzi zhodnými bodovými súbormi bola čo najmenšia. To je však bez vyskúšania všetkých transformácií ťažké, takže stačí lokálne minimum. Funkcia vzdialenosti medzi transformovaným dátovým setom a scénou $S$ je daná niektorou z funkcií $dist$. Jednoduchým spôsobom je výpočet štvorca euklidovskej vzdialenosti pre každý pár bodov:
+%
+%\begin{equation}
+%\label{eq8}
+%\begin{aligned}
+%dist\left(T\left(M\right),S\right)=\sum_{m\epsilon T\left(M\right)} \sum_{s\epsilon S} \left(m-s\right)^2
+%\end{aligned}
+%\end{equation}
+%
+%\noindent Táto funkcia je náchylná voči šumovým dátam. Robustnosť $g$ sa môže docieliť M-estimátorom, ktorý dokáže odfiltrovať extrémne hodnoty \cite{tsin2004correlation}:
+%
+%\begin{equation}
+%\label{eq9}
+%\begin{aligned}
+%dist_{robust}\left(T\left(M\right),S\right)=\sum_{m\epsilon T\left(M\right)} \sum_{s\epsilon S} g\left(m-s\right)^2
+%\end{aligned}
+%\end{equation}
+%
+%\subsection{Spôsoby registrácie mračien bodov}
+%
+%Spôsoby registrácie môžeme rozdeliť do dvoch kategórií. Prvou je tuhá (pevná alebo aj rigidná) a druhou pružná (elastická alebo aj nerigidna) registrácia. 
+%
+%\textbf{Pevná registrácia} využíva 6 stupňov voľnosti (6-DoF), pričom sa používajú afinné transformácie pre rotáciu a transláciu (sekcia \ref{sec:afine}). Táto transformácia je definovaná tak, že jednotlivé body nemenia euklidovskú vzdialenosť medzi sebou. 
+%
+%\textbf{Pružná registrácia} vzhľadom na dva bodové súbory prináša transformáciu, ktorá mapuje jednotlivé body na druhé. Využíva pritom aj nelineárne afinné transformácie. \newline
+%
+%\noindent Registračné metódy môžu byť rozdelené podľa aplikácie do týchto kategórií:
+%
+%\begin{compactitem}
+%	\item Počiatočná registrácia 
+%	\item Precízna registrácia
+%	\item Globálna registrácia \newline
+%\end{compactitem} 
+%
+%\noindent Taktiež ich delíme podľa princípu:
+%\begin{compactitem}
+%	\item Metódy založené na vzdialenostiach
+%	\item Metódy založené na pravdepodobnosti
+%	\item Metódy založené na filtrácií 
+%	\item Metódy využívajúce spektrum
+%	\item Metódy využívajúce strojové učenie \newline
+%\end{compactitem}
+%
+%Pri počiatočnej registrácií sa hľadá prvotné zarovnanie 
+%
+%\noindent \textbf{Bodové registračné algoritmy}
+%
+%K bodovej registrácií sa používajú algoritmy, ktoré riešia všeobecnejší problém s porovnávaním grafov. Avšak výpočtová zložitosť zvykne byť vysoká a obmedzená na rigidné registrácie.\newline
+%
+%
+%\noindent \textbf{Iterative closest point}
+%
+%ICP algoritmus je používaný na minimalizáciu rozdielu medzi dvoma mračnami bodov. Využíva sa na rekonštrukciu 2D a 3D povrchov, lokalizáciu robotov a podobne. Vykonáva rigidnú registráciu iteračným spôsobom za predpokladu, že každý bod v M korešponduje s najbližším bodom v S. V algoritme sa hľadá transformácia T pomocou metódy najmenších štvorcov.
+%
+%\begin{figure}[h]
+%
+%	\centering
+%
+%	\includegraphics[width=0.7\textwidth]{figures/icp_principle.png} 
+%
+%	\caption{Ukážka registrácie mračien pomocou ICP algoritmu}
+%	\label{fig:icp_principle}
+%
+%\end{figure}
+%\newpage
+%\textbf{Robustné párovanie bodov}
+%
+%Túto metódu (RPM) zaviedli Gold a kolektív (19). Táto metóda pracuje na zašumených 2D alebo 3D bodových setoch, ktoré môžu mať rozličné veľkosti a môžu sa líšiť pri voľných transformáciách. Pomocou kombinácie optimalizačných techník ako „deterministic annealing“ a „softassing“ , ktoré boli objavené pri rekurentných neurónových sieťach, sú analógové objektové funkcie popisujúce problémy minimalizované. Zatiaľ čo v ICP je korešpondencia vytvorená najbližším heuristickým binárnym systémom, RPM používa mäkkú korešpondenciu bodov. To znamená, že korešpondencia bodov môže byť ľubovoľná v rozmedzí 0 a 1. Zhoda v RPM je vždy jedna k jednej, čo pri ICP metóde nie je zabezpečené. Ak $m_i$ je i-ty bod množiny $M$ a $s_j$ je j-ty bod množiny $S$, tak matica zhody $\mu$ je definovaná ako:
+%
+%\begin{equation}
+%\label{eq10}
+%\begin{aligned}
+%\mu_{ij}=
+%\begin{cases}
+%1, & \text{ak bod}\ m_i\ \text{korešponduje s bodom}\ s_j \\
+%0, & \text{v inom prípade}
+%\end{cases}
+%\end{aligned}
+%\end{equation}
+%
+%Riešením je nájsť afinnú transformáciu T , pri ktorej bude matica μ vykazovať najvyššiu zhodu (19). Znalosť optimálnej transformácie umožňuje ľahko určiť maticu zhody a naopak. Robustným párovaním bodov je možné určiť obe veci súčasne. Transformácia sa môže rozložiť na translačný vektor a transformačnú maticu.
+%
+%\begin{equation}
+%\label{eq11}
+%\begin{aligned}
+%T\left(m\right)=\bar{A}m+\bar{t}
+%\end{aligned}
+%\end{equation}
+%
+%Matica \textbf{A} sa skladá zo štyroch samostatných parametrov $\left\lbrace a, \theta, b, c \right\rbrace$, ktoré spôsobujú zmenu veľkosti, rotáciu, horizontálnu a vertikálnu geometrickú transformáciu.
+%
+%\noindent Účelová funkcia je reprezentovaná rovnicou 3.12 pričom v nej platí podmienka 3.13:
+%
+%\begin{equation}
+%\label{eq12}
+%\begin{aligned}
+%cost=\sum_{j=1}^{N}\sum_{i=1}^{M} \mu_{ij} \Arrowvert s_j - \boldsymbol{t} - \boldsymbol{Am_i} \Arrowvert^2 + \boldsymbol{g\left(A\right)} -\alpha \sum_{j=1}^{N}\sum_{i=1}^{M} \mu_{ij}
+%\end{aligned}
+%\end{equation}
+%
+%\begin{equation}
+%\label{eq13}
+%\begin{aligned}
+%\forall j \sum_{i=1}^{M} \leq 1, \forall i \sum_{j=1}^{N} \mu_{ij} \leq 1, \forall ij \mu_{ij} \in \left\lbrace 0,1 \right\rbrace 
+%\end{aligned}
+%\end{equation}
+%
+%Parameter $\alpha$ ovplyvňuje funkciu k silnejšej korelácii. Funkcia $g\left(A\right)$ slúži na reguláciu afinnej transformácie penalizovaním veľkých hodnôt transformovaných komponentov. Pre niektoré regulačné parametre $\gamma$ platí $g\left(A\left(a, \theta, b, c\right)\right) = \gamma \left(a^2 + b^2 + c^2 \right)$. Táto metóda RPM optimalizuje hodnotovú funkciu použitím „Softassign“ algoritmu. \newline
 
-Problematika registrácie mračien bola opísaná v práci „Robust Point Set Registration Using Gaussian Mixture Models„ autormi Bink Jian, Baba C. Verumi. Nech $\left\lbrace M, S \right\rbrace $ sú dva konečné mračná bodov v konečne-rozmernom reálnom vektorovom priestore. $M$ označuje pohyblivý modelový súbor a $S$ označuje statickú scénu. Obe množiny sa označujú ako podmnožiny konečno-priestorového vektora $\textbf{R}_{\textbf{d}}$ a môžu mať rozdielne veľkosti. Spoločným približovaním sa (registráciou) bodových množín $M$ a $S$ je možné odhadnúť mapovanie z $\textbf{R}_\textbf{d}$ do $\textbf{R}_\textbf{d}$ , čo prináša najlepšie zarovnanie medzi transformovanou a statickou sadou bodov. Transformačný model môže byť zapísaný ako $\textbf{T(M)}$ alebo $\textbf{T(M, $\theta$)}$, kde $\theta$ predstavuje optimalizačný parameter. Pri konvergencii bodov $M$ a $S$ je žiadané, aby vzdialenosť medzi zhodnými bodovými súbormi bola čo najmenšia. To je však bez vyskúšania všetkých transformácií ťažké, takže stačí lokálne minimum. Funkcia vzdialenosti medzi transformovaným dátovým setom a scénou $S$ je daná niektorou z funkcií $dist$. Jednoduchým spôsobom je výpočet štvorca euklidovskej vzdialenosti pre každý pár bodov:
-
-\begin{equation}
-\label{eq8}
-\begin{aligned}
-dist\left(T\left(M\right),S\right)=\sum_{m\epsilon T\left(M\right)} \sum_{s\epsilon S} \left(m-s\right)^2
-\end{aligned}
-\end{equation}
-
-Táto funkcia je náchylná voči šumovým dátam. Robustnosť $g$ sa môže docieliť M-estimátorom, ktorý dokáže odfiltrovať extrémne hodnoty (17):
-
-\begin{equation}
-\label{eq9}
-\begin{aligned}
-dist_{robust}\left(T\left(M\right),S\right)=\sum_{m\epsilon T\left(M\right)} \sum_{s\epsilon S} g\left(m-s\right)^2
-\end{aligned}
-\end{equation}
-
-\subsection{Spôsoby registrácie mračien bodov}
-
-Spôsoby registrácie môžeme rozdeliť do dvoch kategórií. Prvou je pevná (rigid) a druhou pružná (non-rigid) registrácia. Pri rigidnej registrácií sa používajú rotačné a translačné transformácie k namapovaniu jedného bodu na druhý. Táto transformácia je definovaná tak, že nemení vzdialenosť medzi dvoma bodmi. V zriedkavých prípadoch môže byť bodový súbor tiež zrkadlový. Pružná registrácia vzhľadom na dva bodové súbory prináša transformáciu, ktorá mapuje jeden bod nastavený na druhý. V transformáciách sú zahrnuté afinné transformácie, ktoré zahŕňajú aj nelineárne transformácie. Ak sú známe vlastné modifikácie množiny bodov, nelineárna transformácia môže byť parametrizovaná vlastnými hodnotami.\newline
-
-\textbf{Bodové registračné algoritmy}
-
-K bodovej registrácií sa používajú algoritmy, ktoré riešia všeobecnejší problém s porovnávaním grafov. Avšak výpočtová zložitosť zvykne byť vysoká a obmedzená na rigidné registrácie.\newline
-
-
-\textbf{Iterative closest point}
-
-ICP algoritmus je používaný na minimalizáciu rozdielu medzi dvoma mračnami bodov. Využíva sa na rekonštrukciu 2D a 3D povrchov, lokalizáciu robotov a podobne. Vykonáva rigidnú registráciu iteračným spôsobom za predpokladu, že každý bod v M korešponduje s najbližším bodom v S. V algoritme sa hľadá transformácia T pomocou metódy najmenších štvorcov.
-
-\begin{figure}[h]
-
-	\centering
-
-	\includegraphics[width=0.7\textwidth]{figures/icp_principle.png} 
-
-	\caption{Ukážka registrácie mračien pomocou ICP algoritmu}
-	\label{fig:icp_principle}
-
-\end{figure}
-\newpage
-\textbf{Robustné párovanie bodov}
-
-Túto metódu (RPM) zaviedli Gold a kolektív (19). Táto metóda pracuje na zašumených 2D alebo 3D bodových setoch, ktoré môžu mať rozličné veľkosti a môžu sa líšiť pri voľných transformáciách. Pomocou kombinácie optimalizačných techník ako „deterministic annealing“ a „softassing“ , ktoré boli objavené pri rekurentných neurónových sieťach, sú analógové objektové funkcie popisujúce problémy minimalizované. Zatiaľ čo v ICP je korešpondencia vytvorená najbližším heuristickým binárnym systémom, RPM používa mäkkú korešpondenciu bodov. To znamená, že korešpondencia bodov môže byť ľubovoľná v rozmedzí 0 a 1. Zhoda v RPM je vždy jedna k jednej, čo pri ICP metóde nie je zabezpečené. Ak $m_i$ je i-ty bod množiny $M$ a $s_j$ je j-ty bod množiny $S$, tak matica zhody $\mu$ je definovaná ako:
-
-\begin{equation}
-\label{eq10}
-\begin{aligned}
-\mu_{ij}=
-\begin{cases}
-1, & \text{ak bod}\ m_i\ \text{korešponduje s bodom}\ s_j \\
-0, & \text{v inom prípade}
-\end{cases}
-\end{aligned}
-\end{equation}
-
-Riešením je nájsť afinnú transformáciu T , pri ktorej bude matica μ vykazovať najvyššiu zhodu (19). Znalosť optimálnej transformácie umožňuje ľahko určiť maticu zhody a naopak. Robustným párovaním bodov je možné určiť obe veci súčasne. Transformácia sa môže rozložiť na translačný vektor a transformačnú maticu.
-
-\begin{equation}
-\label{eq11}
-\begin{aligned}
-T\left(m\right)=\bar{A}m+\bar{t}
-\end{aligned}
-\end{equation}
-
-Matica \textbf{A} sa skladá zo štyroch samostatných parametrov $\left\lbrace a, \theta, b, c \right\rbrace$, ktoré spôsobujú zmenu veľkosti, rotáciu, horizontálnu a vertikálnu geometrickú transformáciu.
-
-\noindent Účelová funkcia je reprezentovaná rovnicou 3.12 pričom v nej platí podmienka 3.13:
-
-\begin{equation}
-\label{eq12}
-\begin{aligned}
-cost=\sum_{j=1}^{N}\sum_{i=1}^{M} \mu_{ij} \Arrowvert s_j - \boldsymbol{t} - \boldsymbol{Am_i} \Arrowvert^2 + \boldsymbol{g\left(A\right)} -\alpha \sum_{j=1}^{N}\sum_{i=1}^{M} \mu_{ij}
-\end{aligned}
-\end{equation}
-
-\begin{equation}
-\label{eq13}
-\begin{aligned}
-\forall j \sum_{i=1}^{M} \leq 1, \forall i \sum_{j=1}^{N} \mu_{ij} \leq 1, \forall ij \mu_{ij} \in \left\lbrace 0,1 \right\rbrace 
-\end{aligned}
-\end{equation}
-
-Parameter $\alpha$ ovplyvňuje funkciu k silnejšej korelácii. Funkcia $g\left(A\right)$ slúži na reguláciu afinnej transformácie penalizovaním veľkých hodnôt transformovaných komponentov. Pre niektoré regulačné parametre $\gamma$ platí $g\left(A\left(a, \theta, b, c\right)\right) = \gamma \left(a^2 + b^2 + c^2 \right)$. Táto metóda RPM optimalizuje hodnotovú funkciu použitím „Softassign“ algoritmu. \newline
-
-\textbf{Korelácia kernelu}
-
-Metóda korelácie kernelu (KC) je oproti ICP metóde odolnejšia voči zašumeným dátam. Na rozdiel od ICP, v tejto metóde každý bod scény uvažuje s modelovým bodom. Ide o viacnásobne prepojujúcu registráciu (18). Pre niektoré funkcie kernelu $K$ je KC dvoch bodov $\chi_i$ a $\chi_j$ definovaná nasledovne:
-
-\begin{equation}
-\label{eq14}
-\begin{aligned}
-KC\left(\chi_i,x_j\right)=\int K\left(\chi,\chi_i\right) \cdot K\left(\chi,\chi_j\right) dx 
-\end{aligned}
-\end{equation}
-
-Funkcia K zvolená pre bodovú registráciu je typický symetrický a nenegatívný kernel. Zvyčajne je používaný Gaussov kernel pre svoju jednoduchosť, avšak časté sú aj \textit{Epanechnikov} a \textit{tricube} kernel (18). Korelácia kernelu celej množiny bodov χ je definovaná ako súčet korelácií kernelu každého bodu v množine s každým ďalším bodom v množine.
-
-
-\begin{equation}
-\label{eq15}
-\begin{aligned}
-KC\left(\chi\right) = \sum_{i\ne1} KC\left(\chi_i,\chi_j\right)=2\sum_{i<j} KC\left(\chi_i,\chi_j\right)
-\end{aligned}
-\end{equation}
-
-Hodnota $KC$ množiny bodov je proporcionálna v rámci konštantného faktora logaritmu informačnej entropie. $KC$ je v podstate mierou kompaktnosti bodu, ktorý je triviálne nastavený. Ak by sa všetky body nachádzali v jednom mieste, $KC$ by nadobudol veľkú hodnotu. Účelová funkcia ($cost$) dátovej množiny pre určité transformačné parametre $\theta$ je definovaná nasledovne :
-
-\begin{equation}
-\label{eq16}
-\begin{aligned}
-cost\left(S,M,\theta\right)= - \sum_{m\in M} \sum_{s\in S} KC \left(s, T\left(m, \theta \right)\right)
-\end{aligned}
-\end{equation}
-
-Niektoré algebrické manipulácie sú opísané rovnicou 3.17:
-
-\begin{equation}
-\label{eq17}
-\begin{aligned}
-KC\left(S\cup T\left(M,\theta\right)\right) = KC\left(S\right) + KC\left(T \left(M, \theta \right)\right) - 2cost\left(S,M,\theta \right)
-\end{aligned}
-\end{equation}
-
-Výraz je zjednodušený tým, že sa pozoruje $KC\left(S\right)$ nezávisle od $\theta$. Ak sa ešte uvažuje s rigidnou registráciou, $KC\left(T \left(M, \theta \right)\right)$ je tým pádom invariantný voči zmene $\theta$, pretože Euklidovská vzdialenosť medzi párom bodov sa pri rigidnej transformácii nemení. Tým pádom je rovnicu 3.17 možné prepísať na 3.18:
-
-\begin{equation}
-\label{eq18}
-\begin{aligned}
-KC\left(S\cup T\left(M,\theta\right)\right) = c - 2cost\left(S,M,\theta \right)
-\end{aligned}
-\end{equation}
-
-
-Estimácia hustoty kernelu je neparametrický spôsob odhadovania hustoty pravdepodobnosti náhodnej premennej. Odhad hustoty kernelu je základným problémom vyhladzovania údajov na základe dátovej vzorky. Jej definícia pre tento prípad je znázornená v rovniciach 3.19 a 3.20.
-
-\begin{equation}
-\label{eq19}
-\begin{aligned}
-P_M\left( \chi,\theta\right)=\frac{1}{M}\sum_{m\in M} K\left(\chi,T\left(m,\theta\right)\right)
-\end{aligned}
-\end{equation}
-
-\begin{equation}
-\label{eq20}
-\begin{aligned}
-P_S\left( \chi\right)=\frac{1}{N}\sum_{s\in S} K\left(\chi,s\right)
-\end{aligned}
-\end{equation}
-
-Účelovú funkciu následne možno dokázať ako koreláciu odhadov hustoty kernelu.
-
-\begin{equation}
-\label{eq21}
-\begin{aligned}
-cost\left(S,M,\theta\right)= - N^2 \int_{\chi} \left(P_M P_s\right)
-\end{aligned}
-\end{equation}
-
-Po získaní hodnotovej funkcie algoritmus používa zostup gradientu, čo je iteračný optimalizačný algoritmus prvého radu na zistenie minimálnej funkcie. Ním sa nachádza optimálna transformácia. Z dôvodu výpočtovej náročnosti sa používa diskrétna verzia funkcie\textbf{ 3.18}. Oproti ICP algoritmu KC metóda nepotrebuje nájsť najbližšieho suseda a tým pádom je ľahšia na implementáciu. Taktiež je menej náchylná na šum v dátach (18).
+%\textbf{Korelácia kernelu}
+%
+%Metóda korelácie kernelu (KC) je oproti ICP metóde odolnejšia voči zašumeným dátam. Na rozdiel od ICP, v tejto metóde každý bod scény uvažuje s modelovým bodom. Ide o viacnásobne prepojujúcu registráciu (18). Pre niektoré funkcie kernelu $K$ je KC dvoch bodov $\chi_i$ a $\chi_j$ definovaná nasledovne:
+%
+%\begin{equation}
+%\label{eq14}
+%\begin{aligned}
+%KC\left(\chi_i,x_j\right)=\int K\left(\chi,\chi_i\right) \cdot K\left(\chi,\chi_j\right) dx 
+%\end{aligned}
+%\end{equation}
+%
+%Funkcia K zvolená pre bodovú registráciu je typický symetrický a nenegatívný kernel. Zvyčajne je používaný Gaussov kernel pre svoju jednoduchosť, avšak časté sú aj \textit{Epanechnikov} a \textit{tricube} kernel (18). Korelácia kernelu celej množiny bodov χ je definovaná ako súčet korelácií kernelu každého bodu v množine s každým ďalším bodom v množine.
+%
+%
+%\begin{equation}
+%\label{eq15}
+%\begin{aligned}
+%KC\left(\chi\right) = \sum_{i\ne1} KC\left(\chi_i,\chi_j\right)=2\sum_{i<j} KC\left(\chi_i,\chi_j\right)
+%\end{aligned}
+%\end{equation}
+%
+%Hodnota $KC$ množiny bodov je proporcionálna v rámci konštantného faktora logaritmu informačnej entropie. $KC$ je v podstate mierou kompaktnosti bodu, ktorý je triviálne nastavený. Ak by sa všetky body nachádzali v jednom mieste, $KC$ by nadobudol veľkú hodnotu. Účelová funkcia ($cost$) dátovej množiny pre určité transformačné parametre $\theta$ je definovaná nasledovne :
+%
+%\begin{equation}
+%\label{eq16}
+%\begin{aligned}
+%cost\left(S,M,\theta\right)= - \sum_{m\in M} \sum_{s\in S} KC \left(s, T\left(m, \theta \right)\right)
+%\end{aligned}
+%\end{equation}
+%
+%Niektoré algebrické manipulácie sú opísané rovnicou 3.17:
+%
+%\begin{equation}
+%\label{eq17}
+%\begin{aligned}
+%KC\left(S\cup T\left(M,\theta\right)\right) = KC\left(S\right) + KC\left(T \left(M, \theta \right)\right) - 2cost\left(S,M,\theta \right)
+%\end{aligned}
+%\end{equation}
+%
+%Výraz je zjednodušený tým, že sa pozoruje $KC\left(S\right)$ nezávisle od $\theta$. Ak sa ešte uvažuje s rigidnou registráciou, $KC\left(T \left(M, \theta \right)\right)$ je tým pádom invariantný voči zmene $\theta$, pretože Euklidovská vzdialenosť medzi párom bodov sa pri rigidnej transformácii nemení. Tým pádom je rovnicu 3.17 možné prepísať na 3.18:
+%
+%\begin{equation}
+%\label{eq18}
+%\begin{aligned}
+%KC\left(S\cup T\left(M,\theta\right)\right) = c - 2cost\left(S,M,\theta \right)
+%\end{aligned}
+%\end{equation}
+%
+%
+%Estimácia hustoty kernelu je neparametrický spôsob odhadovania hustoty pravdepodobnosti náhodnej premennej. Odhad hustoty kernelu je základným problémom vyhladzovania údajov na základe dátovej vzorky. Jej definícia pre tento prípad je znázornená v rovniciach 3.19 a 3.20.
+%
+%\begin{equation}
+%\label{eq19}
+%\begin{aligned}
+%P_M\left( \chi,\theta\right)=\frac{1}{M}\sum_{m\in M} K\left(\chi,T\left(m,\theta\right)\right)
+%\end{aligned}
+%\end{equation}
+%
+%\begin{equation}
+%\label{eq20}
+%\begin{aligned}
+%P_S\left( \chi\right)=\frac{1}{N}\sum_{s\in S} K\left(\chi,s\right)
+%\end{aligned}
+%\end{equation}
+%
+%Účelovú funkciu následne možno dokázať ako koreláciu odhadov hustoty kernelu.
+%
+%\begin{equation}
+%\label{eq21}
+%\begin{aligned}
+%cost\left(S,M,\theta\right)= - N^2 \int_{\chi} \left(P_M P_s\right)
+%\end{aligned}
+%\end{equation}
+%
+%Po získaní hodnotovej funkcie algoritmus používa zostup gradientu, čo je iteračný optimalizačný algoritmus prvého radu na zistenie minimálnej funkcie. Ním sa nachádza optimálna transformácia. Z dôvodu výpočtovej náročnosti sa používa diskrétna verzia funkcie\textbf{ 3.18}. Oproti ICP algoritmu KC metóda nepotrebuje nájsť najbližšieho suseda a tým pádom je ľahšia na implementáciu. Taktiež je menej náchylná na šum v dátach (18).
 

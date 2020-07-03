@@ -14,11 +14,11 @@
 \end{itemize}
 
 
+Problematika riešená v rámci dizertačnej práce pochádza z lekárskeho klinického prostredia (Klinika detí a dorastu JLF UK, Martin). Návrhu témy predchádzala dlhoročná spolupráca medzi Žilinskou univerzitou a Jesseniovou lekárskou fakultou UK v Martine. Špecialisti z klinického prostredia aktívne vstupujú do jednotlivých fáz riešenia, čím poskytujú užitočnú spätnú väzbu v celom procese, stanovovanie limitov a referenčných hodnôt a nakoniec aj validáciu výsledkov. Splnené ciele predloženej dizertačnej práce budú implementované do komplexného nástroja automatizovanej diagnostiky vybraných ochorení. \newline
 
-Riešenie úlohy definovanej v prvej fáze je založené na využití multi-kamerového systému, ktorý v reálnom čase dokáže zachytiť priestorovú informáciu snímanej scény. Jednotlivé priestorové informácie z kamier sa následne zlúčia do spoločného priestorového modelu, ktorý bude použitý pre riešenie druhej tézy.
-Podstatnou problematikou je vzájomná kalibrácia multi-kamerového systému a návrh filtračného algoritmu, ktorým sa zvýši kvalita výstupných priestorových dát. 
+Riešenie úlohy definovanej v prvom cieli je založené na využití multi-kamerového systému, ktorý v reálnom čase dokáže zachytiť priestorovú informáciu snímanej scény. Znižovanie času snímania objektu predstavuje z lekárskeho i technického hľadiska veľký prínos (pri zachovaní definovanej kvality). Jednotlivé priestorové informácie z kamier sa následne zlúčia do spoločného priestorového modelu, ktorý bude použitý pri riešení druhého cieľa. Podstatnou problematikou je vzájomná kalibrácia multi-kamerového systému a návrh filtračného algoritmu, ktorým sa zvýši kvalita výstupných priestorových dát. 
 
-Problematika druhej tézy môže byť riešená viacerými spôsobmi. Podstatným krokom je identifikácia kľúčových bodov alebo oblastí v priestorovom modeli. Jedným z možných riešení je segmentácia RGB-D mapy, kde sa pomocou algoritmov klasifikujú regióny bodov. Z výsledku klasifikácie bude následne možné rekonštruovať iba vybrané regióny 3D priestorového modelu. Výsledkom bude množina mračien bodov, ktoré môžu vystupovať ako samostatné modely alebo budú reprezentovať ucelený konzistentný model.
-
+\newpage
+Náplň druhého cieľa môže byť riešená viacerými spôsobmi. Podstatným krokom je identifikácia kľúčových bodov alebo oblastí v priestorovom modeli. Jedným z možných postupov je segmentácia RGB-D mapy, kde sa pomocou algoritmov klasifikujú regióny bodov. Z výsledku klasifikácie bude následne možné rekonštruovať iba vybrané regióny 3D priestorového modelu. V týchto čiastkových modeloch možno potom vykonať spoľahlivejšiu detekciu kľúčových bodov a meranie vzdialeností, nakoľko nebudú do týchto algoritmov vstupovať irelevantné časti modelov. Výsledkom bude množina mračien bodov, ktoré môžu vystupovať ako samostatné modely alebo budú reprezentovať ucelený konzistentný model.
 
 

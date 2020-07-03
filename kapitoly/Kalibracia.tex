@@ -441,9 +441,8 @@ Tangenciálne skreslenie vzniká pri neparalelnom umiestnení senzora kamery so 
 
 \begin{figure}[h]
 	\centering
-	%	\url{https://www.researchgate.net/figure/Tangential-distortion_fig5_332199146}
 	\includegraphics[width=0.7\textwidth]{figures/tangential_distortion.png} 
-	\caption{Tangenciálne skreslenie spôsobené nesprávnym umiestnením šošovky}
+	\caption{Tangenciálne skreslenie spôsobené nesprávnym umiestnením šošovky \cite{lee2019efficient}.}
 	\label{fig:tangential_distortion}
 \end{figure}
 
@@ -470,7 +469,7 @@ r^2=x^2+y^2
 
 \subsection{Model reálnej kamery s korekciou skreslenia šošoviek}
 
-V reálnych podmienkach je model ideálnej (dutinkovej) kamery doplnený o rovnice korekcie skreslenia šošoviek (tangenciálneho a radiálneho). Potreba získania koeficientov kamery je veľmi dôležitá z hľadiska správnej spätnej rekonštrukcie 2D obrazu do 3D priestoru.
+V reálnych podmienkach je model ideálnej (dutinkovej) kamery doplnený o rovnice korekcie skreslenia šošoviek (tangenciálneho a radiálneho). Potreba získania koeficientov kamery je veľmi dôležitá z hľadiska správnej spätnej rekonštrukcie 2D obrazu do 3D priestoru \cite{zhang2000flexible}.
 
 \begin{equation}
 \label{eq::real_camera::a}
@@ -519,8 +518,7 @@ u = f_{x} x'' + c_{x}; v = f_{y} y'' + c_{y}
 Kalibrácia kamery je nevyhnutný krok v 3D spracovaní obrazu, kde sa získavajú metrické informácie z 2D obrazov. Kalibráciu môžeme rozdeliť na 3 základné kategórie.
 
 \textbf{Kalibrácia pomocou korešpondencie bodov v 3D priestore}\newline
-Kalibrácia kamery sa vykonáva pozorovaním kalibračného objektu, ktorého geometria v 3D priestore je známa s veľmi presnou presnosťou. Kalibráciu je možné vykonať veľmi efektívne. Kalibračný objekt sa obvykle skladá z dvoch alebo troch rovín kolmých na seba.
-%O. Faugeras,Three-Dimensional Computer Vision: A Geometric Viewpoint.MITPress, 1993.
+Kalibrácia kamery sa vykonáva pozorovaním kalibračného objektu, ktorého geometria v 3D priestore je známa s veľmi presnou presnosťou. Kalibráciu je možné vykonať veľmi efektívne. Kalibračný objekt sa obvykle skladá z dvoch alebo troch rovín kolmých na seba \cite{faugeras1993three}.
 
 \textbf{Autokalibrácia} 
 
@@ -529,10 +527,7 @@ Táto technika nepoužíva žiadny kalibračný objekt. Posunutím kamery v stat
 \textbf{Kalibrácia pomocou 2D roviny v 3D priestore}
 
 
-
-
-Parametre kamery sa skladajú z vnútorných (intrinsických), vonkajších (extrinsických) koeficientov a koeficientov skreslenia (distortion). K určeniu je potrebné mať 3D body scény (world points) a ich zodpovedajúce 2D body. Získanie týchto korešpondujúcích dát je možné extrakciou ľahko identifikovateľných bodov. Jedným z najpoužívanejších kalibračných vzorov je šachovnica, kde je výrazný farebný prechod medzi hracími poľami (8).
-
+Parametre kamery sa skladajú z vnútorných (intrinsických), vonkajších (extrinsických) koeficientov a koeficientov skreslenia (distortion). K určeniu je potrebné mať 3D body scény (world points) a ich zodpovedajúce 2D body. Získanie týchto korešpondujúcích dát je možné extrakciou ľahko identifikovateľných bodov. Jedným z najpoužívanejších kalibračných vzorov je šachovnica, kde je výrazný farebný prechod medzi hracími poľami \cite{zhang2000flexible}.
 
 
 %\section{Planárna homografia}

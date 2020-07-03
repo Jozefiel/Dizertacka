@@ -100,7 +100,7 @@ Výsledky trénovania pre \textit{MobileNetV2} a \textit{NASNetLarge} sú zobraz
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/resers_d.png}
-	\caption{Grafy iteračného učenia (školenia a validácie) pre \textit{MobileNetV2} (vľavo) a \textit{NasNetLarge} (vpravo). Spodný riadok ukazuje nákladovosť krížovej entropie a horný presnosť klasifikácie. \cite{Kiaee2019DiagnosisOP}}
+	\caption{Grafy iteračného učenia (školenia a validácie) pre \textit{MobileNetV2} (vľavo) a \textit{NasNetLarge} (vpravo). Spodný riadok ukazuje nákladovosť krížovej entropie a horný presnosť klasifikácie \cite{Kiaee2019DiagnosisOP}.}
 	\label{fig:resers:d}
 \end{figure}
 
@@ -170,7 +170,7 @@ Výsledné modely výstupnej vrstvy po natrénovaní siete s rôznymi vstupnými
 		\label{fig:resers:g}
 	\end{subfigure}
 	\caption{(\textbf{a}) Hĺbková mapa získaná z 3D modelu tváre na obr. \ref{fig:resers:f}.
-	(\textbf{b}) Vlastnosti vrstvy siete. \cite{Islam}} 
+	(\textbf{b}) Vlastnosti vrstvy siete \cite{Islam.}} 
 	\label{fig:resers:3}
 \end{figure}
 
@@ -192,7 +192,7 @@ Výsledné porovnanie sietí sa nachádza v tabuľke \ref{tab:resers:2}. Z výsl
 Táto práca predstavuje ako prvá detekciu OSA založenú na hĺbkových mapách. Presnosť klasifikácie, ktorá bola dosiahnutá, je porovnateľná s výsledkami iných prác zaoberajúcich sa detekciou OSA \cite{balaei2017automatic}. Autori článku uvádzajú, že problémom pri trénovaní je malý dátový set hĺbkových máp pacientov. Plánujú jeho rozšírenie a automatizáciu vybraných procesov. 
 
 \subsection{Predikcia OSA pomocou 3D modelu}
-
+\label{sec:med:euclid}
 V práci \textit{Predicting Sleep Apnea From Three-Dimensional Face Photography} sa zaoberajú predikciou OSA pomocou lineárnych a geodetických vzdialeností medzi kľúčovými bodmi na tvári \cite{eastwood2020predicting}. Cieľom autorov je nájsť čo najvhodnejšie kombinácie meraní, pre čo najlepšiu predikciu stupňa ochorenia OSA. 
 Trojrozmerné snímky prekonávajú limity 2D snímania a pomáhajú určiť štruktúru tkaniva oveľa lepšie ako z 2D fotografie \cite{lin2018three}. Dátový set bol vytvorený zo 400 3D modelov dospelých pacientov, ktorí podstúpili PSG vyšetrenie. Podľa AHI indexu boli pacienti rozdelení do 4 skupín v závislosti od štádia a závažnosti ochorenia. Taktiež bol vypočítaný BMI index a odmeraný obvod krku. 3D modely boli vytvorené kamerou značky 3dMD, ktorá meria vzdialenosť na princípe triangulácie \cite{weinberg2005three,weinberg2006anthropometric}. Pacienti boli pri snímaní naklonený dozadu, aby bola lepšie viditeľná hrdlová časť. Merania lineárnych vzdialeností, uhlov a geodetických vzdialeností boli realizované pomocou anatomických značiek z 3D snímok, z ktorých sa následne určila prítomnosť ochorenia OSA a jeho štádium. Pre detekciu OSA bolo zvolených 24 kľúčových bodov, ktoré boli identifikované v každom 3D modeli (obr. \ref{fig:resers:i}). 
 

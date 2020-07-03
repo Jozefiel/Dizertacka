@@ -26,7 +26,7 @@ Pre návrh algoritmu, ktorý umožní vytvorenie precízneho modelu dynamického
 
 \section{Microsoft Kinect v2}
 
-Ide o druhú generáciu hĺbkových kamier od spoločnosti Microsoft. Oproti prvej generácií využíva technológiu ToF (detailnejšie v \ref{sec:tof}), pričom ide o jednu z najznámejších senzorov tohto typu na svete. Rozsah snímanej scény je $0.5-4.5 m$. Farebný obraz je dodávaný v rozlíšení $1920\times1080p$ a $30Hz$, hĺbková mapa ma rozlíšenie $512\times424$.
+Ide o druhú generáciu hĺbkových kamier od spoločnosti Microsoft. Oproti prvej generácií využíva technológiu ToF (detailnejšie v \ref{sec:tof}), pričom ide o jednu z najznámejších senzorov tohto typu na svete \cite{wiki:kinect}. Rozsah snímanej scény je $0.5-4.5 m$. Farebný obraz je dodávaný v rozlíšení $1920\times1080p$ a $30Hz$, hĺbková mapa ma rozlíšenie $512\times424$.
 
 \begin{figure}[H]
 	\centering
@@ -161,7 +161,7 @@ Pri sekvenčnom režime boli snímky z kamier získavané postupne od 1. po 4. k
 	\label{fig:parallel_sequence}
 \end{figure}
 
-Z výsledných modelov je jasne vidieť, že paralelné spracovanie dát má vyšší zmysel pri snímaní dynamických objektov. Pri sekvenčnom režime je rozdiel polohy ukazovateľa výrazný, čo spôsobovalo problémy aj pri ICP registrácií (obr. \ref{fig:dynamic:a}). Naproti tomu je model vytvorený paralelným režimom konzistentnejší, rozdiel polohy ukazovateľa je podstatne menší (obr. \ref{fig:dynamic:b}). Ten by sa dal znížiť hardvérovým synchronizovaným snímaním. Pri kamerách Kinect v2 však táto možnosť chýba. Rozdiel medzi jednotlivými pracovnými režimami sa nachádza na obr. \ref{fig:parallel_sequence}. 
+Z výsledných modelov je jasne vidieť, že paralelné spracovanie dát má vyšší zmysel pri snímaní dynamických objektov. Pri sekvenčnom režime je rozdiel polohy ukazovateľa výrazný, čo spôsobovalo problémy aj pri ICP registrácií (obr. \ref{fig:dynamic:a}). Naproti tomu je model vytvorený paralelným režimom konzistentnejší, rozdiel polohy ukazovateľa je podstatne menší (obr. \ref{fig:dynamic:b}). Ten by sa dal znížiť hardvérovým synchronizovaným snímaním. Pri kamerách Kinect v2 však táto možnosť chýba a je potrebná . Rozdiel medzi jednotlivými pracovnými režimami sa nachádza na obr. \ref{fig:parallel_sequence}. 
 
 \section{Kalibrácia kamerového systému}
 \label{sec:kinect_calib}
@@ -230,26 +230,26 @@ V nej je detailnejšie zobrazené, aký vplyv má kalibrácia na presnosť rekon
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
-		\includegraphics[width=0.57\textwidth]{figures/calibration_hausdorff_single_calib.png}
-		\caption{}
-		\label{fig:calib:haus:single:calib}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.49\textwidth}
-		\centering
 		\includegraphics[width=0.57\textwidth]{figures/calibration_hausdorff_single_uncalib.png}
 		\caption{}
 		\label{fig:calib:haus:single:uncalib}
 	\end{subfigure}
-	\caption{Porovnanie 3D mračien bodov pri rozdielnych režimoch snímania: (\textbf{a}) Mračno bodov vytvorené pre sekvenčný režim. (\textbf{b}) Mračno bodov vytvorené pre paralelný režim.}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=0.57\textwidth]{figures/calibration_hausdorff_single_calib.png}
+		\caption{}
+		\label{fig:calib:haus:single:calib}
+	\end{subfigure}
+	\caption{Vizualizácia Hausdorffovej vzdialenosti medzi referenčným modelom (Obr. \ref{fig:calib:model:ref}) a modelom získaným z kamery Kinect v2: (\textbf{a}) Nekalibrovaný systém (výsledok pre model z obr. \ref{fig:calib:model:uncalib}). (\textbf{b}) Kalibrovaný systém (výsledok pre model z obr. \ref{fig:calib:model:calib}).}
 	\label{fig:calib:haus:single}
 \end{figure}
 
 \begin{table}[H]
-	\caption{\label{tab:calib:single} Štatistické porovnanie geometrickej kalibrácie kamier }
+	\caption{\label{tab:calib:single} Štatistické porovnanie geometrickej kalibrácie kamier. }
 	\centering
 	\begin{tabular}{cccc}
 		\toprule
-		\textbf{Model} & \textbf{Počet bodov [-]} & \textbf{Mean [mm]} & \textbf{RMS [mm]} \\ 
+		\textbf{Model} & \textbf{Počet vzdialenosti [-]} & \textbf{Priemer [mm]} & \textbf{RMS [mm]} \\ 
 		\midrule
 		\textbf{Nekalibrovaný} & 185187 & 3,0206	& 3,8444 \\
 		\textbf{Kalibrovaný} & 296585   & 2,1832   & 2,9506  \\  
@@ -274,20 +274,20 @@ Riešením je separátne kalibrovanie medzi susednými kamerami (napr. 1-2, 1-3 
 	\label{fig:calib:multi:rgbd}
 \end{figure}
 
-Efektívnejším spôsobom je hľadanie vzájomnej pozície kamier cez kľúčové body. V takomto prípade každá staticky umiestnená kamera zosníma kalibračný objekt, z ktorého vygeneruje mračno bodov. V každom mračne sa identifikujú spoločné body, ktoré slúžia na prvotné zarovnanie. Následne sa ICP metódou minimalizuje suma štvorcov euklidovských vzdialeností bodov. Výhodou statického rozmiestnenia kamier je, že multi-kamerovú kalibráciu je nutné vykonať iba raz. Získaním rotačných a translačných parametrov pre každú kameru získavame zarovnané mračná v spoločnom projektovanom priestore. 
+Efektívnejším spôsobom je hľadanie vzájomnej pozície kamier cez kľúčové body. V takomto prípade každá staticky umiestnená kamera zosníma kalibračný objekt, z ktorého vygeneruje mračno bodov. V každom mračne sa identifikujú spoločné body, ktoré slúžia na prvotné zarovnanie (\textit{3 point picking alignment}). Následne sa pomocou ICP metódy minimalizuje suma štvorcov euklidovských vzdialeností bodov a vykoná sa jemnejšie zarovnanie. Výhodou statického rozmiestnenia kamier je, že multi-kamerovú kalibráciu je nutné vykonať iba raz. Získaním rotačných a translačných parametrov pre každú kameru získavame zarovnané mračná v spoločnom projektovanom priestore (\ref{tab:calib:multi}). 
 
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
-		\includegraphics[height=5cm]{figures/calibration_multi_uncalib.png}
+		\includegraphics[height=6cm]{figures/calibration_multi_uncalib.png}
 		\caption{}
 		\label{fig:calib:multi:uncalib}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
-		\includegraphics[height=5cm]{figures/calibration_multi_calib.png}
+		\includegraphics[height=6cm]{figures/calibration_multi_calib.png}
 		\caption{}
 		\label{fig:calib:haus:calib}
 	\end{subfigure}
@@ -298,57 +298,95 @@ Efektívnejším spôsobom je hľadanie vzájomnej pozície kamier cez kľúčov
 
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}[b]{0.48\textwidth}
-		\centering
-		\includegraphics[height=5cm]{figures/calibration_hausdorff_multi.png}
-		\caption{}
-		\label{fig:calib:multi:haus:uncalib}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.48\textwidth}
-		\centering
-		\includegraphics[height=5cm]{figures/calibration_hausdorff_multi.png}
-		\caption{}
-		\label{fig:calib:multi:haus:calib}
-	\end{subfigure}
-	\caption{DOROBIT TABULKU A VYSLEDKY PRE KALIBRACIU: (\textbf{a})  (\textbf{b})}
+	\includegraphics[height=6cm]{figures/calibration_hausdorff_multi.png}
+	\caption{Vizualizácia Hausdorffovej vzdialenosti zarovnaných modelov pomocou multi-kamerovej kalibrácie.}
 	\label{fig:calib:multi:haus}
 \end{figure}
+
+\begin{table}[h]
+	\centering
+	\caption{\label{tab:calib:multi} Rotačné a translačné parametre pre multi-kamerový systém (topológia systému je na obr. \ref{fig:multicam:placement}). Parameter K predstavuje jednotlivé kamery v tejto sústave. }
+	\begin{tabular}{ccccccccccccc}
+		\toprule
+		\textbf{K} & \textbf{$r_{11}$} & \textbf{$r_{12}$} & \textbf{$r_{13}$} & \textbf{$r_{21}$} & \textbf{$r_{22}$} & \textbf{$r_{23}$} & \textbf{$r_{31}$} & \textbf{$r_{32}$} & \textbf{$r_{33}$} & \textbf{$t_{1}$} & \textbf{$t_{2}$} & \textbf{$t_{3}$} \\ 
+		\midrule
+		\textbf{1} & 0,2 & -0,1 & 0,99 & -0,74 & 0,15 & 0,98 & 0,1 & -0,09 & -0,99 & 0,08 & 0,04 & 0,62 \\
+		\textbf{2} & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ 
+		\textbf{3} & 0,09 & 0,16 & -0,98 & 0,56 & -0,14 & 0,98 & 0,15 & -0,07 & 0,99 & 0,13 & 0,11 & 0,5 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Výsledky Hausdorffovej vzdialenosti medzi referenčným modelom a zarovnaným modelom (trojuholníkové siete) sa nachádzajú v tabuľke \ref{tab:calib:multi:hd}.
+
+\begin{table}[H]
+	\caption{\label{tab:calib:multi:hd} Štatistické porovnanie multi-kamerovej kalibrácie kamier. }
+	\centering
+	\begin{tabular}{cccc}
+		\toprule
+		\textbf{Model} & \textbf{Počet vzdialenosti [-]} & \textbf{Priemer [mm]} & \textbf{RMS [mm]} \\ 
+		\midrule
+		\textbf{Kalibrovaný} & 1071662   & 2,984   & 3,107  \\  
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Z výsledkov vyplýva, že priemerná aj RMS chyba je $\sim $ 3mm. Toto zarovnanie je vhodné pre systémy, ktorých rozloženie kamier je statické. Chyba však môže narásť zmenou pracovnej teploty senzora, čím sa ovplyvňuje aj presnosť merania hĺbky (pozri kapitolu \ref{sec:tof}). Z toho dôvodu je potrebné vykonávať ešte jemné zarovnanie mračien pomocou ďalších registračných metód.
 
 \section{Návrh skenovacej metodiky}
 
 Úlohou skenovacej metodiky zloženej z prezentovaných čiastkových algoritmov je vytvoriť konzistentné mračno bodov dynamického objektu z multi-kamerového systému. Toto mračno (model) bude použité pre skríning a automatizovanú diagnostiku OSA v klinickej medicíne. Dynamický objekt je reprezentovaný hlavou pediatrického pacienta. Súčasťou skenovacieho procesu sú algoritmy na podporu automatizovaného merania vybraných kranio-faciálnych parametrov pomocou euklidovskej vzdialenosti. Jadrom a vlastným vedeckým prínosom tejto časti práce je návrh metódy na potláčanie interferenčných artefaktov a vybraných degradačných procesov, na interpoláciu a opravu poškodených častí modelov. Súčasťou metodiky je tiež návrh algoritmu pre segmentáciu hĺbkových máp, ktorý identifikuje a rozdelí jednotlivé časti tváre podľa preddefinovanej klasifikácie.
 Z takto segmentovanej hĺbkovej mapy bude možné vytvoriť mračná bodov jednotlivých častí tváre (oči, nos, brada, ústa,...). Takto segmentované oblasti budú v ďalšom výskume použité ako vstupné údaje do procesu automatizovanej diagnostiky. \newline
 
-\noindent Algoritmus môžeme rozdeliť podľa funkcionality na 4 časti: 
+\noindent Algoritmus môžeme rozdeliť podľa funkcionality na 4 časti: \newline
 
-\begin{itemize}
+\begin{compactitem}
 	\item Zber a príprava dát v reálnom čase
 	\item Spracovanie a filtrácia prijatých dát
 	\item Meranie kranio-faciálnych parametrov tváre 
-	\item Segmentácia bodov podľa klasifikácie 
-\end{itemize}
+	\item Segmentácia bodov podľa klasifikácie \newline
+\end{compactitem}
 
 V prvej časti sa rieši paralelné spracovanie dát zo všetkých pripojených kamier. Vykonáva sa geometrická kalibrácia a základná 2D filtrácia spolu s identifikáciou pohybu tváre. Požiadavka na tento proces je, aby bol vykonávaný v reálnom čase. Ak frekvencia snímania je $30Hz$, časový rozstup medzi snímkami je $33ms$. Preto sú procesy spúšťané paralelne na CPU a GPU. Výstupom z tejto časti je obrazový zásobník, ktorý obsahuje obrazové informácie pediatrického pacienta v pokojovom stave. \newline
 
-V druhej časti sa zo získaných obrazových dát vytvára trojrozmerná reprezentácia snímaného objektu. Prijaté dáta podstupujú filtráciu, ktorou sa zlepšuje kvalita výstupného modelu. Proces využíva štatistické filtre, ktorými sa odstraňujú chybné dáta. Aplikovaním ICP metódy sa minimalizuje chyba multi-kamerovej kalibrácie. Do priebehu tohto procesu vstupujú aj tretí a štvrtý proces. Tie pracujú s RGB-D obrazmi a hĺbkovými mapami, ktoré sú výstupom IMBM filtrácie. \newline
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/diagram.png}
+	\caption{Diagram algoritmu od inicializácie kamier po IMBM filtráciu.}
+	\label{fig:scheme:a}
+\end{figure}
+
+V druhej časti sa zo získaných obrazových dát vytvára trojrozmerná reprezentácia snímaného objektu. Prijaté dáta podstupujú filtráciu, ktorou sa zlepšuje kvalita výstupného modelu. Proces využíva štatistické filtre, ktorými sa odstraňujú chybné dáta. Aplikovaním nami navrhnutej metódy IMBM  sa minimalizuje chyba multi-kamerovej kalibrácie. Do priebehu tohto procesu vstupujú aj tretí a štvrtý proces. Tie pracujú s RGB-D obrazmi a hĺbkovými mapami, ktoré sú výstupom IMBM filtrácie (Obr. \ref{fig:scheme:b}). 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/diagram_post_imbm.png}
+	\caption{Diagram spracovania dát po IMBM filtrácii.}
+	\label{fig:scheme:b}
+\end{figure}
 
 Tretia časť sa zameriava na meranie euklidovských vzdialeností špecifických vybraných parametrov. V RGB-D obraze sa identifikujú kľúčové body, ktoré sú následne prenesené do hĺbkovej mapy. Z týchto bodov sa vypočítajú 3D súradnice a vzdialenosti medzi jednotlivými pármi bodov. Týmto prístupom sa do určitej miery automatizuje vyšetrenie, ktoré je inak vykonávané kontaktným spôsobom. Bezkontaktný prístup je príjemnejší a menej stresujúci pre pediatrických pacientov. Taktiež skracuje dobu vyšetrenia.\newline 
 
-V poslednej fáze sa vykonáva segmentácia výstupných RGB-D obrazov, v ktorých sa hľadajú pixely prislúchajúce jednotlivým častiam ľudskej tváre. Takouto segmentáciou v 2D obraze sa následne dokáže rozdeliť aj ucelené mračno bodov. Výstupom RGB-D segmentácie sú binárne masky, ktoré klasifikujú jednotlivé regióny v hĺbkových mapách. Pri priestorovej rekonštrukcii sa následne konkrétnym bodom nastaví identifikátor, ktorým sa body klasifikujú do tried. Takto je možné rozdeliť jedno zarovnané mračno vytvorené z viacerých hĺbkových máp. \newline
+V poslednej fáze sa vykonáva segmentácia výstupných RGB-D obrazov, v ktorých sa hľadajú pixely prislúchajúce jednotlivým častiam ľudskej tváre. Takouto segmentáciou v 2D obraze sa následne dokáže rozdeliť aj ucelené mračno bodov. Výstupom RGB-D segmentácie sú binárne masky, ktoré klasifikujú jednotlivé regióny v hĺbkových mapách. Pri priestorovej rekonštrukcii sa následne konkrétnym bodom nastaví identifikátor, ktorým sa body klasifikujú do tried. Takto je možné rozdeliť jedno zarovnané mračno vytvorené z viacerých hĺbkových máp. 
 
-%https://www.researchgate.net/publication/306284947_Efficient_Multi-Frequency_Phase_Unwrapping_using_Kernel_Density_Estimation
 
 \subsection{Nástroje použíté pri vývoji algoritmu}
 
-Algoritmus a príslušný softvér bol vyvíjaný v jazyku C++17 na operačnom systéme Linux Mint 18.1. Projekt bol konfigurovaný cez \textit{CMake 3.5}. Využíval pracovné rozhranie \textit{Qt 5.13.9}, v ktorom bolo vyvíjané aj grafické rozhranie projektu. Kamery Kinecvt v2 využívali ovládač \textit{libfreenect2} s podporou \textit{CudaKDE}. Pre spracovanie 2D obrazu bola použitá knižnica \textit{OpenCV 4}. Pre prácu s 3D dátami sa využívala knižnica \textit{Point Cloud Library 1.9} s vizuálnou podporou knižnice \textit{VTK 6.3}. Identifikácia kľúčových bodov využívala prostriedky \textit{DLib 19.16}. Taktiež sa používali štandardné C++ knižnice a knižnica \textit{Boost 1.63}. Algoritmus využíval procesorové vlákna. Softvér má predpripravené rozhranie pre spoluprácu s kamerami RealSense. 
+Algoritmus a príslušný softvér bol vyvíjaný v jazyku C++17 na operačnom systéme Linux Mint 18.1. Projekt bol konfigurovaný cez \textit{CMake 3.5}. Využíval pracovné rozhranie \textit{Qt 5.13.9}, v ktorom bolo vyvíjané aj grafické rozhranie projektu. Kamery Kinecvt v2 využívali ovládač \textit{libfreenect2} \cite{blake2015libfreenect2}s podporou \textit{CudaKDE} \cite{lawin2016efficient}. Pre spracovanie 2D obrazu bola použitá knižnica \textit{OpenCV 4}. Pre prácu s 3D dátami sa využívala knižnica \textit{Point Cloud Library 1.9} s vizuálnou podporou knižnice \textit{VTK 6.3}. Identifikácia kľúčových bodov využívala prostriedky \textit{DLib 19.16}. Taktiež sa používali štandardné C++ knižnice a knižnica \textit{Boost 1.63}. Algoritmus využíval procesorové vlákna. Softvér má predpripravené rozhranie pre spoluprácu s kamerami RealSense. 
 
 \subsection{Príprava vstupných dát}
 \label{sec:data_prep}
 Proces prípravy vstupných dát môžeme rozdeliť na 4 sekvencie.
-V prvej sa vykonáva inicializácia kamier a nastavenie konfiguračných parametrov. Medzi základné konfiguračné parametre patria kalibračné koeficienty. 
+V prvej sa vykonáva inicializácia kamier a nastavenie konfiguračných parametrov. Medzi základné konfiguračné parametre patria kalibračné koeficienty. Po úspešnej inicializácii sa začína proces snímania. Každé snímanie je vykonávané vo vlastnom CPU vlákne, ktoré je nezávislé od hlavnej slučky programu (Obr. \ref{fig:scheme:c}).
 
-Po úspešnej inicializácii sa začína proces snímania. Každé snímanie je vykonávané vo vlastnom CPU vlákne, ktoré je nezávislé od hlavnej slučky programu. Každá kamera tak vykonáva úlohy vo vlastnej oddelenej slučke. Samostatne sa tak prijímajú obrazové informácie z jednotlivých kamier. Získava sa 8-bitový RGB obraz, 32-bitový infračervený obraz a taktiež 32-bitová hĺbková mapa. Tieto obrazy sú zbavené skreslenia šošoviek. Mapovaním farebného obrazu na hĺbkovú mapu sa získava RGB-D obraz. Ten popisuje textúru hĺbkovej mapy. Z hĺbkovej mapy je prahovaním odstránené pozadie, pričom hranice prahu sú určené topológiou kamerového systému. Takto vznikne binárna maska objektu, ktorej eróziou zmenšíme plochu na hranách. Pomocou nej je maskovaný RGB-D obraz: 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/diagram_cam.png}
+	\caption{Sekvencia spracovania prijatých dát z jednotlivých kamier vykonávané v samostatnom vlákne.}
+	\label{fig:scheme:c}
+\end{figure}
+
+Každá kamera tak vykonáva úlohy vo vlastnej oddelenej slučke. Samostatne sa tak prijímajú obrazové informácie z jednotlivých kamier. Získava sa 8-bitový RGB obraz, 32-bitový infračervený obraz a taktiež 32-bitová hĺbková mapa. Tieto obrazy sú zbavené skreslenia šošoviek. Mapovaním farebného obrazu na hĺbkovú mapu sa získava RGB-D obraz. Ten popisuje textúru hĺbkovej mapy. Z hĺbkovej mapy je prahovaním odstránené pozadie, pričom hranice prahu sú určené topológiou kamerového systému. Takto vznikne binárna maska objektu, ktorej eróziou zmenšíme plochu na hranách. Pomocou nej je maskovaný RGB-D obraz: 
 
 \begin{description}[leftmargin=*, font=$\bullet$~\normalfont\scshape\color{black}]
 	\item[RGB:] 	8-bitový 3-kanálový obraz s rozlíšením $1920 \times 1080$
@@ -366,8 +404,7 @@ Prácu s grafickým prostredím vykonáva užívateľ, ktorý si zároveň stabi
 
 \subsection{Identifikácia polohy hlavy}
 
-Z dôvodov, ktoré sú opísané v sekcii \ref{sec:data_prep} je potrebné ukladať sériu snímok do dátového zásobníka. Z dát v zásobníku sa následne generuje mračno bodov, ktoré má čo najvernejšie reprezentovať snímaný objekt. Problém však nastáva, ak je objekt počas doby snímania dynamický. Pohybom môže vzniknúť problém s následným zarovnaním dát do spoločného modelu. Taktiež je veľmi pravdepodobné, že výsledný model nebude geometricky odpovedať skutočným rozmerom. Vplyv pohybových artefaktov je znázornený na \ref{sec:serial_parallel}. Požiadavkou je získať sériu obrazových dát s minimálnou zmenou polohy snímaného objektu. \newline 
-
+Z dôvodov, ktoré sú opísané v sekcii \ref{sec:data_prep} je potrebné ukladať sériu snímok do dátového zásobníka. Z dát v zásobníku sa následne generuje mračno bodov, ktoré má čo najvernejšie reprezentovať snímaný objekt. Problém však nastáva, ak je objekt počas doby snímania dynamický. Pohybom môže vzniknúť problém s následným zarovnaním dát do spoločného modelu. Taktiež je veľmi pravdepodobné, že výsledný model nebude geometricky odpovedať skutočným rozmerom. Vplyv pohybových artefaktov je znázornený na \ref{sec:serial_parallel}. Požiadavkou je získať sériu obrazových dát s minimálnou zmenou polohy snímaného objektu.  
 Keďže kamery sú staticky umiestnené a zamerané na spoločný centrálny bod, pohyb objektu v hociktorom smere sa prejaví vo všetkých mapách. Tento fakt je rozhodujúci pri návrhu identifikačného systému. Z toho logicky vyplýva, že stačí analyzovať pohyb objektu len z dát jednej kamery. Identifikovanie kľúčových bodov, ktoré budú zhodné pre každú snímku v obrazovom zásobníku pomôže vypočítať pohyb a rozptyl polohy. \newline
 
 Ak je pixel $P$ reprezentovaný konkrétnym stĺpcom $r_{i}$ a riadkom $c_{i}$, tak bod záujmu $P_{i}$ predstavuje jedinečnú pozíciu v obraze. Index $i$ predstavuje konkrétny kľúčový bod detektora a $N$ snímku v zásobníku. Bodu $P_{i}$ prislúcha informácia o farbe $R_{i};G_{i};B_{i}$ (získanej z RGB-D obrazu) a o hĺbke $d_{i}$ (získanej z hĺbkovej mapy).
@@ -416,20 +453,20 @@ P_d\left(z\right)=\left|  max\lbrace d_{i;N} \rbrace -min\lbrace d_{i;N} \rbrace
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/rgbd_views.png}
+	\includegraphics[width=0.9\textwidth]{figures/rgbd_views.png}
 	\caption{Prahované RGB-D snímky vytvorené multi-kamerovým systémom zachytávajúce dynamický objekt v rovnakom čase.}
 	\label{fig:dlib:views}
 \end{figure}
 
 Pohybová aktivita je znížená vplyvom podporného vizualizačného systému (tablet premietajúcu zaujímavý obsah), ktorého úlohou je udržať pohľad objektu koncentrovaný na jedno miesto.
 
-Ideálny je frontálny pohľad, pretože tvár obsahuje veľa statických a jedinečných prvkov. V súčasnosti existuje niekoľko desiatok metód, ktoré sú určené na detekciu tváre a jej orientačných bodov. Ich úlohou je čo najpresnejšie identifikovať spomínané body. V tejto práci sa používa detektor DLib, ktorý pracuje na princípe súboru regresívnych stromov.
+Ideálny je frontálny pohľad, pretože tvár obsahuje veľa statických a jedinečných prvkov. V súčasnosti existuje niekoľko desiatok metód, ktoré sú určené na detekciu tváre a jej orientačných bodov. Ich úlohou je čo najpresnejšie identifikovať spomínané body. V tejto práci sa používa detektor DLib, ktorý pracuje na princípe súboru regresívnych stromov \cite{king2009dlib}. Výhodou použitia Dlib detektora oproti SURF a SIFT metódam je, že dokážu ľahko identifikovať aj mimiku tváre. Takýmto spôsobom sa umožňuje detekcia pohybu hlavy pri rôznych polohách a tvárových výrazoch. 
 Základný detektor identifikuje 68 bodov tváre, pričom vie ohraničiť tvár, oči, nos a ústa. Ukážka aplikácie detektora na RGB-D obraze sa nachádza na obrázku \ref{fig:dlib:points}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\textwidth]{figures/face_landmarks.png}
-	\caption{Aplikácia "DLib Face Landmark Detector":  \textbf{ a)} Označenie 68 základných kľúčových bodov,  \textbf{ b)} Aplikácia na RGB-D obraze získanej z kamery Kinect v2}
+	\includegraphics[width=0.90\textwidth]{figures/face_landmarks.png}
+	\caption{\textbf{Vľavo)} Označenie 68 základných kľúčových bodov \textit{ DLib Face Landmark} detektora \cite{king2009dlib}.  \textbf{Vpravo)} Aplikácia na RGB-D obraze získanej z kamery Kinect v2}
 	\label{fig:dlib:points}
 \end{figure}
  
@@ -440,7 +477,7 @@ Redukovanie počtu detekovaných kľúčových bodov na minimálny počet zabezp
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.70\textwidth]{figures/rgbd_points.png}
-	\caption{Porovnanie vplyvu filtrácie na vstupné dáta}
+	\caption{DLib detektor identifikujúci 5 kľúčových bodov tváre na RGB-D obraze.}
 	\label{fig:dlib:rbbd5}
 \end{figure}
 
@@ -448,8 +485,8 @@ Redukovanie počtu detekovaných kľúčových bodov na minimálny počet zabezp
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.70\textwidth]{figures/depth_points.png}
-	\caption{Porovnanie vplyvu filtrácie na vstupné dáta}
+	\includegraphics[width=0.72\textwidth]{figures/depth_points.png}
+	\caption{Prenesenie identifikovaných kľúčových bodov z RGB-D obrazu (Obr. \ref{fig:dlib:rbbd5}) do hĺbkovej mapy.}
 	\label{fig:dlib:depth5}
 \end{figure}
 
@@ -462,8 +499,8 @@ Pre porovnanie 5 a 68 bodového detektora sa štatisticky analyzovalo, koľko de
 		\toprule
 		\textbf{Model} & \textbf{Počet bodov} & \textbf{$d_i=0$} & \textbf{$F(d_i=0)$} & \textbf{$d_i=0 [\%]$ } & \textbf{$F(d_i=0) [\%]$} \\ 
 		\midrule
-		\textbf{5 bodov} 	& 415 	& 2		& 2		& 0.48	& 2.298 \\
-		\textbf{68 bodov} 	& 5644	& 41 	& 23	& 0.72	& 26.437 \\
+		\textbf{5 bodov} 	& 415 	& 2		& 2		& 0,48	& 2,298 \\
+		\textbf{68 bodov} 	& 5644	& 41 	& 23	& 0,72	& 26,437 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -529,9 +566,7 @@ V nich môžeme vidieť, že výsledky sú podobné. Dôležitým parametrom je 
 	\end{tabular}
 \end{table}
 
-Pre lepšie porovnanie sme odčítali výsledky merania 5 bodového detektora od 68 bodového detektora. Z výsledkov vyplýva, že rozdiel medzi presnosťou jednotlivých detektorov je minimálny. Maximálna hodnota rozdielu je $1.3mm$ pri meraní vnútorného rozostupu očí.
-Pre identifikáciu pohybu objektu bol zvolený 5 bodový detektor, pretože doba spracovania procesu trvala v priemere o $ 10\% $ menej času ako pri 68 bodovom detektore.  
-
+Pre lepšie porovnanie sme odčítali výsledky merania 5 bodového detektora od 68 bodového detektora. Z výsledkov vyplýva, že rozdiel medzi presnosťou jednotlivých detektorov je minimálny. Maximálna hodnota rozdielu je $1.3mm$ pri meraní vnútorného rozostupu očí. Z tohto experimentu vyplýva, že oba detektory sú vhodné pre meranie pohybu tváre. Každý z nich lokalizuje body pod $33ms$, čo je podmienka pri práci v reálnom čase. 68 bodový detektor má potenciálne využitie pri meraní tváre v rôznych mimikách (úsmev, ...). Tieto mimiky majú potenciál pri diagnostike OSA.
   
 
 \subsection{Filtrácia a registrácia mračna bodov}
@@ -574,11 +609,28 @@ Výsledné mračno bodov (obr. \ref{fig:imbm:result:c}) je vytvorené zo stredn�
 
 Výstupný RGB-D obraz z IMBM je priemerom vstupných RGB-D obrazov. Pomocou tohto obrazu sa nanáša textúra na mračno bodov. Na obr. \ref{fig:dlib:rbbd5} je vidieť, že vstupné obrazy obsahujú prázdne miesta (0 hodnoty pixelov) aj v oblastiach, kde hĺbka nie je nulová.
 Tieto miesta sú do určitej miery odstránené vo výstupnom RGB-D obraze.
-% , ale nie úplne.
 
-%K úplnému odstráneniu používame weight-median (WM) filter. K aplikácií použijeme hĺbkovú mapu a RGB-D obraz z IMBM filtra. 
-%V prvom kroku si potrebujeme identifikovať masku objektu. Tú získame binarizáciu hĺbkovej mapy. Následne identifikujeme čierne miesta prislúchajúce objektu v RGB-D mape. Kontrolujeme, kedy má binárna maska pozitívnu hodnotu pixelu a kedy prislúchajúce pixely kanálov R,G a B majú 0 hodnoty. Takto dostávame masku chýbajúcej textúry objektu.  
 
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[height=4.4cm]{figures/inpaint_a.png}
+		\caption{}
+		\label{fig:inpaint:a}
+	\end{subfigure}
+	\hskip 0in
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[height=4.4cm]{figures/inpaint_b.png}
+		\caption{}
+		\label{fig:inpaint:b}
+	\end{subfigure}
+	\caption{Oprava RGB-D obrazu pomocou metódy Telea : (\textbf{a})Výstupný  medián RGB-D mapy s poškodenými ROI. (\textbf{b}) Oprava farebnej informácie na miestach, kde sa v hĺbkovej mape nachádza objekt.}
+	\label{fig:inpaint}
+\end{figure}
+
+K úplnému odstráneniu poškodených miest používame Teleovú metódu \cite{telea2004image}. K aplikácií použijeme hĺbkovú mapu a RGB-D obraz z IMBM filtra. Opravujeme len pixely, ktoré majú súčet R,G a B vrstiev rovný 0 a hĺbková informácia $d$ je rôzna od 0. Výstupom je RGB-D obraz, ktorý je zbavený poškodených miest (Obr. \ref{fig:inpaint}).
 
 Po tomto kroku máme pripravené mediány hĺbkových máp, ktoré su použité pri meraní kranio-faciálnych parametrov tváre a pri segmentácii hĺbkovej mapy. Tieto spracovania sú opísané v samostatných kapitolách. Z týchto dát následne vytvárame mračna bodov. Pomocou nasledujúcich rovníc prebieha rekonštrukcia snímaného priestoru. 
 
@@ -691,9 +743,10 @@ Aplikovaním \textit{Incremental registration ICP} metódy sa zabezpečí opäto
 Na obr. \ref{fig:model:input} sa nachádza mračno bodov, ktoré je vytvorené zo série piatich hĺbkových máp zachytených troma ToF kamerami Kinect v2. Snímanie objektu trvalo pod $200ms$. Vplyv multi-kamerovej interferencie je však viditeľný. Na obr. \ref{fig:model:imbm} sa nachádza výstup IMBM filtra, kde je potlačený vplyv multi-kamerovej interferencie. Mračno stále obsahuje šum a lietajúce pixely. Taktiež aj zarovnanie nie je postačujúce. Následným spracovaním pomocou ROR, ICP a GRID sa odstránia chybné pixely a vytvorí sa konzistentné uniformné mračno bodov (obr. \ref{fig:model:result}).
 
 
-
+\newpage
 \subsection{Automatizované meranie vzdialenosti tvárových čŕt}
-Pomocou 68 bodového DLib detektora je možné automatizovať meranie určitých parametrov tváre, ktoré sa vyskytujú v dotazníku (TEN Z MARTINA). 
+Pomocou 68 bodového DLib detektora \cite{king2009dlib} je možné automatizovať meranie určitých parametrov tváre. Jednotlivé merania sú špecifikované v dotazníku využívanom pri vyšetrení na Klinike detí a dorastu
+Jesseniovej lekárskej fakulty v Martine, Laboratórium spánkovej medicíny (pozri prílohu \ref{sec:Priloha:Dot}). 
 Identifikovaním špecifických kľúčových bodov tváre a prenesením týchto bodov do hĺbkovej mapy je možné pomocou euklidovskej vzdialenosti (rovnica \ref{eq:euclidean}) získať geometrické vlastnosti tvárových parametrov.
 Pre meranie OSA bolo vybraných týchto 19 párov kľúčových bodov: 
 \vskip 0.2in
@@ -728,12 +781,12 @@ Vypočítané hodnoty boli následne porovnané s referenčnými, čím sa získ
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\textwidth]{figures/plot.png}
+	\includegraphics[width=\textwidth]{figures/plot.png}
 	\caption{Histogram absolútnej chyby merania tvárových parametrov vytvorený z 5130 meraní euklidovskej vzdialenosti.}
 	\label{fig:histogram}
 \end{figure}
 
-Vyšší rozdiel medzi referenčnými a nameranými hodnotami môže byť spôsobený zmenou geometrie tváre (zmena mimiky tváre). Takáto chyba sa prejavila napríklad pri výške pier a brady. Problematickými sa javí aj meranie rozmerov spánkov a lícnych častí. Ich príslušné kľúčové parametre sa pri frontálnom pohľade nachádzajú na hranici hĺbkovej mapy. Preto aj pri minimálnej nepresnosti určenia pozície stredov pravého (2) a ľavého ucha (16) môže dôjsť k výraznejšej zmene hĺbky (Obr. \ref{fig:dlib:cloud}). 
+Vyšší rozdiel medzi referenčnými a nameranými hodnotami môže byť spôsobený zmenou geometrie tváre (zmena mimiky tváre). Takáto chyba sa prejavila napríklad pri výške pier a brady. Problematickými sa javí aj meranie rozmerov spánkov a lícnych častí. 
 
 \begin{figure}[H]
 	\centering
@@ -754,9 +807,11 @@ Vyšší rozdiel medzi referenčnými a nameranými hodnotami môže byť spôso
 	\label{fig:dlib:cloud}
 \end{figure}
 
+Ich príslušné kľúčové parametre sa pri frontálnom pohľade nachádzajú na hranici hĺbkovej mapy. Preto aj pri minimálnej nepresnosti určenia pozície stredov pravého (2) a ľavého ucha (16) môže dôjsť k výraznejšej zmene hĺbky (Obr. \ref{fig:dlib:cloud}). 
+
 Stredné a priemerné hodnoty sú vypočítané z rozdielov výsledných vzdialeností ($d_e-d_e(ref)$). Mínusové hodnoty znamenajú, že automaticky vypočítaná vzdialenosť je menšia ako referenčná.
  
-\begin{table}[h]
+\begin{table}[H]
 	\caption{\label{tab:dlib:results} Meranie vybraných faciálnych rozmerov pomocou 68 bodového detektora.}
 	\centering
 	\begin{tabular}{lccc}
@@ -786,27 +841,27 @@ Stredné a priemerné hodnoty sú vypočítané z rozdielov výsledných vzdiale
 	\end{tabular}
 \end{table}
 
-Meranie vzdialenosti tvárových parametrov, ktorých kľúčové body sa nenachádzajú na hraniciach hĺbkovej mapy, vykazujú malú absolútnu chybu voči referencii. Problémom je získanie všetkých parametrov z frontálneho pohľadu. Tento problém je však možné vyriešiť dvoma meraniami, kedy poloha tváre pacienta bude vždy mierne natočená.
+Meranie vzdialenosti tvárových parametrov, ktorých kľúčové body sa nenachádzajú na hraniciach hĺbkovej mapy, vykazujú malú absolútnu chybu voči referencii. Problémom je získanie všetkých parametrov z frontálneho pohľadu. Tento problém je však možné vyriešiť dvoma meraniami, kedy poloha tváre pacienta bude vždy mierne natočená. Takéto euklidovské meranie však ukazuje svoje limity pri diagnostike OSA (pozri \ref{sec:med:euclid}). V ďalšej časti sa preto opisuje návrh, ktorý je založený na nových modernejších metódach a môže priniesť lepšie výsledky.
 
+\newpage
 \subsection{Segmentácia hĺbkovej mapy}
 
-Pre segmentáciu tvárových častí sa používa hĺbková mapa a RGB-D obraz získaný z IMBM filtra. Pomocou \textit{Mask R-CNN} neurónovej siete dokážeme v RGB-D obraze ohraničiť príslušné tvárové časti. Následným prenesením identifikovaných regiónov do hĺbkovej mapy vieme konkrétnym pixelom nastaviť klasifikátor, ktorý ich priraďuje do preddefinovaných skupín. 
+Pre segmentáciu tvárových častí sa používa hĺbková mapa a RGB-D obraz získaný z IMBM filtra. Pomocou \textit{Mask R-CNN} neurónovej siete dokážeme v RGB-D obraze ohraničiť príslušné tvárové časti \cite{he2017mask}. Následným prenesením identifikovaných regiónov do hĺbkovej mapy vieme konkrétnym pixelom nastaviť klasifikátor, ktorý ich priraďuje do preddefinovaných skupín. 
 
-Mask R-CNN je rozšírením Faster R-CNN siete a slúži k segmentácii obrazov na úrovni pixelov. Princíp činnosti je znázornený na obr. \ref{fig:mask_rcnn}. Sieť Faster R-CNN  klasifikuje a ohraničuje regióny záujmu (ROI) .V tomto ROI sa následne predpovedajú masky klasifikovaných objektov. Segmentácia na úrovni pixelov vyžaduje jemnejšie zarovnanie, ktoré sa vykonáva cez ROIAlign vrstvu siete. Tá zabezpečuje presnejšie mapovanie masky do pôvodného obrazu. 
+%Mask R-CNN je rozšírením Faster R-CNN siete a slúži k segmentácii obrazov na úrovni pixelov. Princíp činnosti je znázornený na obr. \ref{fig:mask_rcnn}. Sieť Faster R-CNN  klasifikuje a ohraničuje regióny záujmu (ROI) .V tomto ROI sa následne predpovedajú masky klasifikovaných objektov. Segmentácia na úrovni pixelov vyžaduje jemnejšie zarovnanie, ktoré sa vykonáva cez ROIAlign vrstvu siete. Tá zabezpečuje presnejšie mapovanie masky do pôvodného obrazu. 
+%
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.75\textwidth]{figures/mask_rcnn.png}
+%	\caption{Princíp činnosti neurónovej siete Mask R-CNN .}
+%	\label{fig:mask_rcnn}
+%\end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.75\textwidth]{figures/mask_rcnn.png}
-	\caption{Princíp činnosti neurónovej siete Mask R-CNN .}
-	\label{fig:mask_rcnn}
-\end{figure}
+Pre trénovanie tejto siete sme vytvorili dátový set, ktorý pozostával z 65 RGB-D obrazov obsahujúcich 6 rôznych osôb v rozličných polohách. 50 snímok 4 osôb boli použité pre trénovanie a zvyšných 15 obrazov 2 osôb pre testovanie. Vo všetkých obrazoch sa označili regióny prislúchajúce jednotlivým klasifikačným triedam.\newline
 
-Pre trénovanie tejto siete sme vytvorili dátový set, ktorý pozostával z 65 RGB-D obrazov obsahujúcich 6 rôznych osôb v rozličných polohách. 50 snímok 4 osôb boli použité pre trénovanie a zvyšných 15 obrazov 2 osôb pre testovanie. Vo všetkých obrazoch sa označili
-regióny prislúchajúce jednotlivým klasifikačným triedam.\newpage
+\noindent Klasifikované boli tieto oblasti: tvár, nos, ústa, brada, krk, ucho, oko, obočie. 
 
-\noindent Klasifikované boli tieto oblasti: tvár, nos, ústa, brada, krk, ucho, oko, obočie. \newline
-
-Vyznačené boli základné časti tváre pomocou nástroja \textit{Via Image Anotator}. Ukážka RGB-D obrazu s označenými oblasťami sa nachádza v prílohe \ref{fig:mask_label}. Snahou bolo zachytiť tieto oblasti z rôznych uhlov tak, aby boli rozpoznateľné pri použitej multi-kamerovej topológii a pri rôznych pozíciach natočenia hlavy. 
+Vyznačené boli základné časti tváre pomocou nástroja \textit{Via Image Anotator} \cite{dutta2019vgg}. Ukážka RGB-D obrazu s označenými oblasťami sa nachádza v prílohe \ref{fig:mask_label}. Snahou bolo zachytiť tieto oblasti z rôznych uhlov tak, aby boli rozpoznateľné pri použitej multi-kamerovej topológii a pri rôznych pozíciach natočenia hlavy. 
 
 Vychádzali sme z modelu, ktorý už podstúpil trénovanie na ImageNet obrazovom datasete. Tento model bol dotrénovaný na naších dátach. Trénovanie prebiehalo v 60 epochách s  1000 iteráciami. Bola použitá \textit{resnet101} sieťová architektúra. Výsledky trénovania a chyby konkrétnych vrstiev siete sa nachádzajú v tabuľke \ref{tab:rcnn:results}. 
 
@@ -815,7 +870,7 @@ Vychádzali sme z modelu, ktorý už podstúpil trénovanie na ImageNet obrazovo
 	\centering
 	\begin{tabular}{lccc}
 		\toprule
-		\textbf{} & \textbf{30 epocha} & \textbf{60 epocha} & \textbf{validácia} \\ 
+		\textbf{Strata} & \textbf{30 epocha} & \textbf{60 epocha} & \textbf{validácia} \\ 
 		\midrule
 		\textbf{loss} 					& 5,4736 	& 4,579 & 4,698	\\
 		\textbf{rpn class loss} 		& 0,6676 	& 0,435 & 0,205	\\
@@ -827,52 +882,66 @@ Vychádzali sme z modelu, ktorý už podstúpil trénovanie na ImageNet obrazovo
 	\end{tabular}
 \end{table}
 
-Celková stratová funkcia $L$ (\textit{loss}) predstavuje súčet chyby klasifikácie $L_{cls}$ (\textit{class loss}), lokalizácie $L_{box}$ (\textit{bbox loss}) a segmentácie $ L_{mask}$ (\textit{mask loss}). Pre overenie funkčnosti sme klasifikátor použili na nových objektoch. Výsledky segmentácie sa nachádzajú na obr. \ref{fig:rcnn:label}.
+Celková stratová funkcia $L$ (\textit{loss}) predstavuje súčet chyby klasifikácie $L_{cls}$ (\textit{class loss}), lokalizácie $L_{box}$ (\textit{bbox loss}) a segmentácie $ L_{mask}$ (\textit{mask loss}). 
 
+\begin{equation}
+\label{eq:loss}
+\begin{aligned}
+L = L_{cls} + L_{box} + L_{mask}
+\end{aligned}
+\end{equation}
+
+Pre overenie funkčnosti sme klasifikátor použili na nových objektoch. Výsledky segmentácie sa nachádzajú na obr. \ref{fig:rcnn:label}. Z výsledkov segmentácie vidíme, že nie všetky oblasti boli klasifikované.
+Niektoré ROI masky boli relatívne dobre segmentované (tvár, nos, ústa). Určíté oblasti však chýbali úplne (oči, krk). Predpokladom je, že rozšírením trénovacieho datasetu o nové RGB-D obrazy sa môže výrazne zvýšiť presnosť klasifikácie a segmentácie. Prenos segmentovaných častí na mračno bodov je znázornené na obr. \ref{fig:rcnn:cloud}.
 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=4.7cm]{figures/rcnn_detect1.png}
+		\includegraphics[height=4.3cm]{figures/rcnn_detect1.png}
 		\caption{}
 		\label{fig:rcnn:label:a}
 	\end{subfigure}
 	\hskip 0.0in
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=4.7cm]{figures/rcnn_detect2.png}
+		\includegraphics[height=4.3cm]{figures/rcnn_detect2.png}
 		\caption{}
 		\label{fig:rcnn:label:b}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=4.7cm]{figures/rcnn_detect3.png}
+		\includegraphics[height=4.3cm]{figures/rcnn_detect3.png}
 		\caption{}
 		\label{fig:rcnn:label:c}
 	\end{subfigure}
-	\caption{Ukážka segmentácie RGB-D obrazu použitím Mask R-CNN siete: (\textbf{a}) Ľavý pohľad, identifikované ucho a hlava. (\textbf{b}) Predný pohľad, identifikované obočie, hlava, nos, ústa.}
+	\caption{Ukážka segmentácie RGB-D obrazu použitím Mask R-CNN siete: (\textbf{a}) Ľavý pohľad, identifikovaná tvár. (\textbf{b}) Predný pohľad, identifikované obočie, tvár, nos, ústa, brada. (\textbf{c}) Ľavý pohľad, identifikovaná tvár a nos.}
 	\label{fig:rcnn:label}
 \end{figure}
 
-Z výsledkov segmentácie vidíme, že nie všetky oblasti boli klasifikované.
-Niektoré ROI masky boli relatívne dobre segmentované (tvár, nos, ústa). Niektoré však chýbali úplne (oči, krk). Predpokladom je, že rozšírením trénovacieho datasetu o nové RGB-D obrazy sa môže výrazne zvýšiť presnosť klasifikácie a segmentácie. \newline
-
-Pre tieto účely bol navrhnutý snímací systém pracujúci s kamerami Intel RealSense d415, ktorý je umiestnený v detskom spánkovom laboratóriu na klinike detí a dorastu v Martine. Ten zabezpečuje zber hĺbkových a RGB-D obrazov pediatrických pacientov z troch perspektív. Nastavenie polohy hlavy je kontrolované pomocou Haarovych kaskád. Grafické prostredie snímacieho systému je zachytené na obr. \ref{fig:hmi_web:a} a \ref{fig:hmi_web:b}.
- 
+Výhodou tohto prístupu je, že dokážeme spojiť jednotlivé klasifikované regióny z viacerých pohľadov. Tieto spojené oblasti si navyše uchovávajú aj svoje geometrické vlastnosti (napr rozostup uší, šírka brady). Pričom pri segmentácií z jednotlivých pohľadov bez spájania do spoločného priestoru by sa táto podstatná informácia strácala. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{figures/hmi_web1.png}
-	\caption{Zobrazenie webového rozhrania pre zber dát, RGB obraz.}
-	\label{fig:hmi_web:a}
+	\includegraphics[width=0.32\textwidth]{figures/rcnn_cloud2.png}
+	\caption{Mračno bodov dynamického objektu so zvýraznenými klasifikovanými oblasťami.}
+	\label{fig:rcnn:cloud}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{figures/hmi_web2.png}
-	\caption{Zobrazenie webového rozhranie pre zber dát, hĺbkový obraz.}
-	\label{fig:hmi_web:b}
-\end{figure}
+Zlepšenie segmentácie je cieľom budúcej práce. Pre tieto účely bol navrhnutý snímací systém pracujúci s novšími kamerami Intel RealSense d415, ktorý je umiestnený v detskom spánkovom laboratóriu na klinike detí a dorastu v Martine. Ten zabezpečuje zber hĺbkových a RGB-D obrazov pediatrických pacientov z troch perspektív. Spolu s týmito dátami sú ukladané aj informácie o klinickom vyšetrení snímaného pediatrického pacienta (obr. \ref{fig:hmi_web:b} ). Ukážka snímacieho zariadenia sa nachádza na obr \ref{fig:hmi_web:d}. Výstupné dáta budú použité k diagnostike OSA pomocou PointNet2 neurónovej siete \cite{qi2017pointnetplusplus}.
 
-Spolu s týmito dátami sú ukladané aj informácie o klinickom vyšetrení snímaného pediatrického pacienta (obr. \ref{fig:hmi_web:b} ). Ukážka snímacieho zariadenia sa nachádza na obr \ref{fig:hmi_web:d}. 
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=\textwidth]{figures/hmi_web1.png}
+%	\caption{Zobrazenie webového rozhrania pre zber dát, RGB obraz.}
+%	\label{fig:hmi_web:a}
+%\end{figure}
+%
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=\textwidth]{figures/hmi_web2.png}
+%	\caption{Zobrazenie webového rozhranie pre zber dát, hĺbkový obraz.}
+%	\label{fig:hmi_web:b}
+%\end{figure}
+
+
