@@ -14,7 +14,7 @@ Pomocou metódy LSENS je možné obnoviť informácie o hĺbke a amplitúde. Tá
 
 \section{Model ToF kamery}
 
-ToF senzory sú optické snímače, ktoré poskytujú informácie o hĺbke scény. Obsahujú aktívny svetelný zdroj, ktorý generuje amplitúdovo modulovaný signál. Signál môže mať spojitý alebo impulzný charakter. Väčšina ToF kamier vyžaruje amplitúdovo modulovanú kontinuálnu vlnu (AMCW) s frekvenciou blízkou IR na osvetlenie scény. Meranie hĺbky je založené na meraní amplitúdy fázového posunu vysielaného a prijímaného modulovaného signálu (obrázok \ref{fig::tof}). Informácie o hĺbke pre každý pixel sa môžu vypočítať pomocou synchronného demodulovania prijatého modulovaného svetla v detektore. Demodulovanie sa môže uskutočniť preložením s pôvodným modulovaným signálom. Tento proces sa nazýva krížová korelácia. Všeobecne je korelačná funkcia definovaná rovnicou \ref{eq::tof::01}.
+ToF senzory sú optické snímače, ktoré poskytujú informácie o hĺbke scény. Obsahujú aktívny svetelný zdroj, ktorý generuje amplitúdovo modulovaný signál. Signál môže mať spojitý alebo impulzný charakter. Väčšina ToF kamier vyžaruje amplitúdovo modulovanú kontinuálnu vlnu (AMCW) s frekvenciou blízkou IR na osvetlenie scény. Meranie hĺbky je založené na meraní amplitúdy fázového posunu vysielaného a prijímaného modulovaného signálu (Obr. \ref{fig::tof}). Informácie o hĺbke pre každý pixel sa môžu vypočítať pomocou synchronného demodulovania prijatého modulovaného svetla v detektore. Demodulovanie sa môže uskutočniť preložením s pôvodným modulovaným signálom. Tento proces sa nazýva krížová korelácia. Všeobecne je korelačná funkcia definovaná rovnicou \ref{eq::tof::01}.
 
 \begin{figure}[H]
 	\centering
@@ -310,7 +310,7 @@ kde \textit{d(x; y)} je 32-bitové float číslo a $T_{LOW}$, $T_ {HIGH}$ sú do
 	\label{fig:threshold}
 \end{figure}
 
-Po prahovaní hĺbky sa pozadie odstráni a obrázky obsahujú iba predmet záujmu (obr. \, \ref{fig:threshold}). Tento jednoduchý krok je dôležitý a účinný, pretože odstraňuje oblasti so spomínanou extrémnou interferenciou a pozadia.
+Po prahovaní hĺbky sa pozadie odstráni a obrázky obsahujú iba predmet záujmu (Obr. \, \ref{fig:threshold}). Tento jednoduchý krok je dôležitý a účinný, pretože odstraňuje oblasti so spomínanou extrémnou interferenciou a pozadia.
 
 V ďalšom kroku sa z obrazového zásobníka vyberie ako referenčný obraz filtrovaná hĺbková mapa s minimálnym počtom nenulových hodnôt. Je to preto, že tento obrázok s najväčšou pravdepodobnosťou obsahuje minimálny počet rušivých pixelov. Z tejto referencie je vytvorená binárna mapa a každá hĺbková mapa je s ňou maskovaná. V tomto kroku sú pixely vstupných máp rozdelené do troch oblastí: pozadie (vrátane extrémnych interferenčných oblastí), pixely interferenčnej oblasti (tiež vrátane niektorých pixelov objektu) a oblasť objektov (vrátane interferenčných pixelov).
 
@@ -319,21 +319,21 @@ V ďalšom kroku sa z obrazového zásobníka vyberie ako referenčný obraz fil
 	\centering
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=5.8cm]{figures/interf_roi_a.png}
+		\includegraphics[height=5.2cm]{figures/interf_roi_a.png}
 		\caption{}
 		\label{fig:interf:a}
 	\end{subfigure}
 	\hskip 0pt
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=5.8cm]{figures/interf_roi_b.png}
+		\includegraphics[height=5.2cm]{figures/interf_roi_b.png}
 		\caption{}
 		\label{fig:interf:b}
 	\end{subfigure}
 	\hskip 0pt
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=5.8cm]{figures/interf_roi_c.png}
+		\includegraphics[height=5.2cm]{figures/interf_roi_c.png}
 		\caption{}
 		\label{fig:interf:c}
 	\end{subfigure}
@@ -378,7 +378,7 @@ Tieto morfologicky spracované snímky sa používajú na výpočet mediánu hĺ
 	\label{fig:imap}
 \end{figure}
 
-Pixely v mediáne (obr. \, \ref{fig:imap:b}) s vybranou dôležitosťou vyššou ako $ k \cdot \, N $ sú zachované, ostatné pixely sú nastavené na nulu. $K$ predstavuje prahovú hodnotu dôležitosti mapy a $N$ je veľkosť obrazového zásobníka. Koeficient $k$ môže mať rozsah hodnôt od 0 do 1. Tento krok je posledný, znižuje vplyv interferencie na hĺbkové mapy. Ostatné časti filtračného algoritmu zabezpečujú rekonštrukciu filtrovaných dát, ale nie sú nevyhnutné. 
+Pixely v mediáne (Obr. \, \ref{fig:imap:b}) s vybranou dôležitosťou vyššou ako $ k \cdot \, N $ sú zachované, ostatné pixely sú nastavené na nulu. $K$ predstavuje prahovú hodnotu dôležitosti mapy a $N$ je veľkosť obrazového zásobníka. Koeficient $k$ môže mať rozsah hodnôt od 0 do 1. Tento krok je posledný, znižuje vplyv interferencie na hĺbkové mapy. Ostatné časti filtračného algoritmu zabezpečujú rekonštrukciu filtrovaných dát, ale nie sú nevyhnutné. 
 
 Interpolácia filtrovaných miest je nasledujúcim krokom IMBM. Rekonštrukcia dát využíva bilineárnu interpoláciu \cite{Volak2019}, pričom tá je vykonávaná iba na špecifických filtrovaných miestach spĺňajúcich definované podmienky. K obmedzeniu interpolácie dochádza na neuzavretých dierach, pri veľkých dierach a pri vysokých rozdieloch medzi interpolačnými pixelmi. Bilineárna interpolácia môže byť nahradená inou metódou interpolácie (napr. Bikubická, biquadratická ...). Z hľadiska výpočtu je bilineárna transformácia dobrým kompromisom medzi metódou najbližšieho suseda a inými zložitejšími metódami interpolácie.
 
@@ -386,7 +386,7 @@ Mediánom môžeme opraviť vstupné hĺbkové mapy. Tým opravíme nie len inte
 
 Hodnota šumového prahu závisí od intenzity šumu kamery pre definovanú vzdialenosť. Ak je táto hodnota príliš nízka, veľký počet neinterferujúcich pixelov bude nahradený strednou hodnotou. Na druhej strane by filter mohol zachovať veľké množstvo rušenia v pôvodnom obraze.
 
-Všeobecne možno povedať, že použitie navrhovaného algoritmu zlepšuje hĺbkový obraz (obr. \, \ref{fig:imap:c}) znížením lietajúcich pixelov, šumových procesov a vyplnením dier vo výslednom 3D modeli.
+Všeobecne možno povedať, že použitie navrhovaného algoritmu zlepšuje hĺbkový obraz (Obr. \, \ref{fig:imap:c}) znížením lietajúcich pixelov, šumových procesov a vyplnením dier vo výslednom 3D modeli.
 
 
 \section{Nastavenie experimentu}
@@ -505,7 +505,7 @@ Meranie doby spracovania dát sa uskutočňovalo na operačnom systéme Ubuntu s
 
 \subsection{SOR filtrácia}
 
-Filter SOR nám umožňuje upraviť $sdm$ -parameter (prahová hodnota multiplikátora štandardnej odchýlky) a $k$ -parameter (počet bodov, ktoré sa majú použiť na odhad priemernej vzdialenosti). Nasledujúce farebné mapy (obr. \ref{fig:sorf1}) ukazujú, ako sa mení výkon filtrácie vyhodnotený ako skóre F1 v závislosti od výberu parametrov a veľkosti vyrovnávacej pamäte.
+Filter SOR nám umožňuje upraviť $sdm$ -parameter (prahová hodnota multiplikátora štandardnej odchýlky) a $k$ -parameter (počet bodov, ktoré sa majú použiť na odhad priemernej vzdialenosti). Nasledujúce farebné mapy (Obr. \ref{fig:sorf1}) ukazujú, ako sa mení výkon filtrácie vyhodnotený ako skóre F1 v závislosti od výberu parametrov a veľkosti vyrovnávacej pamäte.
 
 \begin{figure}[h]
 	\centering

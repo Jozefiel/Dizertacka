@@ -6,7 +6,7 @@
 \fancyfoot[CE,CO]{\thepage}
 \renewcommand{\footrulewidth}{1pt}
 
-Z predchádzajúcej kapitoly \ref{kap:Motivacia} vyplýva, že v posledných rokoch medicínsky výskum využíva priestorové videnie a 3D informáciu na predikciu OSA. K zachyteniu 3D priestoru sa využívajú hĺbkové snímače. Tie dokážu transformovať 3D priestor do 2D obrazu \cite{Malik_Choi_2008}. Táto informácia je uchovávaná v matici, ktorá je nazývaná hĺbková mapa. Spôsob vytvárania hĺbkovej mapy kamerou závisí od použitej technológie. Medzi základné spôsoby patrí stereovízia, snímanie štrukturovaným svetlom (SLS) a meranie doby letu (ToF). 
+Z kapitoly \ref{kap:Motivacia} vyplýva, že v posledných rokoch medicínsky výskum využíva priestorové videnie a 3D informáciu na predikciu OSA. K zachyteniu 3D priestoru sa využívajú hĺbkové snímače. Tie dokážu transformovať 3D priestor do 2D obrazu \cite{Malik_Choi_2008}. Táto informácia je uchovávaná v matici, ktorá je nazývaná hĺbková mapa. Spôsob vytvárania hĺbkovej mapy kamerou závisí od použitej technológie. Medzi základné spôsoby patrí stereovízia, snímanie štrukturovaným svetlom (SLS) a meranie doby letu (ToF). 
 
 \section{Skenovanie v reálnom čase pomocou \mbox{RGB-D} senzorov}
 
@@ -201,7 +201,7 @@ Hlavnou výhodou štruktúrovaného svetla je dosiahnutie vysokého priestorové
 \subsection{ToF snímače}
 \label{sec:tof}
 
-Technológia \textit{Time of Flight} priniesla revolúciu v 3D strojovom videní, pretože umožňuje meranie hĺbky pomocou lacného CMOS chipu a aktívneho modulovaného sveta \cite{li2014time}. Kamera obsahuje zdroj IR svetla, ktorý je reprezentovaný polovodičovým laserom alebo LED s vlnovou dĺžkou $\sim$850nm. Vyžiarené svetlo sa odráža od snímaných objektov a spätne dopadá do prijímača IR svetla. Pre získanie vzdialenosti $d$ sa zisťuje fázový posun $\varphi$ medzi vyžiareným a prijatým signálom. Parameter $c$ predstavuje rýchlosť šírenia elektromagnetickej vlny v priestore. 
+Technológia \textit{Time of Flight} priniesla revolúciu v 3D strojovom videní, pretože umožňuje meranie hĺbky pomocou lacného CMOS čipu a aktívneho modulovaného svetla \cite{li2014time}. Kamera obsahuje zdroj IR svetla, ktorý je reprezentovaný polovodičovým laserom alebo LED s vlnovou dĺžkou $\sim$850nm. Vyžiarené svetlo sa odráža od snímaných objektov a spätne dopadá do prijímača IR svetla. Pre získanie vzdialenosti $d$ sa zisťuje fázový posun $\varphi$ medzi vyžiareným a prijatým signálom. Parameter $c$ predstavuje rýchlosť šírenia elektromagnetickej vlny v priestore. 
 
 \begin{equation}
 \label{eq2}
@@ -231,16 +231,16 @@ d=\frac{c}{2}\cdot\Delta t \left( \frac{Q_2}{Q_1 + Q_2}\right)
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.65\textwidth]{figures/tof_principle_a.png} 
+	\includegraphics[width=0.65\textwidth]{figures/tof_principle_b.png} 
 	\caption{Pulzná modulácia ToF senzora \cite{li2014time}.}
 	\label{fig:tof_principle_a}
 \end{figure}
 
-Metóda s použitím kontinuálnej vlny (CW) využíva 4 vzorkovacie okna $C_1$ až $C_4$ posunuté voči sebe o $90^\circ$. Počas doby vzorkovania sa akumulujú náboje $Q$. Použitím tejto techniky je možné vypočítať fázový uhol $\varphi$ medzi prijatým a vyžiareným svetlom. Ten sa následne používa pre výpočet hĺbky. 
+Metóda s použitím kontinuálnej vlny (CW) využíva 4 vzorkovacie okná $C_1$ až $C_4$ posunuté voči sebe o $90^\circ$. Počas doby vzorkovania sa akumulujú náboje $Q$. Použitím tejto techniky je možné vypočítať fázový uhol $\varphi$ medzi prijatým a vyžiareným svetlom. Ten sa následne používa pre výpočet hĺbky. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.65\textwidth]{figures/tof_principle_b.png} 
+	\includegraphics[width=0.65\textwidth]{figures/tof_principle_a.png} 
 	\caption{Modulácia ToF senzora pomocou kontinuálnej vlny \cite{li2014time}.}
 	\label{fig:tof_principle_b}
 \end{figure}
@@ -275,7 +275,7 @@ B=\frac{Q_1 + Q_2 +Q_3 + Q_4}{4}
 \end{aligned}
 \end{equation}
 
-CW modulácia zabezpečuje zníženie chyby merania spôsobenej zmenou vnútorných parametrov elektronických komponentov. Napríklad zmena teploty kamery môže mať dopad na výsledné zosilnenie prijatých elektrických nábojov $Q$.V konečnom dôsledku to pri pulznej modulácií spôsobí nepresný výpočet hĺbky $d$ v rovnici \ref{eq3}. Pomocou parametrov $A$ a $B$ je možné aproximovať rozptyl hĺbky $\sigma$ \cite{li2014time}.
+CW modulácia zabezpečuje zníženie chyby merania spôsobenej zmenou vnútorných parametrov elektronických komponentov. Napríklad zmena teploty kamery môže mať dopad na výsledné zosilnenie prijatých elektrických nábojov $Q$. V konečnom dôsledku to pri pulznej modulácii spôsobí nepresný výpočet hĺbky $d$ v rovnici \ref{eq3}. Pomocou parametrov $A$ a $B$ je možné aproximovať rozptyl hĺbky $\sigma$ \cite{li2014time}.
 
 \begin{equation}
 \label{eq7}
@@ -284,15 +284,15 @@ CW modulácia zabezpečuje zníženie chyby merania spôsobenej zmenou vnútorn�
 \end{aligned}
 \end{equation}
 
-Modulačný kontrast $ c_d $ opisuje ako efektívne ToF senzor separuje a zbiera prijaté fotoelektróny. Intenzita pixelu $ A $ je funkciou optického výkonu, $ B $ predstavuje ofset okolitého svetla a reziduálneho systému. Z tejto rovnice možno vyvodiť, že vysoká hodnota $A$, vysoká modulačná frekvencia frekvencia $f$ a vysoký modulačný kontrast zvyšujú presnosť merania. Naopak veľká úroveň ofsetu $B$ spôsobuje saturáciu prijímača a znižuje presnosť systému \cite{li2014time}. 
+Modulačný kontrast $ c_d $ opisuje ako efektívne ToF senzor separuje a zbiera prijaté fotoelektróny. Intenzita pixelu $ A $ je funkciou optického výkonu, $ B $ predstavuje ofset okolitého svetla a reziduálneho systému. Z tejto rovnice možno vyvodiť, že vysoká hodnota $A$, vysoká modulačná frekvencia $f$ a vysoký modulačný kontrast zvyšujú presnosť merania. Naopak veľká úroveň ofsetu $B$ spôsobuje saturáciu prijímača a znižuje presnosť systému \cite{li2014time}. 
 
-Medzi výhody ToF snímačov patrí zníženie vplyvu externého osvetlenia na kvalitu merania. Je to spôsobene tým, že nedochádza k ovplyvňovaniu frekvencie vyžarovaného svetla. Naopak pri použití viac-kamerového systému s rovnakou modulačnou frekvenciou môže dochádzať k vzájomnej interferencii signálov. Tento jav je detailne opísaný v kapitole \ref{kap:interference}.
+Medzi výhody ToF snímačov patrí zníženie vplyvu externého osvetlenia na kvalitu merania. Je to spôsobené tým, že nedochádza k ovplyvňovaniu frekvencie vyžarovaného svetla. Naopak pri použití viac-kamerového systému s rovnakou modulačnou frekvenciou môže dochádzať k vzájomnej interferencii signálov. Tento jav je detailne opísaný v kapitole \ref{kap:interference}.
 
 \section{Mračno bodov a 3D povrch}
 
 Hĺbková mapa zachytáva 3D priestor v 2D rovine. Tento obraz je získavaný z optických hĺbkových snímačov. Pre spätnú transformáciu hĺbkového obrazu do 3D priestoru sa jednotlivé obrazové pixely prevádzajú do takzvaných mračien bodov (anglicky Point Cloud). Základnou jednotkou mračna bodov je dátový bod, ktorý v sebe ukladá informáciu o polohe (x,y,z). Dátový bod môže v sebe uchovávať aj iné informácie ako napríklad farbu, jas, normálový vektor a podobne \cite{chua2017standards}. 
 
-Takéto mračno bodov má veľké využitie v priemyselných 3D CAD modeloch, pri metrológií a inšpekcii kvality a v iných sférach, pretože reprezentuje geometrické vlastnosti reálnych objektov. 
+Takéto mračno bodov má veľké využitie v priemyselných 3D CAD modeloch, pri metrológii a inšpekcii kvality a v iných sférach, pretože reprezentuje geometrické vlastnosti reálnych objektov. 
 
 \begin{figure}[!h]
 	\centering

@@ -16,7 +16,7 @@ Kamera je nástroj, ktorý mapuje 3D priestor do 2D roviny obrazu. Ide o technic
 
 Geometrická kalibrácia je nevyhnutá z dôvodu skreslenia šošovky, čo spôsobuje výrazné nepresnosti pri transformácii 3D priestoru 2D obrazovej roviny. Pri kalibrácii je dôležité poznať matematický model kamery a transformácie, ktorými sa upravuje výsledný obraz. 
 
-Pri multi-kamerovej kalibrácii hľadáme vzájomnú polohu kamier vo svetových súradniciach. Ak je aplikácia zameraná na 3D rekonštrukciu priestoru z viacerých kamier, vzájomnou kalibráciu vieme ľahšie spojiť pohľady do jedného spoločného zosúladeného priestoru. 
+Pri multi-kamerovej kalibrácii hľadáme vzájomnú polohu kamier vo svetových súradniciach. Ak je aplikácia zameraná na 3D rekonštrukciu priestoru z viacerých kamier, vzájomnou kalibráciou vieme ľahšie spojiť pohľady do jedného spoločného zosúladeného priestoru. 
 
 
 \section{Afinné transformácie v priestore}
@@ -232,7 +232,7 @@ Dierková kamera (pinhole camera) predstavuje ideálnu kameru, ktorá nevykazuje
 	\label{fig:pinhole_camera}
 \end{figure}
 
-Na obrázku \ref{fig:pinhole_camera} je znázornená geometria dierkovej kamery. Stredom projekcie je optické centrum. Kolmica medzi optickým centrom a obrazovou rovinu $\pi$ sa nazýva hlavná os $Z$. Hlavným bodom $p$ je miesto, v ktorom os $Z$ pretína obrazovú rovinu. Rovina prechádzajúca stredom kamery rovnobežne s rovinou obrazu sa nazýva hlavná rovina kamery. $C$ reprezentuje stred kamery (stred perspektívneho premietania). Za predpokladu, že svetové a obrazové body sú zastúpené v homogénnych súradniciach, potom sa stredná projekcia môže jednoducho vyjadriť ako lineárne mapovanie medzi ich homogénnymi súradnicami.
+Na obrázku \ref{fig:pinhole_camera} je znázornená geometria dierkovej kamery. Stredom projekcie je optické centrum. Kolmica medzi optickým centrom a obrazovou rovinou $\pi$ sa nazýva hlavná os $Z$. Hlavným bodom $p$ je miesto, v ktorom os $Z$ pretína obrazovú rovinu. Rovina prechádzajúca stredom kamery rovnobežne s rovinou obrazu sa nazýva hlavná rovina kamery. $C$ reprezentuje stred kamery (stred perspektívneho premietania). Za predpokladu, že svetové a obrazové body sú zastúpené v homogénnych súradniciach, potom sa stredná projekcia môže jednoducho vyjadriť ako lineárne mapovanie medzi ich homogénnymi súradnicami.
 
 \begin{figure}[h]
 	\centering
@@ -261,7 +261,7 @@ X \\ Y \\ Z \\ 1
 
 \textbf{Súradnicová sústava kamery} je reprezentovaná trojrozmerným súradnicovým systémom v bode $C$ (poprípade $O_c$), čo predstavuje stred kamery. Optická os $Z_c$ je daná vektorom pohľadu kamery. Vzťah medzi svetovou súradnicovou sústavou a súradnicovou sústavou kamery je popísaný transláciou $t$ a rotáciou $R$. Vektory sú označené ako $(X_{cam},Y_{cam},Z_{cam})$ \newline 
 
-Body zo súradnicovej sústavy kamery je následne potrebné premietnuť do roviny obrazu $\pi$. Nech je stred premietania pôvodom euklidovského súradnicového systému a obrazová (ohnisková) rovina $Z=f$. Podľa modelu dierkovej kamery na obr. \ref{fig:pinhole_camera} sa bod v priestore so súradnicami $\left(X,Y,Z\right)^T$ mapuje na bod v rovine obrazu $\left(f\frac{X}{Z}, f\frac{Y}{Z}, f \right)^T$ pomocou podobnosti trojuholníkov. Ignorovaním výsledných súradníc obrazu dostávame vzťah ktorý popisuje mapovanie centrálnej projekcie zo svetovej súradnicovej sústavy do obrazovej súradnicovej sústavy.
+Body zo súradnicovej sústavy kamery je následne potrebné premietnuť do roviny obrazu $\pi$. Nech je stred premietania pôvodom euklidovského súradnicového systému a obrazová (ohnisková) rovina $Z=f$. Podľa modelu dierkovej kamery na obr. \ref{fig:pinhole_camera} sa bod v priestore so súradnicami $\left(X,Y,Z\right)^T$ mapuje na bod v rovine obrazu $\left(f\frac{X}{Z}, f\frac{Y}{Z}, f \right)^T$ pomocou podobnosti trojuholníkov. Ignorovaním výsledných súradníc obrazu dostávame vzťah, ktorý popisuje mapovanie centrálnej projekcie zo svetovej súradnicovej sústavy do obrazovej súradnicovej sústavy.
 
 \begin{equation}
 \label{eq::pinhole::camera_iplane::a}

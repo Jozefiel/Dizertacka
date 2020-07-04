@@ -31,7 +31,7 @@ Ide o druhú generáciu hĺbkových kamier od spoločnosti Microsoft. Oproti prv
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/kinect.png}
-	\caption{ToF kamera Microsoft Kinect v2}
+	\caption{ToF kamera Microsoft Kinect v2 \cite{sekelova}.}
 	\label{fig::kinect}
 \end{figure}
 
@@ -73,7 +73,7 @@ Experimentálne snímanie pacientov bolo vykonávané na Klinike detí a dorastu
 		\includegraphics[width=0.8\textwidth]{figures/dynamic_patient_b.png}
 		\label{fig:dynamic_patient:b}
 	\end{subfigure}
-	\caption{Modely dynamických pediatrických pacientov.}
+	\caption{Modely dynamických pediatrických pacientov \cite{sekelova}.}
 	\label{fig:dynamic_patient}
 \end{figure}
 
@@ -149,7 +149,7 @@ Pri sekvenčnom režime boli snímky z kamier získavané postupne od 1. po 4. k
 		\caption{}
 		\label{fig:dynamic:b}
 	\end{subfigure}
-	\caption{Porovnanie 3D mračien bodov pri rozdielnych režimoch snímania: (\textbf{a}) Mračno bodov vytvorené pre sekvenčný režim. (\textbf{b}) Mračno bodov vytvorené pre paralelný režim.}
+	\caption{Porovnanie 3D mračien bodov pri rozdielnych režimoch snímania \cite{janisova}: (\textbf{a}) Mračno bodov vytvorené pre sekvenčný režim. (\textbf{b}) Mračno bodov vytvorené pre paralelný režim.}
 	\label{fig:dynamic}
 \end{figure}
 
@@ -660,21 +660,21 @@ Intrinzické parametre $c_x, c_y, f_x, f_y$ sú unikátne pre každú kameru a s
 	\centering
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=4.4cm]{figures/model_colors.png}
+		\includegraphics[height=4.9cm]{figures/model_colors.png}
 		\caption{}
 		\label{fig:ror:a}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=4.4cm]{figures/ror_preserv.png}
+		\includegraphics[height=4.9cm]{figures/ror_preserv.png}
 		\caption{}
 		\label{fig:ror:b}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=4.4cm]{figures/ror_rem.png}
+		\includegraphics[height=4.9cm]{figures/ror_rem.png}
 		\caption{}
 		\label{fig:ror:c}
 	\end{subfigure}
@@ -712,26 +712,26 @@ Pri multi-kamerovej kalibrácii sme získali rotačné a translačné parametre 
 	\label{fig:3dm}
 \end{figure}
 
-Aplikovaním \textit{Incremental registration ICP} metódy sa zabezpečí opätovné zarovnanie mračien bodov do spoločného priestoru. Registrácia sa vykonáva postupne medzi dvojicami mračien bodov. Predný pohľad tváre je určený ako referenčný a mračno bodov je statické. Rotačná a translačná matica má tvar identickej afinnej transformácie (rovnica \ref{eq_kalib_ident}). Pre ostatné mračná sú vypočítané nové rotačné a translačné parametre zložené z ostatných afinných transformácií. Vstupné nastavenia pre \textit{Incremental registration ICP} sú \textit{MaximumIterations}$=20$, \textit{MaxCorrespondenceDistance}$=0,005$ a \textit{RansacOutlierRejectionThreshold}$=0,005$. Zarovnané mračná z jednotlivých kamier sa následne spoja do jedného uceleného mračna. Kvôli vyššej hustote bodov v miestach zarovnania sa v mračne bodov tieto miesta redukujú podľa mriežky (GRID). Týmto sa získa uniformná hustota bodov v celom mračne. 
+Aplikovaním ICP metódy sa zabezpečí opätovné zarovnanie mračien bodov do spoločného priestoru. Registrácia sa vykonáva postupne medzi dvojicami podvzorkovaných mračien bodov. Predný pohľad tváre je určený ako referenčný a mračno bodov je statické. Rotačná a translačná matica má tvar identickej afinnej transformácie (rovnica \ref{eq_kalib_ident}). Pre ostatné mračná sú vypočítané nové rotačné a translačné parametre zložené z ostatných afinných transformácií. Vstupné nastavenia pre \textit{Incremental registration ICP} \cite{iricp} sú \textit{MaximumIterations}$=20$, \textit{MaxCorrespondenceDistance}$=0,005$ a \textit{RansacOutlierRejectionThreshold}$=0,005$. Zarovnané mračná z jednotlivých kamier sa následne spoja do jedného uceleného mračna. Kvôli vyššej hustote bodov v miestach zarovnania sa v mračne bodov tieto miesta redukujú podľa mriežky (GRID). Týmto sa získa uniformná hustota bodov v celom mračne. 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=4.5cm]{figures/model_input.png}
+		\includegraphics[height=5cm]{figures/model_input.png}
 		\caption{}
 		\label{fig:model:input}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=4.5cm]{figures/model_orig.png}
+		\includegraphics[height=5cm]{figures/model_orig.png}
 		\caption{}
 		\label{fig:model:imbm}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.32\textwidth}
 		\centering
-		\includegraphics[height=4.5cm]{figures/model_output.png}
+		\includegraphics[height=5cm]{figures/model_output.png}
 		\caption{}
 		\label{fig:model:result}
 	\end{subfigure}
