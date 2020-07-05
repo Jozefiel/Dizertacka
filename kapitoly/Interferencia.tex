@@ -9,7 +9,7 @@
 Jedným z nevýhod použitia ToF senzorov je ich multi-kamerová interferencia (MCI). Ide o chybu, ktorá ma fyzikálnu podstatu a má veľmi negatívny dopad na výstupné dáta. Ak pri snímaní scény nastane táto interferencia, skenovací systém sa stáva nepoužiteľným. 
 
 Jednou z možnosti riešenia problému je použitie kamier, ktoré pracujú na rozdielnych modulačných frekvenciách emitovaného svetla. Mnoho nedávnych prác zaoberajúcich sa problémom multi-kamerovej interferencie  uvádzajú, že ToF senzory sa nesmú prevádzkovať s rovnakou modulačnou frekvenciou \cite{Kim}. Spoliehajú sa na ortogonálne funkcie, ako sú sínusoidy s rôznou frekvenčnou moduláciou. Toto riešenie je však obmedzujúce, pretože vzniká problém softvérovej kompatibility s pripojením rôznych typov kamier v jednej aplikácii \cite{Buttgen, Whyte, Seitz}.
-Pomocou metódy LSENS je možné obnoviť informácie o hĺbke a amplitúde. Táto metóda je založená na analýze štatistických vlastností interferencie signálu \cite{Lianhua}. Interferenčný signál však musí mať kladné a záporné pulzovanie hĺbkovej mapy. V situáciách, keď sú kamery namierené proti sebe, môže byť kolísanie signálu extrémne vysoké. V takom prípade nebude metóda LSENS účinná. Z analýzy výstupných dát je však možné určiť podmienky potlačenia interferencie a podľa nich nevrhnúť filtračný algoritmus. Úlohou filtra je odstrániť čo najviac poškodených dát pri čo najmenšej strate relevantných dát.    
+Pomocou metódy LSENS je možné obnoviť informácie o hĺbke a amplitúde. Táto metóda je založená na analýze štatistických vlastností interferencie signálu \cite{Lianhua}. Interferenčný signál však musí mať kladné a záporné pulzovanie hĺbkovej mapy. V situáciách, keď sú kamery namierené proti sebe, môže byť kolísanie signálu extrémne vysoké. V takom prípade nebude metóda LSENS účinná. Z analýzy výstupných dát je však možné určiť podmienky potlačenia interferencie a podľa nich navrhnúť filtračný algoritmus. Úlohou filtra je odstrániť čo najviac poškodených dát pri čo najmenšej strate relevantných dát.    
 
 
 \section{Model ToF kamery}
@@ -101,7 +101,7 @@ d = \frac{ c \cdot \varphi }{ 2 \cdot 2 \pi f}
 
 \section{Model multi-kamerovej interferencie}
 
-V multi-kamerovom režime každý ToF senzor používa rovnakú modulačnú frekvenciu a IR vlnovú dĺžku, takže prijaté signály interagujú navzájom. V experimentálnej topológii senzorov používame tri ToF senzory S1 \, - \, S3, ktoré sú statické a umiestnené v skenovacej kabíne. Tento systém je znázornený na obrázku \ ref {fig: imodel}, ktorý popisuje vzájomné vzťahy medzi jednotlivými kamerami a objektom.
+V multi-kamerovom režime každý ToF senzor používa rovnakú modulačnú frekvenciu a IR vlnovú dĺžku, takže prijaté signály interagujú navzájom. V experimentálnej topológii senzorov používame tri ToF senzory S1 \, - \, S3, ktoré sú statické a umiestnené v skenovacej kabíne. Tento systém je znázornený na obrázku \ref{fig:imodel}, ktorý popisuje vzájomné vzťahy medzi jednotlivými kamerami a objektom.
 
 \begin{figure}[H]
 	\centering
@@ -172,7 +172,7 @@ Toto zmiešanie signálov z rôznych kamier spôsobuje značné chyby merania a 
 \section{Analýza multi-kamerovej interferencie}
 
 Rovnice \ref{eq::tof::13} a \ref{eq::tof::14} sú platné, ak každý prijatý signál $s_{x}(t)$ je kombináciou čiastkových signálov všetkých kamier S1\, - \,S3, kde $x$ sa pohybuje od 1 do 3.
-Interakcia signálov úzko súvisí aj so snímanou scénou. Ak si predstavíme priestorové rozloženie kamier, ktoré je znázornené na obr. \ref{fig:imodel}, môžeme popísať určité situácie nastávajúce pri skenovaní. Ak sa v scéne nenachádza objekt, je veľmi veľká pravdepodobnosť že k interferencii dôjde medzi kamerami $s_{32}$ a $s_{23}$. Taktiež ak je veľkosť objektu malá a vyžarovanému IR svetlu nebude v ceste stáť žiadna prekážka. Naopak veľký objekt môže zabrániť interferencii medzi kamerami $s_{32}$ a $s_{23}$. Veľmi rizikové su aj predmety a povrchy, ktoré reflektujú IR svetlo. Pri skenovaní dynamických objektov sa môže vplyv rušenia meniť, takže filtračný algoritmus musí reagovať na zmeny v čo najkratšom čase.
+Interakcia signálov úzko súvisí aj so snímanou scénou. Ak si predstavíme priestorové rozloženie kamier, ktoré je znázornené na obr. \ref{fig:imodel}, môžeme popísať určité situácie nastávajúce pri skenovaní. Ak sa v scéne nenachádza objekt, je veľmi veľká pravdepodobnosť že k interferencii dôjde medzi kamerami S2 a S3. Taktiež ak je veľkosť objektu malá a vyžarovanému IR svetlu nebude v ceste stáť žiadna prekážka. Naopak veľký objekt môže zabrániť interferencii medzi kamerami S2 a S3. Veľmi rizikové su aj predmety a povrchy, ktoré reflektujú IR svetlo. Pri skenovaní dynamických objektov sa môže vplyv rušenia meniť, takže filtračný algoritmus musí reagovať na zmeny v čo najkratšom čase.
 
 Ako už bolo spomenuté, výstupom ToF kamier je IR a hĺbkový obraz.  Hĺbkový obraz obsahuje 3D informácie v 2D rovine obrazu. Hodnota jednotlivých pixelov (32-bit float) predstavuje absolútnu vzdialenosť. Na základe týchto informácií je možné znovu premietať naskenovanú scénu, kde musia byť známe interné a externé parametre IR kamery (pozri kapitolu \ref{kap:kalibracia}).
 
@@ -374,7 +374,7 @@ Tieto morfologicky spracované snímky sa používajú na výpočet mediánu hĺ
 		\caption{}
 		\label{fig:imap:c}
 	\end{subfigure}
-	\caption{Filtrácia a interpolácia hĺbkových máp. (\textbf{a}) Importance map. (\textbf{b}) Median. (\textbf{c}) Interpolated median depth frame.}
+	\caption{Filtrácia a interpolácia hĺbkových máp. (\textbf{a}) Mapa dôležitosti. (\textbf{b}) Medián. (\textbf{c}) Interpolovaná mediánová hĺbková mapa.}
 	\label{fig:imap}
 \end{figure}
 
@@ -549,7 +549,7 @@ Filter ROR nám umožňuje nastaviť polomer (priestorový rádius použitý na 
 	\caption{\label{tab:ror_best} Najlepšie výsledky ROR filtrácie pre veľkosti obrazového zásobníka 1-6. }
 	\begin{tabular}{cccccc}
 		\toprule
-		\textbf{Zásobník} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 Score} & \textbf{Mean HD [m]} \\ 
+		\textbf{Zásobník} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 Score} & \textbf{Priem. HD [m]} \\ 
 		\midrule
 		\textbf{1}           & 0,956411          & 0,296154           & 0,418478        & 0,346847          & 0,001116            \\ 
 		\textbf{2}           & 0,944072          & 0,352522           & 0,585222        & 0,44              & 0,001104            \\ 
@@ -594,7 +594,7 @@ IMBM filter umožňuje nastaviť prahovú hodnotu hĺbky (odstránenie pozadia a
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.85\textwidth]{figures/imbm_th_2.png}
-	\caption{Výber ideálneho prahu rozdielu IMBM filtrácie pre veľkosť obrazového zásobníka 2}
+	\caption{Výber ideálneho prahu rozdielu IMBM filtrácie pre veľkosť obrazového zásobníka 2.}
 	\label{fig:imbmth:a}
 \end{figure}
 
@@ -737,7 +737,7 @@ Porovnanie výstupných mračien bodov pre jednotlivé filtračné metódy je zo
 
 Problematickými časťami filtrov SOR a ROR sú rohy a hrany, ktoré sa filtrovaním zaobľujú. Ako je uvedené v štúdii \cite{Pirotti}, filter SOR vníma body na hranách ako odľahlé body. Tieto filtre tiež odstraňujú malé ostrovy bodov (zhluky bodov, ktoré nie sú bodmi rušenia) \cite{Schaller}. Ako je uvedené v \cite{Balta}, filtrovanie SOR nie je úplne vhodné pre výkon v reálnom čase. IMBM filter dokázal potlačiť interferenciu bez väčšej straty plochy objektu, čo je znázornené aj na obr. \ref{fig:best:e}. IMBM sa nezameriava iba na odstraňovanie rušenia, ale poskytuje aj interpoláciu chýbajúcich bodov, avšak výrazne predlžuje dobu spracovania dát. Nedokázal ani odstrániť všetky chybné body. Je to spôsobené tým, že tieto body boli podobné vo všetkých hĺbkových mapách v obrazovom zásobníku. Pre elimináciu chybných dát a zníženie Hausdorffovej vzdialenosti je možné kombinovať IMBM filter s inými štatistickými filtrami.
 
-Na záverečné vyhodnotenie metód filtrovania sa použil dataset zložený z 23 objektov. Tento nami vytvorený dataset obsahuje 23 skenov predmetov (guľa, plastová fľaša ...) zachytených z rôznych pohľadov. Nasledujúca tabuľka \ref{tab:dataset} zobrazuje mediány každej vyhodnocovanej metriky v celom datasete. Všetky výsledky sú pre veľkosť obrazového zásobníka 5.
+Na záverečné vyhodnotenie metód filtrovania sa použil dataset zložený z 23 objektov. Tento nami vytvorený dataset obsahuje 23 skenov predmetov (guľa, plastová fľaša ...) zachytených z rôznych pohľadov. Nasledujúca tabuľka \ref{tab:dataset} zobrazuje mediány každej vyhodnocovanej metriky v celom datasete. Všetky výsledky sú pre veľkosť obrazového zásobníka s kapacitou 5.
 
 Na základe výsledkov tohto prieskumu je odporúčané používať metódy filtrovania pre konkrétne aplikácie podľa ich funkcií opísaných v tabuľke \ref{tab:functionality}.
 

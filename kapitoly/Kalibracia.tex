@@ -277,7 +277,7 @@ x=f\frac{X_{cam}}{Z_{cam}}; y=f\frac{Y_{cam}}{Z_{cam}}
 \end{aligned}
 \end{equation}
 
-Rovnice \ref{eq::pinhole::camera_iplane::a} a \ref{eq::pinhole::camera_iplane::a} môžeme prepísať do maticového tvaru
+Rovnice \ref{eq::pinhole::camera_iplane::a} a \ref{eq::pinhole::camera_iplane::b} môžeme prepísať do maticového tvaru
 
 \begin{equation}
 \label{eq::pinhole::camera_iplane}
@@ -305,7 +305,7 @@ X_{cam} \\ Y_{cam} \\ Z_{cam} \\ 1
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.45\textwidth]{figures/plane_pixel.jpg} 
+	\includegraphics[width=0.42\textwidth]{figures/plane_pixel.jpg} 
 	\caption{Vzťah roviny obrazu a súradnicového systému obrazových bodov.}
 	\label{fig:plane_pixel}
 \end{figure}
@@ -400,7 +400,7 @@ ktorá je základným matematickým opisom dierkovej kamery a prevodu svetových
 V reálnych kamerách sa vyskytujú určité typy nelineárneho skreslenia, ktoré sú spôsobené pridaním šošovky do ideálnej kamery. Tieto skreslenia spôsobujú nesprávnu perspektívnu projekciu, čím sa následne stráca presná informácia o snímanej scéne. Tieto skreslenia je však možné odstrániť získaním vnútorných parametrov kamery. Medzi najčastejšie skreslenia patrí radiálne a tangenciálne skreslenie. 
 
 \subsection{Radiálne skreslenie}
-Toto skreslenie vznikne, keď sa svetelné lúče ohnú viac v blízkosti okrajov šošovky ako v optickom centre. Čím je objektív menší, tým väčšie je skreslenie. Typickými radiálnymi skresleniami sú súdkovité a poduškové. Koeficienty radiálneho skreslenia modelujú tento typ skreslenia. Deformované body sú označené ako $x'$ a $y'$. Prvky $k_1$ až $k_6$ predstavujú koeficienty radiálneho skreslenia. 
+Toto skreslenie vznikne, keď sa svetelné lúče ohnú viac v blízkosti okrajov šošovky ako v optickom centre. Čím je objektív menší, tým väčšie je skreslenie. Typickými radiálnymi skresleniami sú sudkovité a poduškové. Koeficienty radiálneho skreslenia modelujú tento typ skreslenia. Deformované body sú označené ako $x'$ a $y'$. Prvky $k_1$ až $k_6$ predstavujú koeficienty radiálneho skreslenia. 
 
 \begin{figure}[h]
 	\centering
@@ -433,7 +433,7 @@ r^2=x^2+y^2
 \end{aligned}
 \end{equation}
 
-Ak je $k_1<0$ , tak je skreslenie súdkovité a ak $k_1> 0$, tak ide o skreslenie poduškovité. Koeficienty $k_3$ a vyššie sú pri bežných deformáciách zvyčajne rovné 0. Prejavujú sa prevažne pri širokouhlých objektívoch. $r$ reprezentuje rádius k hlavnému bodu, kde nie je skreslenie.  
+Ak je $k_1<0$ , tak je skreslenie sudkovité a ak $k_1> 0$, tak ide o skreslenie poduškové. Koeficienty $k_3$ a vyššie sú pri bežných deformáciách zvyčajne rovné 0. Prejavujú sa prevažne pri širokouhlých objektívoch. $r$ reprezentuje rádius k hlavnému bodu, kde nie je skreslenie.  
 
 \subsection{Tangenciálne skreslenie}
 
@@ -518,7 +518,7 @@ u = f_{x} x'' + c_{x}; v = f_{y} y'' + c_{y}
 Kalibrácia kamery je nevyhnutný krok v 3D spracovaní obrazu, kde sa získavajú metrické informácie z 2D obrazov. Kalibráciu môžeme rozdeliť na 3 základné kategórie.
 
 \textbf{Kalibrácia pomocou korešpondencie bodov v 3D priestore}\newline
-Kalibrácia kamery sa vykonáva pozorovaním kalibračného objektu, ktorého geometria v 3D priestore je známa s veľmi presnou presnosťou. Kalibráciu je možné vykonať veľmi efektívne. Kalibračný objekt sa obvykle skladá z dvoch alebo troch rovín kolmých na seba \cite{faugeras1993three}.
+Kalibrácia kamery sa vykonáva pozorovaním kalibračného objektu, ktorého geometria v 3D priestore je presne známa. Kalibračný objekt sa obvykle skladá z dvoch alebo troch rovín kolmých na seba \cite{faugeras1993three}.
 
 \textbf{Autokalibrácia} 
 
@@ -527,7 +527,7 @@ Táto technika nepoužíva žiadny kalibračný objekt. Posunutím kamery v stat
 \textbf{Kalibrácia pomocou 2D roviny v 3D priestore}
 
 
-Parametre kamery sa skladajú z vnútorných (intrinsických), vonkajších (extrinsických) koeficientov a koeficientov skreslenia (distortion). K určeniu je potrebné mať 3D body scény (world points) a ich zodpovedajúce 2D body. Získanie týchto korešpondujúcích dát je možné extrakciou ľahko identifikovateľných bodov. Jedným z najpoužívanejších kalibračných vzorov je šachovnica, kde je výrazný farebný prechod medzi hracími poľami \cite{zhang2000flexible}.
+Parametre kamery sa skladajú z vnútorných (intrinzických), vonkajších (extrinsických) koeficientov a koeficientov skreslenia (distortion). K určeniu je potrebné mať 3D body scény (world points) a ich zodpovedajúce 2D body. Získanie týchto korešpondujúcich dát je možné extrakciou ľahko identifikovateľných bodov. Jedným z najpoužívanejších kalibračných vzorov je šachovnica, kde je výrazný farebný prechod medzi hracími poľami \cite{zhang2000flexible}.
 
 
 %\section{Planárna homografia}

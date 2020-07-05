@@ -26,7 +26,7 @@ Pre návrh algoritmu, ktorý umožní vytvorenie precízneho modelu dynamického
 
 \section{Microsoft Kinect v2}
 
-Ide o druhú generáciu hĺbkových kamier od spoločnosti Microsoft. Oproti prvej generácií využíva technológiu ToF (detailnejšie v \ref{sec:tof}), pričom ide o jednu z najznámejších senzorov tohto typu na svete \cite{wiki:kinect}. Rozsah snímanej scény je $0.5-4.5 m$. Farebný obraz je dodávaný v rozlíšení $1920\times1080p$ a $30Hz$, hĺbková mapa ma rozlíšenie $512\times424$.
+Ide o druhú generáciu hĺbkových kamier od spoločnosti Microsoft. Oproti prvej generácii využíva technológiu ToF (detailnejšie v \ref{sec:tof}), pričom ide o jednu z najznámejších senzorov tohto typu na svete \cite{wiki:kinect}. Rozsah snímanej scény je $0.5-4.5 m$. Farebný obraz je dodávaný v rozlíšení $1920\times1080p$ a $30Hz$, hĺbková mapa ma rozlíšenie $512\times424$.
 
 \begin{figure}[H]
 	\centering
@@ -161,7 +161,7 @@ Pri sekvenčnom režime boli snímky z kamier získavané postupne od 1. po 4. k
 	\label{fig:parallel_sequence}
 \end{figure}
 
-Z výsledných modelov je jasne vidieť, že paralelné spracovanie dát má vyšší zmysel pri snímaní dynamických objektov. Pri sekvenčnom režime je rozdiel polohy ukazovateľa výrazný, čo spôsobovalo problémy aj pri ICP registrácií (obr. \ref{fig:dynamic:a}). Naproti tomu je model vytvorený paralelným režimom konzistentnejší, rozdiel polohy ukazovateľa je podstatne menší (obr. \ref{fig:dynamic:b}). Ten by sa dal znížiť hardvérovým synchronizovaným snímaním. Pri kamerách Kinect v2 však táto možnosť chýba a je potrebná . Rozdiel medzi jednotlivými pracovnými režimami sa nachádza na obr. \ref{fig:parallel_sequence}. 
+Z výsledných modelov je jasne vidieť, že paralelné spracovanie dát má vyšší zmysel pri snímaní dynamických objektov. Pri sekvenčnom režime je rozdiel polohy ukazovateľa výrazný, čo spôsobovalo problémy aj pri ICP registrácií (obr. \ref{fig:dynamic:a}). Naproti tomu je model vytvorený paralelným režimom konzistentnejší, rozdiel polohy ukazovateľa je podstatne menší (obr. \ref{fig:dynamic:b}). Ten by sa dal znížiť hardvérovým synchronizovaným snímaním. Pri kamerách Kinect v2 však táto možnosť chýba a je potrebná. Rozdiel medzi jednotlivými pracovnými režimami sa nachádza na obr. \ref{fig:parallel_sequence}. 
 
 \section{Kalibrácia kamerového systému}
 \label{sec:kinect_calib}
@@ -217,7 +217,7 @@ Pre overenie správnosti kalibrácie IR snímača sa z kalibrovanej a nekalibrov
 		\caption{}
 		\label{fig:calib:model:uncalib}
 	\end{subfigure}
-	\caption{Modely trojuholníkových sieti, použité pre overenie presnosti kalibrácie: (\textbf{a}) Referenčný model objektu vytvorený laserovým snímačom. (\textbf{b}) Model vytvorený z nekalibrovanej kamery Kinect v2. (\textbf{c}) Model vytvorený z kalibrovanej kamery Kinect v2. }
+	\caption{Modely trojuholníkových sietí, použité pre overenie presnosti kalibrácie: (\textbf{a}) Referenčný model objektu vytvorený laserovým snímačom. (\textbf{b}) Model vytvorený z nekalibrovanej kamery Kinect v2. (\textbf{c}) Model vytvorený z kalibrovanej kamery Kinect v2. }
 	\label{fig:calib:models}
 \end{figure}
 
@@ -249,7 +249,7 @@ V nej je detailnejšie zobrazené, aký vplyv má kalibrácia na presnosť rekon
 	\centering
 	\begin{tabular}{cccc}
 		\toprule
-		\textbf{Model} & \textbf{Počet vzdialenosti [-]} & \textbf{Priemer [mm]} & \textbf{RMS [mm]} \\ 
+		\textbf{Model} & \textbf{Počet meraní [-]} & \textbf{Priemer [mm]} & \textbf{RMS [mm]} \\ 
 		\midrule
 		\textbf{Nekalibrovaný} & 185187 & 3,0206	& 3,8444 \\
 		\textbf{Kalibrovaný} & 296585   & 2,1832   & 2,9506  \\  
@@ -262,7 +262,7 @@ Týmto krokom sa overil spôsob geometrickej kalibrácie hĺbkových máp. Tová
 
 \subsection{Multi-kamerová kalibrácia}
 
-V tomto procese sa odhadujú vzájomné pozície staticky umiestnených kamier vo svetovej súradnicovej sústave. Ich vzájomnú pozíciu určujú rotačné a translačné parametre (kombinácia afinných transformácií z kapitoly \ref{sec:afine}). Tie je možné získať viacerými spôsobmi. Dôležité je si určiť referenčnú kameru, ktorej matica vonkajších parametrov bude mať tvar identickej afinnej transformácie. Pri multi-kamerovej kalibrácií sa využíva podobný postup ako pri geometrickej kalibrácii. Rozdielom je však, že sa kalibračný vzor sníma súčasne z viacerých kamier. Problém nastáva, ak ich rozloženie neumožňuje súčasné snímanie. Takýto prípad je zachytený na obr. \ref{fig:multicam:placement}.
+V tomto procese sa odhadujú vzájomné pozície staticky umiestnených kamier vo svetovej súradnicovej sústave. Ich vzájomnú pozíciu určujú rotačné a translačné parametre (kombinácia afinných transformácií z kapitoly \ref{sec:afine}). Tie je možné získať viacerými spôsobmi. Dôležité je si určiť referenčnú kameru, ktorej matica vonkajších parametrov bude mať tvar identickej afinnej transformácie. Pri multi-kamerovej kalibrácii sa využíva podobný postup ako pri geometrickej kalibrácii. Rozdielom je však, že sa kalibračný vzor sníma súčasne z viacerých kamier. Problém nastáva, ak ich rozloženie neumožňuje súčasné snímanie. Takýto prípad je zachytený na obr. \ref{fig:multicam:placement}.
 
 Riešením je separátne kalibrovanie medzi susednými kamerami (napr. 1-2, 1-3 a 2-4 alebo 3-4). V tomto procese sa vytvorí séria RGB-D párov snímok z jednotlivých dvojíc. Snímky obsahujú rovnaký kalibračný vzor so šachovnicovým motívom. Dôležité je, aby bol vzor staticky umiestnený a nevznikol polohový posun vo dvojici RGB-D mapy. 
 
@@ -270,7 +270,7 @@ Riešením je separátne kalibrovanie medzi susednými kamerami (napr. 1-2, 1-3 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/calibration_multi_rgbd.jpg}
-	\caption{Ukážka RGB-D páru použitého pri multi-kamerovej kalibrácií.}
+	\caption{Ukážka RGB-D páru použitého pri multi-kamerovej kalibrácii.}
 	\label{fig:calib:multi:rgbd}
 \end{figure}
 
@@ -324,7 +324,7 @@ Výsledky Hausdorffovej vzdialenosti medzi referenčným modelom a zarovnaným m
 	\centering
 	\begin{tabular}{cccc}
 		\toprule
-		\textbf{Model} & \textbf{Počet vzdialenosti [-]} & \textbf{Priemer [mm]} & \textbf{RMS [mm]} \\ 
+		\textbf{Model} & \textbf{Počet meraní [-]} & \textbf{Priemer [mm]} & \textbf{RMS [mm]} \\ 
 		\midrule
 		\textbf{Kalibrovaný} & 1071662   & 2,984   & 3,107  \\  
 		\bottomrule
@@ -347,7 +347,7 @@ Z takto segmentovanej hĺbkovej mapy bude možné vytvoriť mračná bodov jedno
 	\item Segmentácia bodov podľa klasifikácie \newline
 \end{compactitem}
 
-V prvej časti sa rieši paralelné spracovanie dát zo všetkých pripojených kamier. Vykonáva sa geometrická kalibrácia a základná 2D filtrácia spolu s identifikáciou pohybu tváre. Požiadavka na tento proces je, aby bol vykonávaný v reálnom čase. Ak frekvencia snímania je $30Hz$, časový rozstup medzi snímkami je $33ms$. Preto sú procesy spúšťané paralelne na CPU a GPU. Výstupom z tejto časti je obrazový zásobník, ktorý obsahuje obrazové informácie pediatrického pacienta v pokojovom stave. \newline
+V prvej časti sa rieši paralelné spracovanie dát zo všetkých pripojených kamier. Vykonáva sa geometrická kalibrácia a základná 2D filtrácia spolu s identifikáciou pohybu tváre. Požiadavka na tento proces je, aby bol vykonávaný v reálnom čase. Ak frekvencia snímania je $30Hz$, časový rozostup medzi snímkami je $33ms$. Preto sú procesy spúšťané paralelne na CPU a GPU. Výstupom z tejto časti je obrazový zásobník, ktorý obsahuje obrazové informácie pediatrického pacienta v pokojovom stave. \newline
 
 \begin{figure}[H]
 	\centering
@@ -372,7 +372,7 @@ V poslednej fáze sa vykonáva segmentácia výstupných RGB-D obrazov, v ktorý
 
 \subsection{Nástroje použíté pri vývoji algoritmu}
 
-Algoritmus a príslušný softvér bol vyvíjaný v jazyku C++17 na operačnom systéme Linux Mint 18.1. Projekt bol konfigurovaný cez \textit{CMake 3.5}. Využíval pracovné rozhranie \textit{Qt 5.13.9}, v ktorom bolo vyvíjané aj grafické rozhranie projektu. Kamery Kinecvt v2 využívali ovládač \textit{libfreenect2} \cite{blake2015libfreenect2}s podporou \textit{CudaKDE} \cite{lawin2016efficient}. Pre spracovanie 2D obrazu bola použitá knižnica \textit{OpenCV 4}. Pre prácu s 3D dátami sa využívala knižnica \textit{Point Cloud Library 1.9} s vizuálnou podporou knižnice \textit{VTK 6.3}. Identifikácia kľúčových bodov využívala prostriedky \textit{DLib 19.16}. Taktiež sa používali štandardné C++ knižnice a knižnica \textit{Boost 1.63}. Algoritmus využíval procesorové vlákna. Softvér má predpripravené rozhranie pre spoluprácu s kamerami RealSense. 
+Algoritmus a príslušný softvér bol vyvíjaný v jazyku C++17 na operačnom systéme Linux Mint 18.1. Projekt bol konfigurovaný cez \textit{CMake 3.5}. Využíval pracovné rozhranie \textit{Qt 5.13.9}, v ktorom bolo vyvíjané aj grafické rozhranie projektu. Kamery Kinecvt v2 využívali ovládač \textit{libfreenect2} \cite{blake2015libfreenect2} s podporou \textit{CudaKDE} \cite{lawin2016efficient}. Pre spracovanie 2D obrazu bola použitá knižnica \textit{OpenCV 4}. Pre prácu s 3D dátami sa využívala knižnica \textit{Point Cloud Library 1.9} s vizuálnou podporou knižnice \textit{VTK 6.3}. Identifikácia kľúčových bodov využívala prostriedky \textit{DLib 19.16}. Taktiež sa používali štandardné C++ knižnice a knižnica \textit{Boost 1.63}. Algoritmus využíval procesorové vlákna. Softvér má predpripravené rozhranie pre spoluprácu s kamerami RealSense. 
 
 \subsection{Príprava vstupných dát}
 \label{sec:data_prep}
@@ -382,7 +382,7 @@ V prvej sa vykonáva inicializácia kamier a nastavenie konfiguračných paramet
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/diagram_cam.png}
-	\caption{Sekvencia spracovania prijatých dát z jednotlivých kamier vykonávané v samostatnom vlákne.}
+	\caption{Sekvencia spracovania prijatých dát z jednotlivých kamier vykonávaná v samostatnom vlákne.}
 	\label{fig:scheme:c}
 \end{figure}
 
@@ -458,15 +458,15 @@ P_d\left(z\right)=\left|  max\lbrace d_{i;N} \rbrace -min\lbrace d_{i;N} \rbrace
 	\label{fig:dlib:views}
 \end{figure}
 
-Pohybová aktivita je znížená vplyvom podporného vizualizačného systému (tablet premietajúcu zaujímavý obsah), ktorého úlohou je udržať pohľad objektu koncentrovaný na jedno miesto.
+Pohybová aktivita je znížená vplyvom podporného vizualizačného systému (tablet premietajúci zaujímavý obsah), ktorého úlohou je udržať pohľad objektu koncentrovaný na jedno miesto.
 
-Ideálny je frontálny pohľad, pretože tvár obsahuje veľa statických a jedinečných prvkov. V súčasnosti existuje niekoľko desiatok metód, ktoré sú určené na detekciu tváre a jej orientačných bodov. Ich úlohou je čo najpresnejšie identifikovať spomínané body. V tejto práci sa používa detektor DLib, ktorý pracuje na princípe súboru regresívnych stromov \cite{king2009dlib}. Výhodou použitia Dlib detektora oproti SURF a SIFT metódam je, že dokážu ľahko identifikovať aj mimiku tváre. Takýmto spôsobom sa umožňuje detekcia pohybu hlavy pri rôznych polohách a tvárových výrazoch. 
+Ideálny je frontálny pohľad, pretože tvár obsahuje veľa statických a jedinečných prvkov. V súčasnosti existuje niekoľko desiatok metód, ktoré sú určené na detekciu tváre a jej orientačných bodov. Ich úlohou je čo najpresnejšie identifikovať spomínané body. V tejto práci sa používa detektor DLib, ktorý pracuje na princípe súboru regresívnych stromov \cite{king2009dlib}. Výhodou použitia DLib detektora oproti SURF a SIFT metódam je, že dokážu ľahko identifikovať aj mimiku tváre. Takýmto spôsobom sa umožňuje detekcia pohybu hlavy pri rôznych polohách a tvárových výrazoch. 
 Základný detektor identifikuje 68 bodov tváre, pričom vie ohraničiť tvár, oči, nos a ústa. Ukážka aplikácie detektora na RGB-D obraze sa nachádza na obrázku \ref{fig:dlib:points}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.90\textwidth]{figures/face_landmarks.png}
-	\caption{\textbf{Vľavo)} Označenie 68 základných kľúčových bodov \textit{ DLib Face Landmark} detektora \cite{king2009dlib}.  \textbf{Vpravo)} Aplikácia na RGB-D obraze získanej z kamery Kinect v2}
+	\caption{\textbf{Vľavo:} Označenie 68 základných kľúčových bodov \textit{ DLib Face Landmark} detektora \cite{king2009dlib}.  \textbf{Vpravo:} Aplikácia na RGB-D obraze získanej z kamery Kinect v2.}
 	\label{fig:dlib:points}
 \end{figure}
  
@@ -517,19 +517,19 @@ d_{e}\left(P_i,P_j\right)= \sqrt{\left(P_i(x) - P_j(x)\right)^2 + \left(P_i(y) -
 \end{aligned}
 \end{equation}
 
-Z výsledkov sa vypočítal medián, priemerná hodnota a rozdiel medzi maximálnou a minimálnou nameranou hodnotou. Údaje pre jednotlivé detektory sa nachádzajú v tabuľkách \ref{tab:dlib:5points} a \ref{tab:dlib:68points}
+Z výsledkov sa vypočítal medián, priemerná hodnota a rozdiel medzi maximálnou a minimálnou nameranou hodnotou. Údaje pre jednotlivé detektory sa nachádzajú v tabuľkách \ref{tab:dlib:5points} a \ref{tab:dlib:68points}.
  
 \begin{table}[h]
 	\caption{\label{tab:dlib:5points} Meranie vybraných faciálnych rozmerov pomocou 5 bodového detektora.}
 	\centering
 	\begin{tabular}{lccc}
 		\toprule
-		\textbf{Meranie} & \textbf{Medián [mm]} & \textbf{Priemer [mm]} & \textbf{Rozdiel(Max-Min) [mm]} \\ 
+		\textbf{Meranie} & \textbf{Medián [mm]} & \textbf{Priemer [mm]} & \textbf{Rozdiel (Max-Min) [mm]} \\ 
 		\midrule
 		\textbf{Šírka ľavého oka} 	& 28,38 & 28,41	& 5,03 \\
 		\textbf{Šírka pravého oka} 	& 26,21	& 26,17 & 4,39 \\
-		\textbf{Vnútorný rozostup očí} 	& 38,43	& 38,22 & 2,32 \\
-		\textbf{Vonkajší rozostup očí} 	& 90,06	& 89,89 & 3,22 \\
+		\textbf{Vnút. rozostup očí} 	& 38,43	& 38,22 & 2,32 \\
+		\textbf{Vonk. rozostup očí} 	& 90,06	& 89,89 & 3,22 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -539,12 +539,12 @@ Z výsledkov sa vypočítal medián, priemerná hodnota a rozdiel medzi maximál
 	\centering
 	\begin{tabular}{lccc}
 		\toprule
-		\textbf{Meranie} & \textbf{Medián [mm]} & \textbf{Priemer [mm]} & \textbf{Rozdiel(Max-Min) [mm]} \\ 
+		\textbf{Meranie} & \textbf{Medián [mm]} & \textbf{Priemer [mm]} & \textbf{Rozdiel  (Max-Min) [mm]} \\ 
 		\midrule
 		\textbf{Šírka ľavého oka} 	& 28,46 & 28,52	& 5,40 \\
 		\textbf{Šírka pravého oka} 	& 27,13	& 27,22 & 4,81 \\
-		\textbf{Vnútorný rozostup očí} 	& 37,13	& 37,00 & 3,16 \\
-		\textbf{Vonkajší rozostup očí} 	& 85,99	& 89,70 & 4,16 \\
+		\textbf{Vnút. rozostup očí} 	& 37,13	& 37,00 & 3,16 \\
+		\textbf{Vonk. rozostup očí} 	& 85,99	& 89,70 & 4,16 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -556,12 +556,12 @@ V nich môžeme vidieť, že výsledky sú podobné. Dôležitým parametrom je 
 	\centering
 	\begin{tabular}{lccc}
 		\toprule
-		\textbf{Meranie} & \textbf{Medián [mm]} & \textbf{Priemer [mm]} & \textbf{Rozdiel(Max-Min) [mm]} \\ 
+		\textbf{Meranie} & \textbf{Medián [mm]} & \textbf{Priemer [mm]} & \textbf{Rozdiel (Max-Min) [mm]} \\ 
 		\midrule
 		\textbf{Šírka ľavého oka} 	& -0,08 & -0,11	& -0,38 \\
 		\textbf{Šírka pravého oka} 	& -0,93	& -1,05 & -0,42 \\
-		\textbf{Vnútorný rozostup očí} 	& 1,30	& 1,21 & -0,83 \\
-		\textbf{Vonkajší rozostup očí} 	& 0,51	& 0,19 & -0,93 \\
+		\textbf{Vnút. rozostup očí} 	& 1,30	& 1,21 & -0,83 \\
+		\textbf{Vonk. rozostup očí} 	& 0,51	& 0,19 & -0,93 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -571,7 +571,7 @@ Pre lepšie porovnanie sme odčítali výsledky merania 5 bodového detektora od
 
 \subsection{Filtrácia a registrácia mračna bodov}
 \label{sec:filtration}
-V predchádzajúcom kroku sa zabezpečilo získanie série snímok, ktoré zachytávali objekt v statickej polohe (alebo minimálne pohyby). Veľkosť série snímok určuje IMBM filter, ktorého detailny opis a optimálne nastavenia sa nachádzajú v kapitole \ref{kap:interference}. Podstatnými dátami sú hĺbkové mapy a RGB-D obrazy jednotlivých pohľadov. Tieto dáta už podstúpili jednoduchú filtráciu akou bola erózia a prahovanie (pozri \ref{fig:dlib:rbbd5} a \ref{fig:dlib:depth5}). 
+V predchádzajúcom kroku sa zabezpečilo získanie série snímok, ktoré zachytávali objekt v statickej polohe (alebo pri minimálnych pohyboch). Veľkosť série snímok určuje IMBM filter, ktorého detailný opis a optimálne nastavenia sa nachádzajú v kapitole \ref{kap:interference}. Podstatnými dátami sú hĺbkové mapy a RGB-D obrazy jednotlivých pohľadov. Tieto dáta už podstúpili jednoduchú filtráciu akou bola erózia a prahovanie (pozri \ref{fig:dlib:rbbd5} a \ref{fig:dlib:depth5}). 
 
 V ďalšom kroku sa vykonáva IMBM filtrácia, ktorej úlohou je identifikovať a odstrániť multi-kamerovú interferenciu. Multi-kamerová interferencia je v tomto prípade dôsledok využitia paralelnej spolupráce viacerých ToF kamier. Spôsobuje zašumenie hĺbkovej mapy a vznik odľahlých pixelov. IMBM filter dokáže identifikovať interferujúce miesta a odstrániť chybné pixely. 
 
@@ -630,9 +630,9 @@ Tieto miesta sú do určitej miery odstránené vo výstupnom RGB-D obraze.
 	\label{fig:inpaint}
 \end{figure}
 
-K úplnému odstráneniu poškodených miest používame Teleovú metódu \cite{telea2004image}. K aplikácií použijeme hĺbkovú mapu a RGB-D obraz z IMBM filtra. Opravujeme len pixely, ktoré majú súčet R,G a B vrstiev rovný 0 a hĺbková informácia $d$ je rôzna od 0. Výstupom je RGB-D obraz, ktorý je zbavený poškodených miest (Obr. \ref{fig:inpaint}).
+K úplnému odstráneniu poškodených miest používame Teleovú metódu \cite{telea2004image}. K aplikácii použijeme hĺbkovú mapu a RGB-D obraz z IMBM filtra. Opravujeme len pixely, ktoré majú súčet R,G a B vrstiev rovný 0 a hĺbková informácia $d$ je rôzna od 0. Výstupom je RGB-D obraz, ktorý je zbavený poškodených miest (Obr. \ref{fig:inpaint}).
 
-Po tomto kroku máme pripravené mediány hĺbkových máp, ktoré su použité pri meraní kranio-faciálnych parametrov tváre a pri segmentácii hĺbkovej mapy. Tieto spracovania sú opísané v samostatných kapitolách. Z týchto dát následne vytvárame mračna bodov. Pomocou nasledujúcich rovníc prebieha rekonštrukcia snímaného priestoru. 
+Po tomto kroku máme pripravené mediány hĺbkových máp, ktoré sú použité pri meraní kranio-faciálnych parametrov tváre a pri segmentácii hĺbkovej mapy. Tieto spracovania sú opísané v samostatných kapitolách. Z týchto dát následne vytvárame mračná bodov. Pomocou nasledujúcich rovníc prebieha rekonštrukcia snímaného priestoru. 
 
 \begin{equation}
 \label{eq:project:x}
@@ -653,7 +653,7 @@ z=P_{i}(d_{i})
 \end{aligned}
 \end{equation}
 
-Intrinzické parametre $c_x, c_y, f_x, f_y$ sú unikátne pre každú kameru a sú výstupom geometrickej kalibrácie kamier. Parametre $P_i(c_i),P_i(r_i)$ sa odkazujú na rovnice (\ref{eq:pixels:a}) až (\ref{eq:pixels:c}). Pomocou rotačných a translačných parametrov, ktoré boli získane pri viackamerovej kalibrácii, zarovnávame mračná bodov z jednotlivých kamier do spoločnej súradnicovej sústavy. Tieto mračná sú filtrované pomocou \textit{Radius Outlier Removal} filtra (ROR). Bližší opis tohto filtra sa nachádza v kapitole \ref{sec:ror}. 
+Intrinzické parametre $c_x, c_y, f_x, f_y$ sú unikátne pre každú kameru a sú výstupom geometrickej kalibrácie kamier. Parametre $P_i(c_i),P_i(r_i)$ sa odkazujú na rovnice (\ref{eq:pixels:a}) až (\ref{eq:pixels:c}). Pomocou rotačných a translačných parametrov, ktoré boli získane pri viac-kamerovej kalibrácii, zarovnávame mračná bodov z jednotlivých kamier do spoločnej súradnicovej sústavy. Tieto mračná sú filtrované pomocou \textit{Radius Outlier Removal} filtra (ROR). Bližší opis tohto filtra sa nachádza v kapitole \ref{sec:ror}. 
 
 
 \begin{figure}[h]
@@ -678,11 +678,11 @@ Intrinzické parametre $c_x, c_y, f_x, f_y$ sú unikátne pre každú kameru a s
 		\caption{}
 		\label{fig:ror:c}
 	\end{subfigure}
-	\caption{Aplikácia ROR filtrácie s nastaveniami $rad=0.009$ a  $pts=30$: (\textbf{a}) Vstupné mračno bodov vytvorené z IMBM filtrových hĺbkových máp. (\textbf{b}) Výstupné mračno bodov po ROR filtrovaní. (\textbf{c}) Odstránené body po ROR filtrácií.}
+	\caption{Aplikácia ROR filtrácie s nastaveniami $rad=0.009$ a  $pts=30$: (\textbf{a}) Vstupné mračno bodov vytvorené z IMBM filtrovaných hĺbkových máp. (\textbf{b}) Výstupné mračno bodov po ROR filtrovaní. (\textbf{c}) Odstránené body po ROR filtrácii.}
 	\label{fig:ror}
 \end{figure}
 
-Na obr. \ref{fig:ror:a}, sa nachádza mračno bodov vytvorené z IMBM filtrovanej hĺbkovej mapy. Výstup ROR filtra, ktorého nastavenia boli $rad=0.009$ a $pts=30$ sa nachádza na obr. \ref{fig:ror:b}. Optimálne nastavenie filtrácie je individuálne pre jednotlivé modely. Grafické prostredie programu umožňuje nastavenie parametrov a vizuálne zobrazenie filtrovaných dát. 
+Na obr. \ref{fig:ror:a}, sa nachádza mračno bodov vytvorené z IMBM filtrovanej hĺbkovej mapy. Výstup ROR filtra, ktorého nastavenia boli $rad=0.009$ a $pts=30$, sa nachádza na obr. \ref{fig:ror:b}. Optimálne nastavenie filtrácie je individuálne pre jednotlivé modely. Grafické prostredie programu umožňuje nastavenie parametrov a vizuálne zobrazenie filtrovaných dát. 
 
 Pri multi-kamerovej kalibrácii sme získali rotačné a translačné parametre pre jednotlivé kamery. Pomocou nich dokážeme dostatočne presne zarovnať filtrované mračná do spoločného priestoru. Presnosť kalibrácie je však ovplyvnená pracovnou teplotou kamery. Jej zmena spôsobuje posun jednotlivých mračien v priestore, čím je ovplyvnená konzistentnosť modelov.
 
@@ -735,7 +735,7 @@ Aplikovaním ICP metódy sa zabezpečí opätovné zarovnanie mračien bodov do 
 		\caption{}
 		\label{fig:model:result}
 	\end{subfigure}
-	\caption{Proces filtrácie: (\textbf{a}) Mračna bodov získané paralelným snímaním. (\textbf{b}) \, Mračna bodov po IMBM filtrácii. (\textbf{c}) Mračno bodov po ROR + ICP + GRID.}
+	\caption{Proces filtrácie: (\textbf{a}) Mračna bodov získané paralelným snímaním. (\textbf{b}) \, Mračná bodov po IMBM filtrácii. (\textbf{c}) Mračno bodov po ROR + ICP + GRID.}
 	\label{fig:model}
 \end{figure}
 
@@ -816,7 +816,7 @@ Stredné a priemerné hodnoty sú vypočítané z rozdielov výsledných vzdiale
 	\centering
 	\begin{tabular}{lccc}
 		\toprule
-		\textbf{Meranie} & \textbf{Median [mm]} & \textbf{Average [mm]} & \textbf{Diff(Max-Min) [mm]} \\ 
+		\textbf{Meranie} & \textbf{Medián [mm]} & \textbf{Average [mm]} & \textbf{Diff (Max-Min) [mm]} \\ 
 		\midrule
 		\textbf{Dĺžka nosa} 			& 0.19 	& 0.45 	& 9.52	\\
 		\textbf{Šírka nosa} 			& 0.12	& -0.27 & 10	\\
@@ -841,7 +841,7 @@ Stredné a priemerné hodnoty sú vypočítané z rozdielov výsledných vzdiale
 	\end{tabular}
 \end{table}
 
-Meranie vzdialenosti tvárových parametrov, ktorých kľúčové body sa nenachádzajú na hraniciach hĺbkovej mapy, vykazujú malú absolútnu chybu voči referencii. Problémom je získanie všetkých parametrov z frontálneho pohľadu. Tento problém je však možné vyriešiť dvoma meraniami, kedy poloha tváre pacienta bude vždy mierne natočená. Takéto euklidovské meranie však ukazuje svoje limity pri diagnostike OSA (pozri \ref{sec:med:euclid}). V ďalšej časti sa preto opisuje návrh, ktorý je založený na nových modernejších metódach a môže priniesť lepšie výsledky.
+Meranie vzdialeností tvárových parametrov, ktorých kľúčové body sa nenachádzajú na hraniciach hĺbkovej mapy, vykazujú malú absolútnu chybu voči referencii. Problémom je získanie všetkých parametrov z frontálneho pohľadu. Tento problém je však možné vyriešiť dvoma meraniami, kedy poloha tváre pacienta bude vždy mierne natočená. Takéto euklidovské meranie však ukazuje svoje limity pri diagnostike OSA (pozri \ref{sec:med:euclid}). V ďalšej časti sa preto opisuje návrh, ktorý je založený na nových modernejších metódach a môže priniesť lepšie výsledky.
 
 \newpage
 \subsection{Segmentácia hĺbkovej mapy}
@@ -919,7 +919,7 @@ Niektoré ROI masky boli relatívne dobre segmentované (tvár, nos, ústa). Ur�
 	\label{fig:rcnn:label}
 \end{figure}
 
-Výhodou tohto prístupu je, že dokážeme spojiť jednotlivé klasifikované regióny z viacerých pohľadov. Tieto spojené oblasti si navyše uchovávajú aj svoje geometrické vlastnosti (napr rozostup uší, šírka brady). Pričom pri segmentácií z jednotlivých pohľadov bez spájania do spoločného priestoru by sa táto podstatná informácia strácala. 
+Výhodou tohto prístupu je, že dokážeme spojiť jednotlivé klasifikované regióny z viacerých pohľadov. Tieto spojené oblasti si navyše uchovávajú aj svoje geometrické vlastnosti (napr. rozostup uší, šírka brady). Pričom pri segmentácii z jednotlivých pohľadov bez spájania do spoločného priestoru by sa táto podstatná informácia strácala. 
 
 \begin{figure}[H]
 	\centering
